@@ -2,21 +2,19 @@
 import React from 'react'
 import s from './Order.css'
 
+import {TableRow, TableRowColumn} from 'material-ui/Table'
+
 export default class Order extends React.Component {
   render () {
     let { order, isSelected, setSelectedOrder } = this.props
-    let po = order
-    // let tt = JSON.stringify(po, null, 2)
-    let clickHandler = (e) => {
-      setSelectedOrder(po)
-    }
-    let orderCssClass = isSelected ? s.selectedOrder : s.order
+    let clickHandler = (e) => setSelectedOrder(order)
     return (
-      <div className={s.root} onClick={(e) => clickHandler(e)}>
-        <div className={orderCssClass}>
-          <h3>{po.stand_name} // {po.contact_name} // {po.human_readable_id}</h3>
-        </div>
-      </div>
+      <TableRow key={order._id} selected={isSelected} onClick={(e) => clickHandler(e)}>
+        <TableRowColumn>xYx</TableRowColumn>
+        <TableRowColumn>{order.stand_name}</TableRowColumn>
+        <TableRowColumn>{order.contact_name}</TableRowColumn>
+        <TableRowColumn>{order.human_readable_id}</TableRowColumn>
+      </TableRow>
     )
   }
 }

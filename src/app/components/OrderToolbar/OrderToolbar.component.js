@@ -4,28 +4,37 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import s from './OrderToolbar.css'
 
-const PlainStringField = (field) => {
-  return (
-    <div className={s.editableInputRow + ' form-group'}>
-      <label>{field.label}</label><br />
-      <input {...field.input} type='text' />
-      {field.meta.touched && field.meta.error &&
-        <span className='error'>{field.meta.error}</span>}
-    </div>
-  )
-}
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
+import {List, ListItem} from 'material-ui/List'
+import ContentInbox from 'material-ui/svg-icons/content/inbox'
+import Contacts from 'material-ui/svg-icons/communication/contacts'
+
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentSave from 'material-ui/svg-icons/content/save'
+
+import TextField from 'material-ui/TextField'
+import Divider from 'material-ui/Divider'
+
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <TextField hintText={label}
+    floatingLabelText={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
+)
 
 const OrderForm = (props) => {
   const { pristine, submitting } = props
   return <div>
-    <form className='form-inline'>
-      <Field name='locks_handed_out' label='Locks handed out' component={PlainStringField} />
-      <Field name='keys_handed_out' label='Keys handed out' component={PlainStringField} />
-      <Field name='locks_returned' label='Locks returned' component={PlainStringField} />
-      <Field name='keys_returned' label='Keys returned' component={PlainStringField} />
-      <div>
-        <button className='btn btn-default' type='button' disabled={pristine || submitting}>Submit</button>
-      </div>
+    <form>
+      <Field name='locks_handed_out' label='Locks handed out' component={renderTextField} />
+      <Field name='keys_handed_out' label='Keys handed out' component={renderTextField} />
+      <Field name='locks_returned' label='Locks returned' component={renderTextField} />
+      <Field name='keys_returned' label='Keys returned' component={renderTextField} />
+      <FloatingActionButton disabled={pristine || submitting}>
+        <ContentSave />
+      </FloatingActionButton>
     </form>
   </div>
 }
@@ -34,6 +43,10 @@ const OrderInformation = (props) => {
   const { order } = props
   return (
     <div>
+      <List>
+        <ListItem primaryText='Inbox' leftIcon={<ContentInbox />} />
+        <ListItem primaryText='Inbox' leftIcon={<Contacts />} />
+      </List>
       <p>
         Bestillingen foretaget af <a href={order.Creator.email}>{order.Creator.name}</a>
       </p>
@@ -62,10 +75,19 @@ class OrderToolbar extends React.Component {
     let { selectedEntry } = this.props
     return (
       <div className={s.root}>
-        <h2>Ordrebehandling</h2>
         {selectedEntry && <div>
-          <OrderInformation order={selectedEntry} />
-          <OrderForm onSubmit={handleSubmit(this.v)} />
+          <Card initiallyExpanded>
+            <CardHeader title='Nøglehåndtering' actAsExpander showExpandableButton />
+            <CardText expandable>
+              <OrderForm onSubmit={handleSubmit(this.v)} />
+            </CardText>
+          </Card>
+          <Card initiallyExpanded>
+            <CardHeader title='Ordredetaljer' actAsExpander showExpandableButton />
+            <CardText expandable>
+              <OrderInformation order={selectedEntry} />
+            </CardText>
+          </Card>
         </div>}
       </div>
     )

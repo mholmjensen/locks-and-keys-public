@@ -14,7 +14,7 @@ let development = {
     publicPath: '/build/',
     filename: 'app.bundle.js',
   },
-  devtool: 'inline-sourcemap',
+  devtool: 'sourcemap',
   module: {
     loaders: [
       {
