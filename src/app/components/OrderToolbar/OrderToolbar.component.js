@@ -17,6 +17,12 @@ import Email from 'material-ui/svg-icons/communication/email'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentSave from 'material-ui/svg-icons/content/save'
 
+import IconButton from 'material-ui/IconButton'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
+import Divider from 'material-ui/Divider'
+import Drawer from 'material-ui/Drawer'
+import AppBar from 'material-ui/AppBar'
+
 import Badge from 'material-ui/Badge'
 import Avatar from 'material-ui/Avatar'
 // import Receipt from 'material-ui/svg-icons/action/receipt'
@@ -86,48 +92,63 @@ const ContactInformation = (props) => {
   )
 }
 
+const AllCards = (props) =>
+  <div>
+    <div>
+      <Card initiallyExpanded>
+        <CardHeader title='Locks and keys' subtitle={props.order.human_readable_id} actAsExpander showExpandableButton />
+        <CardText expandable>
+          <OrderForm />
+        </CardText>
+      </Card>
+    </div>
+    <Divider />
+    <div>
+      <Card initiallyExpanded>
+        <CardHeader title='Order information' subtitle={props.order.human_readable_id} actAsExpander showExpandableButton />
+        <CardText expandable>
+          <OrderInformation order={props.order} />
+        </CardText>
+      </Card>
+    </div>
+    <Divider />
+    <div>
+      <Card initiallyExpanded>
+        <CardHeader title='Contact information' subtitle={props.order.human_readable_id} actAsExpander showExpandableButton />
+        <CardText expandable>
+          <ContactInformation order={props.order} />
+        </CardText>
+      </Card>
+    </div>
+  </div>
+
 class OrderToolbar extends React.Component {
   v (values) {
     // Do something with the form values
     console.log(values)
   }
+
   render () {
     let { handleSubmit } = this.props // from reduxForm
-    let { selectedEntry } = this.props
-    return (
-      <div className={s.root}>
-        {selectedEntry && <div>
-          <div className='container'>
-            <div className='row'>
-              <div className='col-md-4'>
-                <Card initiallyExpanded>
-                  <CardHeader title='Locks and keys' actAsExpander showExpandableButton />
-                  <CardText expandable>
-                    <OrderForm onSubmit={handleSubmit(this.v)} />
-                  </CardText>
-                </Card>
-              </div>
-              <div className='col-md-4'>
-                <Card initiallyExpanded>
-                  <CardHeader title='Order information' actAsExpander showExpandableButton />
-                  <CardText expandable>
-                    <OrderInformation order={selectedEntry} />
-                  </CardText>
-                </Card>
-              </div>
-              <div className='col-md-4'>
-                <Card initiallyExpanded>
-                  <CardHeader title='Contact information' actAsExpander showExpandableButton />
-                  <CardText expandable>
-                    <ContactInformation order={selectedEntry} />
-                  </CardText>
-                </Card>
-              </div>
-            </div>
+    let { selectedEntry, setSelectedOrder } = this.props
+    let isEmptyObject = (obj) => {
+      Object.keys(obj).length === 0 && obj.constructor === Object
+    }
+    return <div>
+      {selectedEntry &&
+        <Drawer width={300} openSecondary open={isEmptyObject(selectedEntry)}>
+          <AppBar
+            title={'Order #' + selectedEntry.human_readable_id}
+            showMenuIconButton={false}
+            iconElementRight={<IconButton><NavigationClose /></IconButton>}
+            onRightIconButtonTouchTap={() => setSelectedOrder()}
+          />
+          <div>
+            <AllCards order={selectedEntry} onSubmit={handleSubmit(this.v)} />
           </div>
-        </div>}
-      </div>
-    )
+        </Drawer>
+      }
+    </div>
   }
 }
 
