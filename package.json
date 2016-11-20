@@ -2,27 +2,23 @@
   "name": "manage-locks-and-keys",
   "version": "0.5.0",
   "description": "Key man",
-  "main": "index.js",
+  "main": "src/App.js",
   "scripts": {
-    "start": "cross-env NODE_CONFIG_DIR=src/server/config NODE_ENV=production node src/server/index.js",
     "build": "webpack -p",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --colors --content-base build/",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --colors --content-base build/ --progress --watch-poll",
     "lint": "eslint src/",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "db:start": "docker run -d -p 27017:27017 -v $PWD/db/data --name locksandkeys-db mongo",
-    "db:stop": "docker stop locksandkeys-db",
-    "db:rm": "docker rm locksandkeys-db"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rfit/rf-voting.git"
+    "url": "git+https://github.com/rfit/locks-and-keys"
   },
   "author": "RFIT // Martin Holm Jensen",
   "license": "-",
   "bugs": {
-    "url": "https://github.com/rfit/rf-voting/issues"
+    "url": "https://github.com/rfit/locks-and-keys/issues"
   },
-  "homepage": "https://github.com/rfit/rf-voting#readme",
+  "homepage": "https://github.com/rfit/locks-and-keys/rf-voting#readme",
   "dependencies": {
     "browser-sync": "^2.15.0",
     "css-loader": "^0.25.0",
