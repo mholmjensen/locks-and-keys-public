@@ -4,7 +4,6 @@ import OrderOverview from './OrderOverview.component'
 
 const mapStateToProps = (state, ownProps) => {
   return { // Becomes Props on Selection
-    entries: state.orders.entries,
     selectedEntry: state.orders.selectedEntry
   }
 }
