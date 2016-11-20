@@ -6,8 +6,7 @@ import { setEditedEntry } from '../../../actions/toolbar'
 import Order from './Order.component'
 
 const mapStateToProps = (state, ownProps) => {
-  return { // Becomes Props on Selection
-    // order: {'id': 1}
+  return {
   }
 }
 
