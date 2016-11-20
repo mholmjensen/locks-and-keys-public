@@ -1,23 +1,23 @@
 /* @flow */
 import React from 'react'
 
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table'
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table'
 
 import Order from './../order/Order.container'
 
 const HeaderRow = () =>
   <TableRow>
-    <TableHeaderColumn tooltip='The ID'>ID</TableHeaderColumn>
-    <TableHeaderColumn tooltip='The Name'>Name</TableHeaderColumn>
-    <TableHeaderColumn tooltip='The Status'>Status</TableHeaderColumn>
-    <TableHeaderColumn tooltip='Lobenummer'>Lobenummer</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Order number' style={{'width': 70}}>#</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Stand name, number and location'>Stand</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Contact details'>Contact</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Locks (handed out, returned) and Keys (handed out, returned)'>Management</TableHeaderColumn>
   </TableRow>
 
 export default class OrderTable extends React.Component {
   render () {
     let { orders, selectedId } = this.props
     return (
-      <Table height='300px' fixedHeader fixedFooter selectable>
+      <Table height='400px' fixedHeader selectable>
         <TableHeader displaySelectAll={false}>
           <HeaderRow />
         </TableHeader>
@@ -29,9 +29,6 @@ export default class OrderTable extends React.Component {
             )
           })}
         </TableBody>
-        <TableFooter>
-          <HeaderRow />
-        </TableFooter>
       </Table>
     )
   }

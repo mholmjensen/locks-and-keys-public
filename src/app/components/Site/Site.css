@@ -1,3 +1,7 @@
 .root {
     margin: 0 auto;
 }
+
+.toolbar {
+  margin-top: 1em;
+}
