@@ -3,9 +3,8 @@
 # Locks and keys
 
 ## Up and running?
+* Clone this repo
 ```
-git clone https://github.com/rfit/TODO
-cd TODO
 npm i
 npm run dev
 ```
