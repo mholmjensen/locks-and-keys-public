@@ -1,0 +1,9 @@
+.root {
+    border: purple 5px solid;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.editableInputRow {
+    width: 45%;
+}

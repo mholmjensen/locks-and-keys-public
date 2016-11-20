@@ -1,0 +1,29 @@
+html {
+  font-family: 'Roboto', sans-serif;
+  background: #f0f0f0;
+}
+
+@media screen {
+    body {
+        margin: 1vw;
+    }
+}
+
+@media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
+    body {
+        margin: 1vw;
+    }
+}
+
+
+@media screen and (min-device-height: 667px) and (min-device-width: 375px) {
+    body {
+        margin: 1vw;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    body {
+        margin: 2vw;
+    }
+}
