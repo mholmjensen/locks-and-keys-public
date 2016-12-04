@@ -19,7 +19,7 @@ cd backend/rfgrid/
 docker build -t rfjava8 java/
 docker-compose up -d
 ```
-Verify that system boots and that usergrid application is built by inspecting `data/usergrid-tomcat-logs/catalina.out` importing data.
+Verify that system boots and that usergrid application is built by inspecting `data/usergrid-tomcat-logs/catalina.out` before importing data.
 ## Importing from Særbestilling
 Start up el vagrant stack
 ```
