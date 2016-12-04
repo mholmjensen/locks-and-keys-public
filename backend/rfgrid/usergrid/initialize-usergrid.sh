@@ -81,8 +81,7 @@ curl -D - \
 echo "+++ create plumbingorders collection"
  curl -D - \
       -H "Authorization: Bearer ${ADMINTOKEN}" \
-      -X POST "http://localhost:8080/${ORG_NAME}/${APP_NAME}/plumbingorders" \
-      -d "{\"name\": \"first-order\"}"
+      -X POST "http://localhost:8080/${ORG_NAME}/${APP_NAME}/plumbingorders"
 
 echo "+++ create default permissions for a logged in user to access plumbingorders"
 curl -D - \

@@ -84,7 +84,7 @@ function getOrdersAsync () {
       if (from >= orders.length) {
         return
       }
-      var batchSize = 50
+      var batchSize = 25
       var to = data.orders.length > from + batchSize ? from + batchSize : data.orders.length
       console.log('- Starting batch insert from', from, 'to', to)
       Promise.all(makeBatch(data.orders.slice(from, to))).then(() => {
