@@ -2,7 +2,9 @@
 Full stack for 2016/2017 locks-and-keys project.
 
 ## Prerequisites
+* nix like system
 * node.js 6 or later
+* npm
 * docker and docker-compose
 * (Opt) Nuclide (Atom extension)
 
