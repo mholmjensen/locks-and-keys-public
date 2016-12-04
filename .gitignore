@@ -1,5 +1,7 @@
 node_modules
 
 .DS_STORE
-build/
+backend/rfgrid/data
+backend/rfgrid/cassandra/apache-cassandra-1.2.9
+backend/rfgrid/front/dev-build
 npm-debug.log

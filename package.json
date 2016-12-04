@@ -4,8 +4,10 @@
   "description": "Key man",
   "main": "src/App.js",
   "scripts": {
-    "build": "webpack -p",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --colors --content-base build/ --progress --watch-poll",
+    "build": "webpack -p && mkdir -p backend/rfgrid/front/dev-build/ && cp -R build/ backend/rfgrid/front/dev-build/",
+    "dev": "npm run dev-server",
+    "dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --port 8082 --colors --content-base build/ --progress --watch-poll",
+    "dev-local": "cross-env webpack -d --watch --progress --colors",
     "lint": "eslint src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/rfit/locks-and-keys/rf-voting#readme",
   "dependencies": {
+    "babel-es6-polyfill": "^1.1.0",
     "browser-sync": "^2.15.0",
     "css-loader": "^0.25.0",
     "fetch-jsonp": "^1.0.2",

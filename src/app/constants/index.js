@@ -1,6 +1,4 @@
 export const SET_ORDERS = 'SET_ORDERS'
-export const GET_ORDERS_ASYNC = 'GET_ORDERS_ASYNC'
-
 export const SET_SELECTED_ORDER = 'SET_SELECTED_ORDER'
 
 export const SET_EDITED_ENTRY = 'SET_EDITED_ENTRY'

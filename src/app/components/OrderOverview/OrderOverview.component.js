@@ -5,11 +5,14 @@ import React from 'react'
 import OrderTable from './OrderTable/OrderTable.container'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
 
+import Pagination from 'rc-pagination' // TODO use and use css properly
+// import 'rc-pagination/assets/index.css'
+
 import s from './OrderOverview.css'
 
 export default class OrderOverview extends React.Component {
   componentDidMount () {
-    this.props.getOrdersAsync()
+    this.props.rfgridClientLogin().then(() => this.props.getOrdersAsync())
   }
 
   render () {
@@ -31,5 +34,6 @@ export default class OrderOverview extends React.Component {
 
 OrderOverview.propTypes = {
   selectedEntry: React.PropTypes.object,
-  getOrdersAsync: React.PropTypes.func
+  getOrdersAsync: React.PropTypes.func,
+  rfgridClientLogin: React.PropTypes.func
 }

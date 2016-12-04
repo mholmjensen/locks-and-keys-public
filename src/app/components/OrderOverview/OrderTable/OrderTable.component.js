@@ -45,9 +45,9 @@ class OrderTable extends React.Component {
         </TableHeader>
         <TableBody displayRowCheckbox deselectOnClickaway showRowHover stripedRows>
           {orders.map(order => {
-            let is = order.PlumbingOrder._id === selectedId
+            let is = order._id === selectedId
             return (
-              <Order key={order.PlumbingOrder._id} order={order.PlumbingOrder} isSelected={is} />
+              <Order key={order._id} order={order} isSelected={is} />
             )
           })}
         </TableBody>

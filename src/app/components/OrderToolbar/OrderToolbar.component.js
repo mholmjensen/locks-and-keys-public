@@ -25,7 +25,7 @@ import AppBar from 'material-ui/AppBar'
 
 import Badge from 'material-ui/Badge'
 import Avatar from 'material-ui/Avatar'
-// import Receipt from 'material-ui/svg-icons/action/receipt'
+
 import TextField from 'material-ui/TextField'
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
@@ -124,8 +124,7 @@ const AllCards = (props) =>
 
 class OrderToolbar extends React.Component {
   v (values) {
-    // Do something with the form values
-    console.log(values)
+    // TODO dispatch actions to store changes on submit
   }
 
   render () {
