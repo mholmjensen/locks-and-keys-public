@@ -11,11 +11,11 @@ Starts up rfgrid stack using `docker-compose` which contains
 
 Stack based on [usergrid-docker](https://github.com/yep/usergrid-docker).
 
-## Booting the stack
+## Booting the stack initially
 ```
 cd locks-and-keys
 npm run build
-cd rfgrid/
+cd backend/rfgrid/
 docker build -t rfjava8 java/
 docker-compose up -d
 ```
@@ -30,6 +30,6 @@ In case of errors, check and possibly modify host in `interim-import.js` to matc
 
 ## Rebuilding the stack (wipes all data)
 ```
-rm -Rf rfgrid/data/cassandra-lib # Purges data store
+rm -Rf data/cassandra-lib/ # Purges data store
 docker-compose up --build -d
 ```

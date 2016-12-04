@@ -12,7 +12,7 @@
     "start": "node ./interim-import.js"
   },
   "dependencies": {
-    "node-fetch": "^1.6.3",
-    "usergrid": "^2.0.0-rc.2"
+    "deepcopy": "^0.6.3",
+    "node-fetch": "^1.6.3"
   }
 }

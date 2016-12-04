@@ -29,7 +29,6 @@ fi
 if [ -z "${USERGRID_CLUSTER_NAME}" ]; then
   USERGRID_CLUSTER_NAME='usergrid'
 fi
-
 if [ -z "${TOMCAT_RAM}" ]; then
   TOMCAT_RAM=512m
 fi
