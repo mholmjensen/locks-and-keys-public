@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import OrderToolbar from './OrderToolbar.component'
 import { setSelectedOrder, saveOrderData } from '../../actions/orders'
-import { formValueSelector } from 'redux-form';
+import { formValueSelector } from 'redux-form'
 
 const selector = formValueSelector('toolbar')
 

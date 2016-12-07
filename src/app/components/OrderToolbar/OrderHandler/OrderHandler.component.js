@@ -1,14 +1,8 @@
 /* @flow */
 
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { cyan500 } from 'material-ui/styles/colors'
-
-import { List, ListItem } from 'material-ui/List'
+import {Field} from 'redux-form'
 import TextField from 'material-ui/TextField'
-
-import Badge from 'material-ui/Badge'
-import Avatar from 'material-ui/Avatar'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentSave from 'material-ui/svg-icons/content/save'
 
@@ -21,8 +15,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
   />
 )
 
-const OrderHandler = (props) => {
-  const { pristine, submitting, saveOrderData } = props
+const OrderHandler = ({ pristine, submitting, saveOrderData }) => {
   return <div>
     <form>
       <Field name='locks_handed_out' label='Locks handed out' component={renderTextField} />
@@ -37,9 +30,7 @@ const OrderHandler = (props) => {
 }
 
 OrderHandler.propTypes = {
-  order: React.PropTypes.object,
   saveOrderData: React.PropTypes.func
 }
 
-// Decorate the form component
 export default OrderHandler

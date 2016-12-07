@@ -34,10 +34,9 @@ export function rfgridClientLogin () {
   }
 }
 
-let ordersUrl = 'backend/rfgrid/octopussy/plumbingorders'
-export function getOrdersAsync (limit = 50) {
+export function getOrdersAsync (limit = 999) {
   return dispatch => {
-    return rfgrid.authedRequest('plumbingorders?ql=select * order by human_readable_id&limit=' + 50)
+    return rfgrid.authedRequest('plumbingorders?ql=select * order by human_readable_id&limit=' + limit)
     .then(statusCheck)
     .then(jsonParse)
     .then(data => {

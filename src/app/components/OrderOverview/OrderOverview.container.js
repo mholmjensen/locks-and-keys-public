@@ -3,7 +3,7 @@ import { setSelectedOrder, getOrdersAsync, rfgridClientLogin } from '../../actio
 import OrderOverview from './OrderOverview.component'
 
 const mapStateToProps = (state, ownProps) => {
-  return { // Becomes Props on Selection
+  return {
     selectedEntry: state.orders.selectedEntry
   }
 }
@@ -13,12 +13,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     'rfgridClientLogin': () => {
       return dispatch(rfgridClientLogin())
     },
-    'getOrdersAsync': (limit) => {
-      return dispatch(getOrdersAsync(limit))
+    'getOrdersAsync': () => {
+      return dispatch(getOrdersAsync())
     },
     'setSelectedOrder': (order) => {
       dispatch(setSelectedOrder(order))
-    },
+    }
   }
 }
 

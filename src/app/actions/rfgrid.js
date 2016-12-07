@@ -2,7 +2,7 @@
 
 import { jsonParse, statusCheck, requestFailed } from './async.utils'
 
-let ACCESSTOKEN = undefined
+let ACCESSTOKEN
 let authChallenge = {
   method: 'POST',
   headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }),

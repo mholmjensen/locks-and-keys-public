@@ -9,10 +9,8 @@ import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-import Avatar from 'material-ui/Avatar';
-import Chip from 'material-ui/Chip';
-import Badge from 'material-ui/Badge';
-import DoneAll from 'material-ui/svg-icons/action/done-all'
+import Avatar from 'material-ui/Avatar'
+import Chip from 'material-ui/Chip'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
 
@@ -34,7 +32,7 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
     {...input}
     onChange={(event, index, value) => input.onChange(value)}
     children={children}
-    {...custom}/>
+    {...custom} />
 )
 
 const HeaderRow = () =>
@@ -53,7 +51,7 @@ class OrderTable extends React.Component {
   render () {
     let { orders, selectedId, reset, lookup, resultCount } = this.props
     let clearSearchStyle = lookup !== '' ? {} : {opacity: '0.1'}
-    let onChange = (v) => console.log(v)
+
     return (
       <Table fixedHeader selectable>
         <TableHeader displaySelectAll={false}>
@@ -62,8 +60,8 @@ class OrderTable extends React.Component {
               <div className={s.superheader}>
                 <div className={s.searchflex}>
                   <SearchIcon />
-                  <Field name='lookup' label='Search' component={renderTextField} style={{width: '80%'}}/>
-                  <CloseIcon label='Clear search entry' onClick={() => reset()} style={clearSearchStyle}/>
+                  <Field name='lookup' label='Search' component={renderTextField} style={{width: '80%'}} />
+                  <CloseIcon label='Clear search entry' onClick={() => reset()} style={clearSearchStyle} />
                 </div>
                 <div>
                   <Chip onTouchTap={this.displaySearchHelp}>
@@ -73,9 +71,10 @@ class OrderTable extends React.Component {
                 </div>
                 <div>
                   <Field name='resultCount' floatingLabelText='Results limit' value={resultCount} component={renderSelectField}>
-                    <MenuItem value={20} primaryText='20' />
+                    <MenuItem value={25} primaryText='20' />
                     <MenuItem value={50} primaryText='50' />
                     <MenuItem value={100} primaryText='100' />
+                    <MenuItem value={9999} primaryText='All' />
                   </Field>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form'
 import s from './OrderToolbar.css'
 
 import {Card, CardHeader, CardText} from 'material-ui/Card'
@@ -22,7 +22,7 @@ const AllCards = (props) =>
       <Card initiallyExpanded>
         <CardHeader title='Locks and keys' subtitle={props.order.human_readable_id} actAsExpander showExpandableButton />
         <CardText expandable>
-          <OrderHandler saveOrderData={props.saveOrderData}/>
+          <OrderHandler saveOrderData={props.saveOrderData} />
         </CardText>
       </Card>
     </div>
@@ -46,9 +46,14 @@ const AllCards = (props) =>
     </div>
   </div>
 
+AllCards.propTypes = {
+  order: React.PropTypes.object,
+  saveOrderData: React.PropTypes.func
+}
+
 class OrderToolbar extends React.Component {
   render () {
-    let { handleSubmit, formPayload } = this.props // from reduxForm
+    let { formPayload } = this.props // from reduxForm
     let { selectedEntry, setSelectedOrder, saveOrderData } = this.props
     let isEmptyObject = (obj) => {
       Object.keys(obj).length === 0 && obj.constructor === Object
@@ -64,7 +69,7 @@ class OrderToolbar extends React.Component {
             onRightIconButtonTouchTap={() => setSelectedOrder()}
           />
           <div>
-            <AllCards order={selectedEntry} saveOrderData={saveCurrentValues}/>
+            <AllCards order={selectedEntry} saveOrderData={saveCurrentValues} />
           </div>
         </Drawer>
       }
