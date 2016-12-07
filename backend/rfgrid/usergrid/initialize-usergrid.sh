@@ -97,7 +97,7 @@ curl -D - \
  curl -D - \
       -H "Authorization: Bearer ${ADMINTOKEN}" \
       -X POST "http://localhost:8080/${ORG_NAME}/${APP_NAME}/roles/default/permissions" \
-      -d "{ \"permission\":\"get,put,post,delete:/plumbingorders\" }"
+      -d "{ \"permission\":\"get,put,post,delete:/plumbingorders/**\" }"
 
 echo "+++ create user"
 curl -D - \
