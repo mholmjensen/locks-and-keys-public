@@ -14,6 +14,6 @@ export function jsonParse (response) {
 
 export function requestFailed (error) {
   if (error) {
-    console.log('Request to backend failed', error)
+    console.log('Error, request to backend failed', error)
   }
 }
