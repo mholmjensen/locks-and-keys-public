@@ -11,10 +11,18 @@ let development = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/build/',
+    publicPath: '/assets/',
     filename: 'app.bundle.js',
   },
-  devtool: 'sourcemap',
+  devServer: {
+    proxy: {
+      '/backend': {
+        target: 'http://localhost:80/',
+        secure: false
+      }
+    }
+  },
+  devtool: 'dev-sourcemap',
   module: {
     loaders: [
       {

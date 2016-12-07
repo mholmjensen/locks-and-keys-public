@@ -1,5 +1,7 @@
-node_modules
-
 .DS_STORE
-build/
+
+node_modules
 npm-debug.log
+
+backend/rfgrid/data
+backend/rfgrid/front/dev-build

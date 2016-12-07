@@ -1,17 +1,23 @@
 import { connect } from 'react-redux'
-import { getOrdersAsync } from '../../actions/orders'
+import { setSelectedOrder, getOrdersAsync, rfgridClientLogin } from '../../actions/orders'
 import OrderOverview from './OrderOverview.component'
 
 const mapStateToProps = (state, ownProps) => {
-  return { // Becomes Props on Selection
+  return {
     selectedEntry: state.orders.selectedEntry
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    'rfgridClientLogin': () => {
+      return dispatch(rfgridClientLogin())
+    },
     'getOrdersAsync': () => {
-      dispatch(getOrdersAsync())
+      return dispatch(getOrdersAsync())
+    },
+    'setSelectedOrder': (order) => {
+      dispatch(setSelectedOrder(order))
     }
   }
 }

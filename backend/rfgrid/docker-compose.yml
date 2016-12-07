@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+  cassandra:
+    build: ./cassandra
+    ports:
+      - 9042:9042
+      - 9160:9160
+      - 7199:7199
+    volumes:
+      - ./data/cassandra-lib:/var/lib/cassandra
+      - ./data/cassandra-log:/var/log/cassandra
+  elasticsearch:
+    build: ./elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+  usergrid:
+    build: ./usergrid
+    links:
+     - cassandra
+     - elasticsearch
+    ports:
+     - 8080:8080
+    volumes:
+      - ./data/usergrid-tomcat-logs:/root/apache-tomcat-7/logs
+  portal:
+    build: ./portal
+    ports:
+      - 8081:8081
+  front:
+    build: ./front
+    ports:
+      - 80:80
+    links:
+      - usergrid
