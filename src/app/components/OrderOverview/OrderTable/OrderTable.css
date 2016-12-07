@@ -7,3 +7,12 @@
    justify-content: space-around;
    align-items: center;
 }
+
+.superheader > * {
+   flex: 1;
+   margin-right: 1%;
+}
+
+.searchflex {
+  flex: 2.5;
+}

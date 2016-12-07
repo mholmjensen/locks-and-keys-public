@@ -3,8 +3,9 @@
 import { connect } from 'react-redux'
 import { setSelectedOrder } from '../../../actions/orders'
 import OrderTable from './OrderTable.component'
+import { formValueSelector } from 'redux-form';
 
-function recurseForString (obj, string) {
+function recurseForString (obj, string) { // TODO use usergrid backed search, or cut down on json size/fields
   if (string === '') {
     return true
   }
@@ -22,14 +23,22 @@ function recurseForString (obj, string) {
   return false
 }
 
-const mapStateToProps = (state, ownProps) => {
-  let lk = state.form.tablefilter ? state.form.tablefilter.values.lookup : ''
-  let allOrders = state.orders.entries
-  let filteredOrders = allOrders.filter((o) => recurseForString(o, lk))
+const selector = formValueSelector('datafilter')
 
+const mapStateToProps = (state, ownProps) => {
+  let lk = selector(state, 'lookup') || ''
+  let rc = parseInt(selector(state, 'resultCount')) || 50
+
+  let filteredOrders = state.orders.entries.filter((o) => recurseForString(o, lk))
+  let cappedOrders = filteredOrders.slice(0, rc)
   return {
-    orders: filteredOrders,
-    initialValues: {lookup: ''} // redux-form intialization
+    orders: cappedOrders,
+    lookup: lk,
+    resultCount: rc,
+    initialValues: {  // redux-form intialization
+      lookup: '',
+      resultCount: 50
+    }
   }
 }
 

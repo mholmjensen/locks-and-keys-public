@@ -6,7 +6,15 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'materi
 import { Field, reduxForm } from 'redux-form'
 
 import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
+import Badge from 'material-ui/Badge';
+import DoneAll from 'material-ui/svg-icons/action/done-all'
+import SearchIcon from 'material-ui/svg-icons/action/search'
+import CloseIcon from 'material-ui/svg-icons/navigation/close'
 
 import Order from './../order/Order.container'
 
@@ -19,6 +27,16 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
   />
 )
 
+const renderSelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => (
+  <SelectField
+    floatingLabelText={label}
+    errorText={touched && error}
+    {...input}
+    onChange={(event, index, value) => input.onChange(value)}
+    children={children}
+    {...custom}/>
+)
+
 const HeaderRow = () =>
   <TableRow>
     <TableHeaderColumn tooltip='Order number' style={{'width': 70}}>#</TableHeaderColumn>
@@ -28,16 +46,38 @@ const HeaderRow = () =>
   </TableRow>
 
 class OrderTable extends React.Component {
+  displaySearchHelp () {
+    // TODO implement this action for showing modal dialog with explanation
+    // Or implement stored searches
+  }
   render () {
-    let { orders, selectedId, reset } = this.props
+    let { orders, selectedId, reset, lookup, resultCount } = this.props
+    let clearSearchStyle = lookup !== '' ? {} : {opacity: '0.1'}
+    let onChange = (v) => console.log(v)
     return (
-      <Table height='800px' fixedHeader selectable>
+      <Table fixedHeader selectable>
         <TableHeader displaySelectAll={false}>
           <TableRow>
             <TableHeaderColumn colSpan='3' style={{textAlign: 'center'}}>
               <div className={s.superheader}>
-                <RaisedButton label='Clear filter' onClick={() => reset()} />
-                <Field name='lookup' label='Search' component={renderTextField} />
+                <div className={s.searchflex}>
+                  <SearchIcon />
+                  <Field name='lookup' label='Search' component={renderTextField} style={{width: '80%'}}/>
+                  <CloseIcon label='Clear search entry' onClick={() => reset()} style={clearSearchStyle}/>
+                </div>
+                <div>
+                  <Chip onTouchTap={this.displaySearchHelp}>
+                    <Avatar size={32}>{orders.length}</Avatar>
+                    results
+                  </Chip>
+                </div>
+                <div>
+                  <Field name='resultCount' floatingLabelText='Results limit' value={resultCount} component={renderSelectField}>
+                    <MenuItem value={20} primaryText='20' />
+                    <MenuItem value={50} primaryText='50' />
+                    <MenuItem value={100} primaryText='100' />
+                  </Field>
+                </div>
               </div>
             </TableHeaderColumn>
           </TableRow>
@@ -59,10 +99,11 @@ class OrderTable extends React.Component {
 OrderTable.propTypes = {
   orders: React.PropTypes.array,
   lookup: React.PropTypes.string,
+  resultCount: React.PropTypes.number,
   selectedId: React.PropTypes.string,
   setSelectedOrder: React.PropTypes.func
 }
 
 export default reduxForm({
-  form: 'tablefilter' // a unique name for this
+  form: 'datafilter' // a unique name for this
 })(OrderTable)
