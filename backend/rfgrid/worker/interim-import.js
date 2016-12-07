@@ -37,7 +37,7 @@ function insertOrder(json) {
   .then(data => {
     insertCount += 1
     if(data.error) {
-      console.log('Skipping insert', insertCount, '|', data.error, data.error_description)
+      console.log('Error, unable to insert', insertCount, '|', data.error, data.error_description)
     } else {
       console.log('  inserted', insertCount, '|', JSON.stringify(data).length, data.entities[0].name, data.entities[0].uuid)
     }
@@ -55,20 +55,21 @@ function authWithUsergrid() {
   .then(jsonParse)
   .then(data => {
     if(data.access_token) {
-      console.log("Authed succesfully", data.access_token)
+      console.log("Authed succesfully with usergrid", data.access_token)
       ACCESSTOKEN = data.access_token
       fetch(ordersUrl + '?limit=99990', { method: 'DELETE', headers: { Authorization: 'Bearer ' + ACCESSTOKEN } })
-      .then(() => {
+      .then(() => console.log('Old orders deleted'))
+      .then(() => {)
         getOrdersAsync()
       })
     } else {
-      console.log('No access_token from usergrid auth request', data.error)
+      console.log('Error, No access_token retrieved on usergrid auth request', data.error)
     }
   })
 }
 
 function getOrdersAsync () {
-  console.log('Fetching orders from saerbestilling:', importUrl)
+  console.log('Fetching orders from Særbestilling:', importUrl)
   return fetch(importUrl, { jsonpCallback: 'callback', jsonpCallbackFunction: 'callback' })
   .then(jsonParse)
   .then(data => {
