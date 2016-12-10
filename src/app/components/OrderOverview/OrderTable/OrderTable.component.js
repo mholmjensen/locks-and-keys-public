@@ -3,16 +3,16 @@ import React from 'react'
 import s from './OrderTable.css'
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table'
-import { Field, reduxForm } from 'redux-form'
+import {Field, reduxForm} from 'redux-form'
 
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-import Avatar from 'material-ui/Avatar'
-import Chip from 'material-ui/Chip'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
+
+import ReactPaginate from 'react-paginate'
 
 import Order from './../order/Order.container'
 
@@ -49,9 +49,16 @@ class OrderTable extends React.Component {
     // Or implement stored searches
   }
   render () {
-    let { orders, selectedId, reset, lookup, resultCount } = this.props
-    let clearSearchStyle = lookup !== '' ? {} : {opacity: '0.1'}
+    let { orders, selectedId, reset, pagination, setPaginationAt } = this.props
 
+    let lookupAppendText = pagination.lookup !== '' ? 'that match ' + pagination.lookup : ''
+    let clearSearchStyle = pagination.lookup !== '' ? {} : {opacity: '0.1'}
+    let resultRangeStyle = pagination.filterCount > 0 ? {} : {display: 'none'}
+
+    let handlePaginationClick = (paginateClickData) => {
+      console.log('handlePaginationClick', paginateClickData)
+      setPaginationAt(paginateClickData.selected)
+    }
     return (
       <Table fixedHeader selectable>
         <TableHeader displaySelectAll={false}>
@@ -64,19 +71,31 @@ class OrderTable extends React.Component {
                   <CloseIcon label='Clear search entry' onClick={() => reset()} style={clearSearchStyle} />
                 </div>
                 <div>
-                  <Chip onTouchTap={this.displaySearchHelp}>
-                    <Avatar size={32}>{orders.length}</Avatar>
-                    results
-                  </Chip>
-                </div>
-                <div>
-                  <Field name='resultCount' floatingLabelText='Results limit' value={resultCount} component={renderSelectField}>
-                    <MenuItem value={25} primaryText='20' />
+                  <Field name='resultCap' floatingLabelText='Results limit' value={pagination.resultCap} component={renderSelectField}>
+                    <MenuItem value={10} primaryText='10' />
+                    <MenuItem value={25} primaryText='25' />
                     <MenuItem value={50} primaryText='50' />
                     <MenuItem value={100} primaryText='100' />
-                    <MenuItem value={9999} primaryText='All' />
+                    <MenuItem value={10000} primaryText='All' />
                   </Field>
                 </div>
+              </div>
+              <div>
+                <ReactPaginate previousLabel={'<'}
+                  nextLabel={'>'}
+                  breakLabel={<a href=''>...</a>}
+                  breakClassName={'break-me'}
+                  pageCount={pagination.count}
+                  marginPagesDisplayed={1}
+                  pageRangeDisplayed={10}
+                  forcePage={pagination.at}
+                  onPageChange={handlePaginationClick}
+                  containerClassName={'pagination'}
+                  subContainerClassName={'pages pagination'}
+                  activeClassName={'active'} />
+              </div>
+              <div style={resultRangeStyle}>
+                Showing {pagination.start} - {pagination.end} of {pagination.filterCount} orders {lookupAppendText}
               </div>
             </TableHeaderColumn>
           </TableRow>
@@ -97,10 +116,15 @@ class OrderTable extends React.Component {
 
 OrderTable.propTypes = {
   orders: React.PropTypes.array,
-  lookup: React.PropTypes.string,
-  resultCount: React.PropTypes.number,
   selectedId: React.PropTypes.string,
-  setSelectedOrder: React.PropTypes.func
+  pagination: React.PropTypes.shape({
+    lookup: React.PropTypes.string,
+    resultCap: React.PropTypes.number,
+    count: React.PropTypes.number,
+    at: React.PropTypes.number
+  }),
+  setSelectedOrder: React.PropTypes.func,
+  setPaginationAt: React.PropTypes.func
 }
 
 export default reduxForm({
