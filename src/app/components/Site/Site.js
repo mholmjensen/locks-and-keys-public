@@ -38,12 +38,8 @@ export default class Site extends React.Component {
         <div>
           <TopToolbar />
         </div>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-xs-12'>
-              <OrderOverview />
-            </div>
-          </div>
+        <div className={s.container}>
+          <OrderOverview />
         </div>
         <div>
           <OrderToolbar />

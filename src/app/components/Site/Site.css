@@ -2,5 +2,6 @@
     margin: 0 auto;
 }
 
-.toolbar {
+.container {
+  width: 90%
 }

@@ -15,23 +15,23 @@ export default class Order extends React.Component {
     return (
       <TableRow key={order._id} selected={isSelected} onClick={(e) => clickHandler(e)}>
         <TableRowColumn style={{'width': 70}}>{order.human_readable_id}</TableRowColumn>
-        <TableRowColumn>{order.stand_name}<br /> {order.stand_number}<br /> {order.people_pro_location}</TableRowColumn>
+        <TableRowColumn>{order.stand_name}<br /> {order.people_pro_location}<br /> {order.stand_number}</TableRowColumn>
         <TableRowColumn>{order.contact_name}<br />{order.contact_email}<br />{order.contact_phone}</TableRowColumn>
         <TableRowColumn>
           <div className='container'>
             <div className='row'>
-              <div className='col-xs-1'>
+              <div className='col-xs-2'>
                 <LockOpen style={iconstyle} /> {order.locks_handed_out}
               </div>
-              <div className='col-xs-1'>
+              <div className='col-xs-2'>
                 <LockOpen color={returnedColor} style={iconstyle} /> {order.locks_returned}
               </div>
             </div>
             <div className='row'>
-              <div className='col-xs-1'>
+              <div className='col-xs-2'>
                 <VpnKey style={iconstyle} /> {order.keys_handed_out}
               </div>
-              <div className='col-xs-1'>
+              <div className='col-xs-2'>
                 <VpnKey color={returnedColor} style={iconstyle} /> {order.keys_returned}
               </div>
             </div>
