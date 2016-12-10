@@ -26,7 +26,7 @@ const TopToolbar = (props) =>
         <Divider />
         <MenuItem primaryText='Log out' disabled />
       </IconMenu>
-      <ToolbarSeparator style={{'margin-right': '2em'}} />
+      <ToolbarSeparator style={{'marginRight': '2em'}} />
       <ToolbarTitle text='Sanitation Manager' />
     </ToolbarGroup>
   </Toolbar>
