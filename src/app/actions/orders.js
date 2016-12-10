@@ -1,6 +1,6 @@
 /* @flow weak */
 
-import { UPDATE_ORDER_VALUES, SET_ORDERS, SET_SELECTED_ORDER } from '../constants'
+import { UPDATE_ORDER_VALUES, SET_ORDERS, SET_SELECTED_ORDER, SET_PAGINATION_AT } from '../constants'
 import { jsonParse, statusCheck, requestFailed } from './async.utils'
 import rfgrid from './rfgrid'
 
@@ -20,6 +20,13 @@ export function setSelectedOrder (order) {
   }
 }
 
+export function setPaginationAt (paginationAt) {
+  return {
+    type: SET_PAGINATION_AT,
+    payload: { paginationAt }
+  }
+}
+
 export function updateOrderValues (uuid, values) {
   return {
     type: UPDATE_ORDER_VALUES,
@@ -27,7 +34,7 @@ export function updateOrderValues (uuid, values) {
   }
 }
 
-// Async actions
+// Async (thunk'ed) actions
 export function rfgridClientLogin () {
   return dispatch => {
     return rfgrid.login()

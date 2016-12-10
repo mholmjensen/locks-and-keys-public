@@ -4,10 +4,6 @@ import React from 'react'
 
 import OrderTable from './OrderTable/OrderTable.container'
 import {Card, CardText} from 'material-ui/Card'
-
-import Pagination from 'rc-pagination' // TODO use and use css properly
-// import 'rc-pagination/assets/index.css'
-
 import s from './OrderOverview.css'
 
 let keyDownHandler
