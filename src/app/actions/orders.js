@@ -43,17 +43,20 @@ export function rfgridClientLogin () {
 
 export function getOrdersAsync (limit = 999) {
   return dispatch => {
-    return rfgrid.authedRequest('plumbingorders?ql=select * order by human_readable_id&limit=' + limit)
-    .then(statusCheck)
-    .then(jsonParse)
-    .then(data => {
-      dispatch(setOrders(data.entities))
-      if (data.entities.length > 0) {
-        dispatch(setSelectedOrder(data.entities[0]))
+    let p1 = rfgrid.plumbingordersRequest()
+    let p2 = rfgrid.authedRequest('plumbingorders?ql=select * order by human_readable_id&limit=' + limit).then(jsonParse)
+
+    return Promise.all([p1, p2])
+    .then(([plumbingordersData, locksKeysData]) => {
+      let data = plumbingordersData.map((d) => {
+        let matchedData = locksKeysData.entities.find((lkData) => lkData.el_id === d.PlumbingOrder._id)
+        return Object.assign({}, d.PlumbingOrder, matchedData)
+      })
+      dispatch(setOrders(data))
+      if (data.length > 0) {
+        dispatch(setSelectedOrder(data[0]))
       }
-      return data
     })
-    .catch(requestFailed)
   }
 }
 
@@ -65,7 +68,7 @@ export function saveOrderData (uuid, values) {
     .then(jsonParse)
     .then(result => {
       if (result.entities.length > 0) {
-        dispatch(updateOrderValues(uuid, result.entities[0]))
+        dispatch(updateOrderValues(result.entities[0].el_id, result.entities[0])) // TODO hacky with these ids..
       }
     })
     .catch(requestFailed)

@@ -57,9 +57,9 @@ function authWithUsergrid() {
     if(data.access_token) {
       console.log("Authed succesfully with usergrid", data.access_token)
       ACCESSTOKEN = data.access_token
-      fetch(ordersUrl + '?limit=99990', { method: 'DELETE', headers: { Authorization: 'Bearer ' + ACCESSTOKEN } })
+      fetch(ordersUrl + '?limit=99999', { method: 'DELETE', headers: { Authorization: 'Bearer ' + ACCESSTOKEN } })
       .then(() => console.log('Old orders deleted'))
-      .then(() => {)
+      .then(() => {
         getOrdersAsync()
       })
     } else {
@@ -70,15 +70,21 @@ function authWithUsergrid() {
 
 function getOrdersAsync () {
   console.log('Fetching orders from Særbestilling:', importUrl)
-  return fetch(importUrl, { jsonpCallback: 'callback', jsonpCallbackFunction: 'callback' })
+  return fetch(importUrl, { callback: 'callback', jsonpCallbackFunction: 'callback' })
   .then(jsonParse)
   .then(data => {
     let makeBatch = (slice) => {
       return slice.map((order) => {
-        var plumbingorder = deepcopy(order.PlumbingOrder)
-        plumbingorder.name = plumbingorder.human_readable_id
-        plumbingorder.Area = ''
-        return insertOrder(plumbingorder)
+        var o = deepcopy(order.PlumbingOrder)
+        var reducedOrder = {
+          'name': o.human_readable_id,
+          'el_id': o._id,
+          'locks_handed_out': o.locks_handed_out,
+          'locks_returned': o.locks_returned,
+          'keys_handed_out': o.keys_handed_out,
+          'keys_returned': o.keys_returned
+        }
+        return insertOrder(reducedOrder)
       })
     }
     let startAndWait = (from, orders) => {

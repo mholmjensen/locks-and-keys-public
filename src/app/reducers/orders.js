@@ -11,7 +11,8 @@ export default function orders (state: Object = ordersInitialState, action: Obje
   switch (action.type) {
     case UPDATE_ORDER_VALUES:
       let entriesUpdated = state.entries.map((v) => Object.assign({}, v)) // TODO instead of deepcopy, update entries using react update immutability helpers i.e. import update from 'react-addons-update'
-      let orderAt = state.entries.findIndex((order) => order.uuid === action.payload.uuid)
+      // TODO using _id, uuid, el_id in a shady manner, fix on using uuid from usergrid 
+      let orderAt = entriesUpdated.findIndex((order) => order._id === action.payload.uuid)
       if (orderAt > -1 && action.payload.values) {
         entriesUpdated[orderAt] = Object.assign({}, entriesUpdated[orderAt], action.payload.values)
       } else {
