@@ -36,7 +36,7 @@ const mapStateToProps = (state, ownProps) => {
   let paginationAt = state.orders.paginationAt
   let batchStart = paginationAt * resultCap
   let batchEnd = Math.min(batchStart + resultCap, filterCount)
-  if (resultCap === 10000) {
+  if (resultCap === 10000) { // All case
     batchStart = 0
     batchEnd = filterCount
   }

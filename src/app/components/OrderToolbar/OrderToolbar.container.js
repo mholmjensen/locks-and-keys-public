@@ -7,15 +7,15 @@ import { formValueSelector } from 'redux-form'
 const selector = formValueSelector('toolbar')
 
 const mapStateToProps = (state, ownProps) => {
-  let locks_handed_out = selector(state, 'locks_handed_out')
-  let locks_returned = selector(state, 'locks_returned')
-  let keys_handed_out = selector(state, 'keys_handed_out')
-  let keys_returned = selector(state, 'keys_returned')
+  let locksHandedOut = selector(state, 'locksHandedOut') || ''
+  let locksReturned = selector(state, 'locksReturned') || ''
+  let keysHandedOut = selector(state, 'keysHandedOut') || ''
+  let keysReturned = selector(state, 'keysReturned') || ''
   let formPayload = {
-    locks_handed_out,
-    locks_returned,
-    keys_handed_out,
-    keys_returned
+    locksHandedOut,
+    locksReturned,
+    keysHandedOut,
+    keysReturned
   }
   return { // Becomes Props on Selection
     selectedEntry: state.orders.selectedEntry,

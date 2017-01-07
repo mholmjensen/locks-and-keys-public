@@ -25,7 +25,9 @@
     "babel-es6-polyfill": "^1.1.0",
     "browser-sync": "^2.15.0",
     "css-loader": "^0.25.0",
-    "fetch-jsonp": "^1.0.2",
+    "eslint-plugin-promise": "^2.0.1",
+    "fetch-jsonp": "^1.0.3",
+    "firebase": "^3.6.4",
     "isomorphic-fetch": "2.2.1",
     "material-ui": "^0.16.4",
     "react": "^15.3.0",
@@ -40,6 +42,7 @@
     "redux": "^3.6.0",
     "redux-form": "^6.2.0",
     "redux-logger": "2.6.1",
+    "redux-react-firebase": "^2.5.0",
     "redux-thunk": "^2.1.0",
     "resolve-url": "^0.2.1",
     "resolve-url-loader": "^1.6.0",
@@ -50,7 +53,9 @@
     "babel-core": "^6.13.2",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.13.2",
+    "babel-preset-es2016": "^6.16.0",
     "babel-preset-node5": "^11.1.0",
     "babel-preset-react": "^6.11.1",
     "bootstrap-loader": "^1.3.0",
@@ -61,7 +66,7 @@
     "eslint-config-standard": "^6.0.0",
     "eslint-config-standard-jsx": "^3.0.0",
     "eslint-config-standard-react": "^4.0.0",
-    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-promise": "^1.3.2",
     "eslint-plugin-react": "^6.1.2",
     "eslint-plugin-standard": "^2.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -83,7 +88,8 @@
       "es2015",
       "react",
       "node5"
-    ]
+    ],
+    "plugins": ["transform-decorators-legacy"]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -98,6 +104,10 @@
       "ecmaFeatures": {
         "jsx": true
       }
+    },
+    "globals": {
+      "Headers": true,
+      "fetch": true
     },
     "rules": {
       "no-confusing-arrow": 0,
