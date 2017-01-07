@@ -5,7 +5,7 @@ Full stack for 2016/2017 locks-and-keys project.
 * nix like system
 * node.js 6 or later
 * npm
-* docker and docker-compose
+* særbestilling/el stack running (https://github.com/rfit/el)
 * (Opt) Nuclide (Atom extension)
 
 ## Development
@@ -15,13 +15,14 @@ cd locks-and-keys/
 npm i
 npm run build
 ```
-Boot up backend stack, see instructions in backend/README.md directory. Once running, start up a local webpack dev server
+Boot up særbestilling/el stack and update references to the IP this stack receives. Once running, start up a local webpack dev server
 ```
 npm run dev
 ```
 and enter `http://localhost:8082`. Changes made to files inside src/ will be propagated to your browser (tested in Chrome).
 
 ### Linting
+Please lint before any pull request
 ```
 npm run lint
 ```
