@@ -5,7 +5,6 @@ import fetchJsonp from 'fetch-jsonp'
 
 class ElClient {
   plumbingordersRequest () {
-    console.log('plumbingordersRequest')
     return fetchJsonp('http://172.28.128.3/PlumbingOrders/json_export.json', { timeout: 20000 })
       .then(jsonParse)
       .then((response) => {

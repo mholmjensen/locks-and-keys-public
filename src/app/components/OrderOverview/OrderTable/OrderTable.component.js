@@ -69,7 +69,6 @@ class OrderTable extends React.Component {
     let resultRangeStyle = pagination.filterCount > 0 ? {} : {display: 'none'}
 
     let handlePaginationClick = (paginateClickData) => {
-      console.log('handlePaginationClick', paginateClickData)
       setPaginationAt(paginateClickData.selected)
     }
 
