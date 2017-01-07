@@ -9,7 +9,6 @@ class ElClient {
     return fetchJsonp('http://172.28.128.3/PlumbingOrders/json_export.json', { timeout: 20000 })
       .then(jsonParse)
       .then((response) => {
-        console.log('plumbingordersRequest response')
         return response.orders
       })
       .catch(requestFailed)

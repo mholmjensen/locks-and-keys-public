@@ -39,7 +39,7 @@ let client = ElClient()
 export function getOrdersAsync (limit = 999) {
   return dispatch => {
     return client.plumbingordersRequest()
-    .then(([plumbingordersData]) => {
+    .then(plumbingordersData => {
       let data = plumbingordersData.map((d) => {
         let o = d.PlumbingOrder // TODO select fields we actually use
         return o
