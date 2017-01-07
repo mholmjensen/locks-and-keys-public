@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
-import { setSelectedOrder, getOrdersAsync, rfgridClientLogin } from '../../actions/orders'
+import {connect} from 'react-redux'
+import {setSelectedOrder, getOrdersAsync} from '../../actions/orders'
 import OrderOverview from './OrderOverview.component'
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,9 +10,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    'rfgridClientLogin': () => {
-      return dispatch(rfgridClientLogin())
-    },
     'getOrdersAsync': () => {
       return dispatch(getOrdersAsync())
     },

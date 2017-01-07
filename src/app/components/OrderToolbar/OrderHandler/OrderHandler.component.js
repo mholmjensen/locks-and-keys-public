@@ -18,10 +18,10 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 const OrderHandler = ({ pristine, submitting, saveOrderData }) => {
   return <div>
     <form>
-      <Field name='locks_handed_out' label='Locks handed out' component={renderTextField} />
-      <Field name='locks_returned' label='Locks returned' component={renderTextField} />
-      <Field name='keys_handed_out' label='Keys handed out' component={renderTextField} />
-      <Field name='keys_returned' label='Keys returned' component={renderTextField} />
+      <Field name='locksHandedOut' label='Locks handed out' component={renderTextField} />
+      <Field name='locksReturned' label='Locks returned' component={renderTextField} />
+      <Field name='keysHandedOut' label='Keys handed out' component={renderTextField} />
+      <Field name='keysReturned' label='Keys returned' component={renderTextField} />
       <FloatingActionButton disabled={pristine || submitting} onClick={saveOrderData}>
         <ContentSave />
       </FloatingActionButton>

@@ -8,9 +8,10 @@ import VpnKey from 'material-ui/svg-icons/communication/vpn-key'
 
 let iconstyle = {'height': 16, 'width': 16}
 let returnedColor = '#ec5400'
+
 export default class Order extends React.Component {
   render () {
-    let { order, isSelected, setSelectedOrder } = this.props
+    let {order, isSelected, setSelectedOrder} = this.props
     let clickHandler = (e) => setSelectedOrder(order)
     return (
       <TableRow key={order._id} selected={isSelected} onClick={(e) => clickHandler(e)}>
@@ -21,18 +22,18 @@ export default class Order extends React.Component {
           <div className='container'>
             <div className='row'>
               <div className='col-xs-2'>
-                <LockOpen style={iconstyle} /> {order.locks_handed_out}
+                <LockOpen style={iconstyle} /> {order.locksHandedOut}
               </div>
               <div className='col-xs-2'>
-                <LockOpen color={returnedColor} style={iconstyle} /> {order.locks_returned}
+                <LockOpen color={returnedColor} style={iconstyle} /> {order.locksReturned}
               </div>
             </div>
             <div className='row'>
               <div className='col-xs-2'>
-                <VpnKey style={iconstyle} /> {order.keys_handed_out}
+                <VpnKey style={iconstyle} /> {order.keysHandedOut}
               </div>
               <div className='col-xs-2'>
-                <VpnKey color={returnedColor} style={iconstyle} /> {order.keys_returned}
+                <VpnKey color={returnedColor} style={iconstyle} /> {order.keysReturned}
               </div>
             </div>
           </div>

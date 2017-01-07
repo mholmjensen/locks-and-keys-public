@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react'
-import { reduxForm } from 'redux-form'
+import {reduxForm} from 'redux-form'
 import s from './OrderToolbar.css'
 
 import {Card, CardHeader, CardText} from 'material-ui/Card'
@@ -15,6 +15,8 @@ import AppBar from 'material-ui/AppBar'
 import OrderHandler from './OrderHandler/OrderHandler.component'
 import OrderInformation from './OrderInformation/OrderInformation.component'
 import ContactInformation from './ContactInformation/ContactInformation.component'
+
+import {firebase} from 'redux-react-firebase'
 
 const AllCards = (props) =>
   <div>
@@ -51,14 +53,15 @@ AllCards.propTypes = {
   saveOrderData: React.PropTypes.func
 }
 
+@firebase()
 class OrderToolbar extends React.Component {
   render () {
-    let { formPayload } = this.props // from reduxForm
-    let { selectedEntry, setSelectedOrder, saveOrderData } = this.props
+    let {formPayload, firebase} = this.props // from reduxForm
+    let {selectedEntry, setSelectedOrder} = this.props
     let isEmptyObject = (obj) => {
       Object.keys(obj).length === 0 && obj.constructor === Object
     }
-    let saveCurrentValues = () => saveOrderData(selectedEntry.uuid, formPayload)
+    let saveCurrentValues = () => firebase.set('locksAndKeys/' + selectedEntry._id, formPayload)
     return <div>
       {selectedEntry &&
         <Drawer width={300} openSecondary open={isEmptyObject(selectedEntry)}>
@@ -80,8 +83,8 @@ class OrderToolbar extends React.Component {
 OrderToolbar.propTypes = {
   selectedEntry: React.PropTypes.object,
   formPayload: React.PropTypes.object,
-  setSelectedOrder: React.PropTypes.func,
-  saveOrderData: React.PropTypes.func
+  firebase: React.PropTypes.object,
+  setSelectedOrder: React.PropTypes.func
 }
 
 // Decorate the form component

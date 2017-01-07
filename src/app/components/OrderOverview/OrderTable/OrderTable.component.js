@@ -14,6 +14,9 @@ import CloseIcon from 'material-ui/svg-icons/navigation/close'
 
 import ReactPaginate from 'react-paginate'
 
+import {connect} from 'react-redux'
+import {firebase, helpers} from 'redux-react-firebase'
+
 import Order from './../order/Order.container'
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
@@ -43,13 +46,23 @@ const HeaderRow = () =>
     <TableHeaderColumn tooltip='Locks (handed out, returned) and Keys (handed out, returned)'>Management</TableHeaderColumn>
   </TableRow>
 
+let {dataToJS} = helpers
+@firebase([
+  ['locksAndKeys']
+])
+@connect(
+  (state, props) => ({
+    locksAndKeys: dataToJS(state.firebase, `locksAndKeys`)
+  })
+)
 class OrderTable extends React.Component {
-  displaySearchHelp () {
-    // TODO implement this action for showing modal dialog with explanation
-    // Or implement stored searches
-  }
   render () {
-    let { orders, selectedId, reset, pagination, setPaginationAt } = this.props
+    let {orders, selectedId, reset, pagination, setPaginationAt, locksAndKeys} = this.props
+
+    orders = orders.map(order => {
+      let addedData = locksAndKeys[order._id] ? locksAndKeys[order._id] : {}
+      return Object.assign({}, order, addedData)
+    })
 
     let lookupAppendText = pagination.lookup !== '' ? 'that match ' + pagination.lookup : ''
     let clearSearchStyle = pagination.lookup !== '' ? {} : {opacity: '0.1'}
@@ -59,6 +72,7 @@ class OrderTable extends React.Component {
       console.log('handlePaginationClick', paginateClickData)
       setPaginationAt(paginateClickData.selected)
     }
+
     return (
       <Table fixedHeader selectable>
         <TableHeader displaySelectAll={false}>
@@ -117,6 +131,7 @@ class OrderTable extends React.Component {
 OrderTable.propTypes = {
   orders: React.PropTypes.array,
   selectedId: React.PropTypes.string,
+  reset: React.PropTypes.func,
   pagination: React.PropTypes.shape({
     lookup: React.PropTypes.string,
     resultCap: React.PropTypes.number,
@@ -124,7 +139,8 @@ OrderTable.propTypes = {
     at: React.PropTypes.number
   }),
   setSelectedOrder: React.PropTypes.func,
-  setPaginationAt: React.PropTypes.func
+  setPaginationAt: React.PropTypes.func,
+  locksAndKeys: React.PropTypes.object
 }
 
 export default reduxForm({
