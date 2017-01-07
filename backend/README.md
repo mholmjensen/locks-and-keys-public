@@ -1,4 +1,5 @@
-# rfgrid: Backend for Locks and Keys based on Apache usergrid
+# OBSOLETE
+# [OBSOLETE, Not necessary] rfgrid: Backend for Locks and Keys based on Apache usergrid
 Starts up rfgrid stack using `docker-compose` which contains
 
 * Apache Usergrid exposed on `http://localhost:8080`
