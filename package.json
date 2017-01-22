@@ -1,13 +1,14 @@
 {
   "name": "manage-locks-and-keys",
-  "version": "0.5.0",
+  "version": "0.9.0",
   "description": "Key man",
   "main": "src/App.js",
   "scripts": {
-    "build": "webpack -p && mkdir -p backend/rfgrid/front/dev-build/ && cp -R build/ backend/rfgrid/front/dev-build/",
+    "build": "rm -Rf build/app.*.js && cross-env NODE_ENV=production webpack -p --progress",
+    "deploy": "npm run build && ./prepare-deploy.sh",
     "dev": "npm run dev-server",
     "dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --port 8082 --colors --content-base build/ --progress --watch-poll",
-    "dev-local": "cross-env webpack -d --watch --progress --colors",
+    "dev-local": "webpack -d --watch --progress --colors",
     "lint": "eslint src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -71,6 +72,7 @@
     "eslint-plugin-standard": "^2.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "firebase-tools": "^3.2.1",
     "flow-bin": "^0.35.0",
     "font-awesome-loader": "^1.0.0",
     "node-sass": "^3.9.3",
@@ -89,7 +91,9 @@
       "react",
       "node5"
     ],
-    "plugins": ["transform-decorators-legacy"]
+    "plugins": [
+      "transform-decorators-legacy"
+    ]
   },
   "eslintConfig": {
     "parser": "babel-eslint",

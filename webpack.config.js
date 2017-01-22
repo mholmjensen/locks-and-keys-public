@@ -3,6 +3,9 @@
 const webpack = require('webpack');
 var path = require('path');
 
+let NODE_ENV = process.env.NODE_ENV || 'development';
+let isDev = NODE_ENV === 'development';
+
 let development = {
   entry: {
     app: [
@@ -11,8 +14,8 @@ let development = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/assets/',
-    filename: 'app.bundle.js',
+    publicPath: '/',
+		filename: isDev ? 'app.js' : 'app.[chunkhash].js'
   },
   devServer: {
     proxy: {
