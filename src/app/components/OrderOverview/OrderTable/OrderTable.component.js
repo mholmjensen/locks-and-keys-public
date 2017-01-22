@@ -58,9 +58,11 @@ let {dataToJS} = helpers
 class OrderTable extends React.Component {
   render () {
     let {orders, selectedId, reset, pagination, setPaginationAt, locksAndKeys} = this.props
-
     orders = orders.map(order => {
-      let addedData = locksAndKeys[order._id] ? locksAndKeys[order._id] : {}
+      let addedData = {}
+      if (locksAndKeys) {
+        addedData = locksAndKeys[order._id] ? locksAndKeys[order._id] : {}
+      }
       return Object.assign({}, order, addedData)
     })
 
