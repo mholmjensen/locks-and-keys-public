@@ -22,7 +22,7 @@ export default class OrderOverview extends React.Component {
   componentDidMount () {
     keyDownHandler = (ev) => {
       if (ev.which === 27) { // Esc
-        this.props.setSelectedOrder()
+        this.props.setSelectedOrder() // TODO alert on deselect with unsaved
       }
     }
     document.addEventListener('keydown', keyDownHandler)

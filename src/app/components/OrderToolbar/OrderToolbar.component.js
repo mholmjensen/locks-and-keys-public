@@ -13,36 +13,36 @@ import Drawer from 'material-ui/Drawer'
 import AppBar from 'material-ui/AppBar'
 
 import OrderHandler from './OrderHandler/OrderHandler.component'
-import OrderInformation from './OrderInformation/OrderInformation.component'
+import OrderComments from './OrderComments/OrderComments.component'
 import ContactInformation from './ContactInformation/ContactInformation.component'
 
 import {firebase} from 'redux-react-firebase'
 
-const AllCards = (props) =>
+const AllCards = ({order, saveOrderData, formSaveable}) =>
   <div>
     <div>
       <Card initiallyExpanded>
-        <CardHeader title='Locks and keys' subtitle={props.order.human_readable_id} actAsExpander showExpandableButton />
+        <CardHeader title={order.stand_name} subtitle={order.stand_number} actAsExpander showExpandableButton />
         <CardText expandable>
-          <OrderHandler saveOrderData={props.saveOrderData} />
+          <OrderHandler saveOrderData={saveOrderData} formSaveable={formSaveable} />
         </CardText>
       </Card>
     </div>
     <Divider />
     <div>
       <Card initiallyExpanded>
-        <CardHeader title='Order information' subtitle={props.order.human_readable_id} actAsExpander showExpandableButton />
+        <CardHeader title={order.stand_name} actAsExpander showExpandableButton />
         <CardText expandable>
-          <OrderInformation order={props.order} />
+          <ContactInformation order={order} />
         </CardText>
       </Card>
     </div>
     <Divider />
     <div>
       <Card initiallyExpanded>
-        <CardHeader title='Contact information' subtitle={props.order.human_readable_id} actAsExpander showExpandableButton />
+        <CardHeader title='Remarks and Comments' subtitle={order.Comment && (order.Comment.length + ' comments')} actAsExpander showExpandableButton />
         <CardText expandable>
-          <ContactInformation order={props.order} />
+          <OrderComments order={order} />
         </CardText>
       </Card>
     </div>
@@ -50,29 +50,36 @@ const AllCards = (props) =>
 
 AllCards.propTypes = {
   order: React.PropTypes.object,
-  saveOrderData: React.PropTypes.func
+  saveOrderData: React.PropTypes.func,
+  formSaveable: React.PropTypes.bool
 }
 
 @firebase()
 class OrderToolbar extends React.Component {
   render () {
     let {formPayload, firebase} = this.props // from reduxForm
-    let {selectedEntry, setSelectedOrder} = this.props
+    let {selectedEntry, formSaveable, setSelectedOrder} = this.props
+    let title = ''
+    if (selectedEntry) {
+      title = '#' + selectedEntry.human_readable_id + ' ' + (selectedEntry.stand_number === '' ? '' : '(' + selectedEntry.stand_number + ')')
+    }
     let isEmptyObject = (obj) => {
       Object.keys(obj).length === 0 && obj.constructor === Object
     }
+
+    // TODO make thunk of this one, then set selectedEntry to response
     let saveCurrentValues = () => firebase.set('locksAndKeys/' + selectedEntry._id, formPayload)
     return <div>
       {selectedEntry &&
-        <Drawer width={300} openSecondary open={isEmptyObject(selectedEntry)}>
+        <Drawer width={500} openSecondary open={isEmptyObject(selectedEntry)}>
           <AppBar
-            title={'Order #' + selectedEntry.human_readable_id}
+            title={title}
             showMenuIconButton={false}
             iconElementRight={<IconButton><NavigationClose /></IconButton>}
             onRightIconButtonTouchTap={() => setSelectedOrder()}
           />
           <div>
-            <AllCards order={selectedEntry} saveOrderData={saveCurrentValues} />
+            <AllCards order={selectedEntry} saveOrderData={saveCurrentValues} formSaveable={formSaveable} />
           </div>
         </Drawer>
       }
@@ -84,7 +91,8 @@ OrderToolbar.propTypes = {
   selectedEntry: React.PropTypes.object,
   formPayload: React.PropTypes.object,
   firebase: React.PropTypes.object,
-  setSelectedOrder: React.PropTypes.func
+  setSelectedOrder: React.PropTypes.func,
+  formSaveable: React.PropTypes.bool
 }
 
 // Decorate the form component
