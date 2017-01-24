@@ -11,11 +11,13 @@ function makeFormPayload (state) {
   let locksReturned = selector(state, 'locksReturned') || ''
   let keysHandedOut = selector(state, 'keysHandedOut') || ''
   let keysReturned = selector(state, 'keysReturned') || ''
+  let notes = selector(state, 'notes') || ''
   return {
     locksHandedOut,
     locksReturned,
     keysHandedOut,
-    keysReturned
+    keysReturned,
+    notes
   }
 }
 
@@ -32,7 +34,8 @@ function formPayloadDiffers (fp, e) {
   let differs = payloadDifferFromSelected(fp, e, 'locksHandedOut')
   differs = differs || payloadDifferFromSelected(fp, e, 'locksReturned')
   differs = differs || payloadDifferFromSelected(fp, e, 'keysHandedOut')
-  return differs || payloadDifferFromSelected(fp, e, 'keysReturned')
+  differs = differs || payloadDifferFromSelected(fp, e, 'keysReturned')
+  return differs || payloadDifferFromSelected(fp, e, 'notes')
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -40,7 +43,7 @@ const mapStateToProps = (state, ownProps) => {
   let saveable = formPayloadDiffers(formPayload, state.orders.selectedEntry)
   return { // Becomes Props on Selection
     selectedEntry: state.orders.selectedEntry,
-    formPayload,
+    formPayload, // TODO refactor into OrderHandler.container.js
     formSaveable: saveable,
     initialValues: state.orders.selectedEntry // redux-form intialization
   }

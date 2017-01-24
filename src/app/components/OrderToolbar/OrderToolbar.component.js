@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {reduxForm} from 'redux-form'
+import {firebase} from 'redux-react-firebase'
 import s from './OrderToolbar.css'
 
 import {Card, CardHeader, CardText} from 'material-ui/Card'
@@ -16,15 +17,13 @@ import OrderHandler from './OrderHandler/OrderHandler.component'
 import OrderComments from './OrderComments/OrderComments.component'
 import ContactInformation from './ContactInformation/ContactInformation.component'
 
-import {firebase} from 'redux-react-firebase'
-
-const AllCards = ({order, saveOrderData, formSaveable}) =>
+const AllCards = ({order, onSave, formSaveable}) =>
   <div>
     <div>
       <Card initiallyExpanded>
         <CardHeader title={order.stand_name} subtitle={order.stand_number} actAsExpander showExpandableButton />
         <CardText expandable>
-          <OrderHandler saveOrderData={saveOrderData} formSaveable={formSaveable} />
+          <OrderHandler onSave={onSave} formSaveable={formSaveable} />
         </CardText>
       </Card>
     </div>
@@ -50,14 +49,14 @@ const AllCards = ({order, saveOrderData, formSaveable}) =>
 
 AllCards.propTypes = {
   order: React.PropTypes.object,
-  saveOrderData: React.PropTypes.func,
+  onSave: React.PropTypes.func,
   formSaveable: React.PropTypes.bool
 }
 
 @firebase()
 class OrderToolbar extends React.Component {
   render () {
-    let {formPayload, firebase} = this.props // from reduxForm
+    let {formPayload, firebase} = this.props // from reduxForm and @firebase
     let {selectedEntry, formSaveable, setSelectedOrder} = this.props
     let title = ''
     if (selectedEntry) {
@@ -67,8 +66,7 @@ class OrderToolbar extends React.Component {
       Object.keys(obj).length === 0 && obj.constructor === Object
     }
 
-    // TODO make thunk of this one, then set selectedEntry to response
-    let saveCurrentValues = () => firebase.set('locksAndKeys/' + selectedEntry._id, formPayload)
+    let onSave = () => firebase.set('locksAndKeys/' + selectedEntry._id, formPayload)
     return <div>
       {selectedEntry &&
         <Drawer width={500} openSecondary open={isEmptyObject(selectedEntry)}>
@@ -79,7 +77,7 @@ class OrderToolbar extends React.Component {
             onRightIconButtonTouchTap={() => setSelectedOrder()}
           />
           <div>
-            <AllCards order={selectedEntry} saveOrderData={saveCurrentValues} formSaveable={formSaveable} />
+            <AllCards order={selectedEntry} onSave={onSave} formSaveable={formSaveable} />
           </div>
         </Drawer>
       }
