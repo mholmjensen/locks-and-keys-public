@@ -19,6 +19,12 @@ import {firebase, helpers} from 'redux-react-firebase'
 
 import Order from './../order/Order.container'
 
+let reduxFormPropTypes = {
+  label: React.PropTypes.string,
+  input: React.PropTypes.object,
+  meta: React.PropTypes.object
+}
+
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <TextField hintText={label}
     floatingLabelText={label}
@@ -27,6 +33,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     {...custom}
   />
 )
+renderTextField.propTypes = reduxFormPropTypes
 
 const renderSelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => (
   <SelectField
@@ -37,6 +44,10 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
     children={children}
     {...custom} />
 )
+renderSelectField.propTypes = {
+  ...reduxFormPropTypes,
+  children: React.PropTypes.array
+}
 
 const HeaderRow = () =>
   <TableRow>
