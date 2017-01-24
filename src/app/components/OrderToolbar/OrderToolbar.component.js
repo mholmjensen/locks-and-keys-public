@@ -3,7 +3,6 @@
 import React from 'react'
 import {reduxForm} from 'redux-form'
 import {firebase} from 'redux-react-firebase'
-import s from './OrderToolbar.css'
 
 import {Card, CardHeader, CardText} from 'material-ui/Card'
 

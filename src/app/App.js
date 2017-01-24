@@ -1,3 +1,7 @@
+/* @flow */
+/* global FIREBASE_CONFIG:true */
+/* eslint no-undef: "error" */
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
