@@ -1,7 +1,6 @@
 /* @flow weak */
 
-import { SET_EDITED_ENTRY, SET_EDITED_ENTRY_VALUE } from '../constants'
-// import { statusCheck, jsonParse, requestFailed } from './async.utils'
+import {SET_EDITED_ENTRY, SET_EDITED_ENTRY_VALUE} from '../constants'
 
 export function setEditedEntry (editedEntry) {
   return {

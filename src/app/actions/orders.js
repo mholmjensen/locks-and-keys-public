@@ -2,7 +2,7 @@
 
 import { UPDATE_ORDER_VALUES, SET_ORDERS, SET_SELECTED_ORDER, SET_PAGINATION_AT } from '../constants'
 
-import ElClient from './elclient'
+import ThunkClient from './thunkclient'
 
 export function setOrders (orders) {
   return {
@@ -35,7 +35,7 @@ export function updateOrderValues (uuid, values) {
 }
 
 // Async (thunk'ed) actions
-let client = ElClient()
+let client = ThunkClient()
 export function getOrdersAsync (limit = 999) {
   return dispatch => {
     return client.plumbingordersRequest()
