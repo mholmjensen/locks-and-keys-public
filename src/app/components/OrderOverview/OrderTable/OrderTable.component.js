@@ -51,9 +51,13 @@ renderSelectField.propTypes = {
 
 const HeaderRow = () =>
   <TableRow>
-    <TableHeaderColumn tooltip='Order number' style={{'width': 70}}>#</TableHeaderColumn>
-    <TableHeaderColumn tooltip='Stand name, number and location'>Stand</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Order number' style={{'width': 60}}>#</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Stand name, number'>Stand</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Creator'>Creator</TableHeaderColumn>
     <TableHeaderColumn tooltip='Contact details'>Contact</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Areas people pro'>Areas</TableHeaderColumn>
+    <TableHeaderColumn tooltip='A for Toilet A, B for Toilet B, U for Urinals. Prefix signify quantity ordered.'>Ordered</TableHeaderColumn>
+    <TableHeaderColumn tooltip='Status is either locked or draft'>Status</TableHeaderColumn>
     <TableHeaderColumn tooltip='Locks (handed out, returned) and Keys (handed out, returned)'>Management</TableHeaderColumn>
   </TableRow>
 
