@@ -6,7 +6,7 @@ import {formValueSelector} from 'redux-form'
 
 import OrderTable from './OrderTable.component'
 
-function recurseForString (obj, string) { // TODO use server backed search, and/or cut down on json size/fields
+function recurseForString (obj, string) {
   if (string === '') {
     return true
   }

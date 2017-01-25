@@ -1,6 +1,6 @@
 /* @flow */
 
-import {UPDATE_ORDER_VALUES, SET_ORDERS, SET_SELECTED_ORDER, SET_PAGINATION_AT} from '../constants'
+import {SET_ORDERS, SET_SELECTED_ORDER, SET_PAGINATION_AT} from '../constants'
 
 import ThunkClient from './thunkclient'
 
@@ -24,13 +24,6 @@ export function setPaginationAt (paginationAt) {
   return {
     type: SET_PAGINATION_AT,
     payload: { paginationAt }
-  }
-}
-
-export function updateOrderValues (uuid, values) {
-  return {
-    type: UPDATE_ORDER_VALUES,
-    payload: { uuid, values }
   }
 }
 

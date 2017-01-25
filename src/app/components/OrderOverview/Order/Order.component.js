@@ -2,7 +2,6 @@
 import React from 'react'
 
 import {TableRow, TableRowColumn} from 'material-ui/Table'
-import Badge from 'material-ui/Badge'
 import LockOpen from 'material-ui/svg-icons/action/lock-open'
 import VpnKey from 'material-ui/svg-icons/communication/vpn-key'
 
