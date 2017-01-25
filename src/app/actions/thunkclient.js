@@ -1,5 +1,5 @@
 /* @flow */
-/* global EL_CONFIG:true */
+/* global EL_CONFIG:false */
 /* eslint no-undef: "error" */
 
 import fetchJsonp from 'fetch-jsonp'
