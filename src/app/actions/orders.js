@@ -4,6 +4,13 @@ import {SET_ORDERS, SET_SELECTED_ORDER, SET_PAGINATION_AT} from '../constants'
 
 import ThunkClient from './thunkclient'
 
+export function clearOrders () {
+  return {
+    type: SET_ORDERS,
+    payload: { orders: [] }
+  }
+}
+
 export function setOrders (orders) {
   return {
     type: SET_ORDERS,
@@ -39,7 +46,6 @@ export function getOrdersAsync (limit = 999) {
         usedKeys.forEach(key => { usedData[key] = d.PlumbingOrder[key] })
         return usedData
       })
-      // TODO use getFirebase reference to make fbrequest as promise, then sync the two requests and merge
       dispatch(setOrders(data))
       if (data.length > 0) { // TODO remove for release, data[0] has no firebase data at this point
         dispatch(setSelectedOrder(data[0]))
