@@ -27,7 +27,7 @@ const store = createStoreWithFirebase(
   )
 )
 
-import {Container} from './components/Container'
+import {Container} from './components/Container/Container'
 
 ReactDOM.render(
   <Provider store={store}>

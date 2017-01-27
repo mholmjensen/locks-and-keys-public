@@ -2,7 +2,6 @@
 
 import { connect } from 'react-redux'
 import { setSelectedOrder } from '../../../actions/orders'
-import { setEditedEntry } from '../../../actions/toolbar'
 import Order from './Order.component'
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,9 +13,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     'setSelectedOrder': (order) => {
       dispatch(setSelectedOrder(order))
-    },
-    'setEditedEntry': (order) => {
-      dispatch(setEditedEntry(order))
     }
   }
 }
