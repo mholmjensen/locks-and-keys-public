@@ -5,7 +5,7 @@
   "main": "src/App.js",
   "scripts": {
     "build": "rm -Rf build/app.*.js && cross-env NODE_ENV=production webpack -p --progress",
-    "deploy": "npm run build && ./prepare-deploy.sh",
+    "deploy": "npm run build && deploy/bundle-for-firebase-deploy.sh",
     "dev": "npm run dev-server",
     "dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --port 8082 --colors --content-base build/ --progress --watch-poll",
     "dev-local": "webpack -d --watch --progress --colors",
