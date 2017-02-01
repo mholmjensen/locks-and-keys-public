@@ -16,69 +16,57 @@ import OrderHandler from './OrderHandler/OrderHandler.component'
 import OrderComments from './OrderComments/OrderComments.component'
 import ContactInformation from './ContactInformation/ContactInformation.component'
 
-const AllCards = ({order, onSave, formSaveable}) =>
-  <div>
-    <div>
-      <Card initiallyExpanded>
-        <CardHeader title={order.stand_name} subtitle={order.stand_number} actAsExpander showExpandableButton />
-        <CardText expandable>
-          <OrderHandler onSave={onSave} formSaveable={formSaveable} />
-        </CardText>
-      </Card>
-    </div>
-    <Divider />
-    <div>
-      <Card initiallyExpanded>
-        <CardHeader title={order.stand_name} actAsExpander showExpandableButton />
-        <CardText expandable>
-          <ContactInformation order={order} />
-        </CardText>
-      </Card>
-    </div>
-    <Divider />
-    <div>
-      <Card initiallyExpanded>
-        <CardHeader title='Remarks and Comments' subtitle={order.Comment && (order.Comment.length + ' comments')} actAsExpander showExpandableButton />
-        <CardText expandable>
-          <OrderComments order={order} />
-        </CardText>
-      </Card>
-    </div>
-  </div>
-
-AllCards.propTypes = {
-  order: React.PropTypes.object,
-  onSave: React.PropTypes.func,
-  formSaveable: React.PropTypes.bool
-}
-
 @firebase()
 class OrderToolbar extends React.Component {
   render () {
-    let {formPayload, firebase} = this.props // from reduxForm and @firebase
-    let {selectedEntry, formSaveable, setSelectedOrder} = this.props
+    let {selectedEntry, formSaveable, setSelectedOrder, formPayload, firebase} = this.props // from reduxForm and @firebase
+
     let title = ''
-    if (selectedEntry) {
+    let hasRemarksOrComments = false
+    let hasSelection = selectedEntry !== undefined
+
+    if (hasSelection) {
       title = '#' + selectedEntry.human_readable_id + ' ' + (selectedEntry.stand_number === '' ? '' : '(' + selectedEntry.stand_number + ')')
-    }
-    let isEmptyObject = (obj) => {
-      Object.keys(obj).length === 0 && obj.constructor === Object
+      hasRemarksOrComments = (selectedEntry.Comment && selectedEntry.Comment.length > 0) || selectedEntry.remarks !== ''
     }
 
     let onSave = () => firebase.set('locksAndKeys/' + selectedEntry._id, formPayload)
+    let closeIcon = <IconButton><NavigationClose /></IconButton>
     return <div>
       {selectedEntry &&
-        <Drawer width={500} openSecondary open={isEmptyObject(selectedEntry)}>
-          <AppBar
-            title={title}
-            showMenuIconButton={false}
-            iconElementRight={<IconButton><NavigationClose /></IconButton>}
-            onRightIconButtonTouchTap={() => setSelectedOrder()}
-          />
-          <div>
-            <AllCards order={selectedEntry} onSave={onSave} formSaveable={formSaveable} />
-          </div>
-        </Drawer>
+        <div>
+          <Drawer width={400} open={hasSelection}>
+            <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={() => setSelectedOrder()} />
+            <div>
+              <Card initiallyExpanded>
+                <CardHeader title={selectedEntry.stand_name} subtitle={selectedEntry.stand_number} />
+                <CardText>
+                  <OrderHandler onSave={onSave} formSaveable={formSaveable} />
+                </CardText>
+              </Card>
+            </div>
+            <Divider />
+            <div>
+              <Card initiallyExpanded>
+                <CardHeader title={selectedEntry.stand_name} />
+                <CardText>
+                  <ContactInformation order={selectedEntry} />
+                </CardText>
+              </Card>
+            </div>
+          </Drawer>
+          <Drawer width={500} openSecondary open={hasRemarksOrComments}>
+            <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={() => setSelectedOrder()} />
+            <div>
+              <Card>
+                <CardHeader title='Remarks and Comments' subtitle={selectedEntry.Comment && (selectedEntry.Comment.length + ' comments')} />
+                <CardText>
+                  <OrderComments order={selectedEntry} />
+                </CardText>
+              </Card>
+            </div>
+          </Drawer>
+        </div>
       }
     </div>
   }
