@@ -1,23 +1,22 @@
 /* @flow */
 import React from 'react'
 import s from './OrderTable.css'
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table'
+require('!style!css!react-virtualized/styles.css')
+import {Column, Table, AutoSizer, WindowScroller} from 'react-virtualized'
+import type { CellRendererParams, CellDataGetterParams } from 'react-virtualized/Table/types'
 import {Field, reduxForm} from 'redux-form'
 
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import LockOpen from 'material-ui/svg-icons/action/lock-open'
+import VpnKey from 'material-ui/svg-icons/communication/vpn-key'
+import Badge from 'material-ui/Badge'
 
 import SearchIcon from 'material-ui/svg-icons/action/search'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
 
-import ReactPaginate from 'react-paginate'
-
 import {connect} from 'react-redux'
 import {firebase, helpers} from 'redux-react-firebase'
-
-import Order from './../order/Order.container'
 
 let reduxFormPropTypes = {
   label: React.PropTypes.string,
@@ -49,17 +48,74 @@ renderSelectField.propTypes = {
   children: React.PropTypes.array
 }
 
-const HeaderRow = () =>
-  <TableRow>
-    <TableHeaderColumn tooltip='Order number' style={{'width': 60}}>#</TableHeaderColumn>
-    <TableHeaderColumn tooltip='Stand name, number'>Stand</TableHeaderColumn>
-    <TableHeaderColumn tooltip='Creator'>Creator</TableHeaderColumn>
-    <TableHeaderColumn tooltip='Contact details'>Contact</TableHeaderColumn>
-    <TableHeaderColumn tooltip='Areas people pro'>Areas</TableHeaderColumn>
-    <TableHeaderColumn tooltip='A for Toilet A, B for Toilet B, U for Urinals. Prefix signify quantity ordered.'>Ordered</TableHeaderColumn>
-    <TableHeaderColumn tooltip='Status is either locked or draft'>Status</TableHeaderColumn>
-    <TableHeaderColumn tooltip='Locks (handed out, returned) and Keys (handed out, returned)'>Management</TableHeaderColumn>
-  </TableRow>
+let iconstyle = {'height': 16, 'width': 16}
+let handedOutColor = '#ec5400'
+
+let renderManagement = ({cellData}): CellRendererParams => {
+  return (
+    <div className='container'>
+      <div className='row'>
+        <div className='col-xs-1'>
+          <LockOpen color={handedOutColor} style={iconstyle} /> {cellData.locksHandedOut}
+        </div>
+        <div className='col-xs-1'>
+          <LockOpen style={iconstyle} /> {cellData.locksReturned}
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col-xs-1'>
+          <VpnKey color={handedOutColor} style={iconstyle} /> {cellData.keysHandedOut}
+        </div>
+        <div className='col-xs-1'>
+          <VpnKey style={iconstyle} /> {cellData.keysReturned}
+        </div>
+      </div>
+    </div>
+  )
+}
+renderManagement.propTypes = {
+  cellData: React.PropTypes.array
+}
+
+let renderOrderedEquipment = ({cellData}): CellRendererParams => {
+  return cellData.map(item => {
+    if (parseInt(item.quantity) > 0) {
+      return (
+        <span key={item.name} style={{'marginRight': '1.5em'}}>
+          {item.quantity} x {item.name}
+        </span>
+      )
+    }
+  })
+}
+renderOrderedEquipment.propTypes = {
+  cellData: React.PropTypes.array
+}
+
+let renderLines = ({cellData = []}): CellRendererParams => (
+  <div>
+    {
+      cellData.map((d, i) => {
+        return <div key={i}>{d} <br /></div>
+      })
+    }
+  </div>
+)
+renderLines.propTypes = {
+  cellData: React.PropTypes.array
+}
+function keysToLines (dataKeys = []) { // Returns function with cellDataGetter signature having dataKeys as context
+  return ({columnData, dataKey, rowData}): CellDataGetterParams => dataKeys.map(key => rowData[key])
+}
+
+function dataGetterMagementData ({columnData, dataKey, rowData}): CellDataGetterParams {
+  return {
+    locksHandedOut: rowData['locksHandedOut'],
+    locksHandedIn: rowData['locksHandedIn'],
+    keysHandedOut: rowData['keysHandedOut'],
+    keysHandedIn: rowData['keysHandedIn']
+  }
+}
 
 let {dataToJS} = helpers
 @firebase([
@@ -72,7 +128,7 @@ let {dataToJS} = helpers
 )
 class OrderTable extends React.Component {
   render () {
-    let {orders, selectedId, reset, pagination, setPaginationAt, locksAndKeys} = this.props
+    let {orders, reset, viewSettings, setSelectedOrder, locksAndKeys} = this.props
     orders = orders.map(order => {
       let addedData = {}
       if (locksAndKeys) {
@@ -81,74 +137,58 @@ class OrderTable extends React.Component {
       return Object.assign({}, order, addedData)
     })
 
-    let lookupAppendText = pagination.lookup !== '' ? 'that match ' + pagination.lookup : ''
-    let clearSearchStyle = pagination.lookup !== '' ? {} : {opacity: '0.1'}
-    let resultRangeStyle = pagination.filterCount > 0 ? {} : {display: 'none'}
+    let clearSearchStyle = viewSettings.lookup !== '' ? {} : {opacity: '0.1'}
 
-    let handlePaginationClick = (paginateClickData) => {
-      setPaginationAt(paginateClickData.selected)
-    }
-
+    let w1 = 1
+    let w2 = 3
     return (
-      <Table fixedHeader selectable>
-        <TableHeader displaySelectAll={false}>
-          <TableRow>
-            <TableHeaderColumn colSpan='3' style={{textAlign: 'center'}}>
-              <div className={s.superheader}>
-                <div className={s.searchflex}>
-                  <SearchIcon />
-                  <Field name='lookup' label='Search' component={renderTextField} style={{width: '80%'}} />
-                  <CloseIcon label='Clear search entry' onClick={() => reset()} style={clearSearchStyle} />
-                </div>
-                <div>
-                  <Field name='resultCap' floatingLabelText='Results limit' value={pagination.resultCap} component={renderSelectField}>
-                    <MenuItem value={10} primaryText='10' />
-                    <MenuItem value={25} primaryText='25' />
-                    <MenuItem value={50} primaryText='50' />
-                    <MenuItem value={100} primaryText='100' />
-                    <MenuItem value={10000} primaryText='All' />
-                  </Field>
-                </div>
-              </div>
-              <div>
-                <ReactPaginate previousLabel={'<'}
-                  nextLabel={'>'}
-                  breakLabel={<a href=''>...</a>}
-                  breakClassName={'break-me'}
-                  pageCount={pagination.count}
-                  marginPagesDisplayed={1}
-                  pageRangeDisplayed={10}
-                  forcePage={pagination.at}
-                  onPageChange={handlePaginationClick}
-                  containerClassName={'pagination'}
-                  subContainerClassName={'pages pagination'}
-                  activeClassName={'active'} />
-              </div>
-              <div style={resultRangeStyle}>
-                Showing {pagination.start} - {pagination.end} of {pagination.filterCount} orders {lookupAppendText}
-              </div>
-            </TableHeaderColumn>
-          </TableRow>
-          <HeaderRow />
-        </TableHeader>
-        <TableBody displayRowCheckbox deselectOnClickaway showRowHover stripedRows>
-          {orders.map(order => {
-            let is = order._id === selectedId
-            return (
-              <Order key={order._id} order={order} isSelected={is} />
-            )
-          })}
-        </TableBody>
-      </Table>
+      <div>
+        <div className={s.superheader}>
+          <div className={s.searchflex}>
+            <Badge badgeContent={orders.length} badgeStyle={{top: 0, right: 12, color: '#ec5400'}}>
+              <SearchIcon />
+            </Badge>
+            <Field name='lookup' label='Search' component={renderTextField} style={{width: '80%'}} />
+            <CloseIcon label='Clear search entry' onClick={() => reset()} style={clearSearchStyle} />
+          </div>
+        </div>
+        <div className={s.searchflex}>
+          <WindowScroller>
+            {({ height, isScrolling, scrollTop }) => {
+              let se = window.document.getElementById('orderOverviewRoot') // See docs, not working fully as I'd like it
+              return (
+                <AutoSizer disableHeight>
+                  {({ width }) => (
+                    <Table autoHeight height={height} width={width} headerHeight={30} rowHeight={70}
+                      rowCount={orders.length}
+                      rowGetter={({ index }) => orders[index]}
+                      scrollTop={scrollTop}
+                      onRowClick={({index}) => { setSelectedOrder(orders[index]) }}
+                      overscanRowCount={40}
+                      scrollElement={se} >
+                      <Column dataKey='human_readable_id' label='#' tooltip='Order number' width={w1} flexGrow={0.2} />
+                      <Column dataKey='StandMeta' label='Stand' tooltip='Stand name, number' cellDataGetter={keysToLines(['stand_name', 'stand_number'])} cellRenderer={renderLines} flexGrow={1} width={w2} />
+                      <Column dataKey='ContactMeta' label='Contact' tooltip='Contact details' cellDataGetter={keysToLines(['contact_name', 'contact_email', 'contact_phone'])} cellRenderer={renderLines} flexGrow={1.5} width={w2} />
+                      <Column dataKey='people_pro_location' label='Areas' tooltip='Areas people pro' flexGrow={1.5} width={w2} />
+                      <Column dataKey='PlumbingItem' label='Ordered' tooltip='A for Toilet A, B for Toilet B, U for Urinals. Prefix signify quantity ordered.' cellRenderer={renderOrderedEquipment} width={w2} flexGrow={1} />
+                      <Column dataKey='OrderStatus' label='Status' tooltip='Status is either locked or draft' width={w2} flexGrow={1} />
+                      <Column dataKey='ManagementMeta' label='Management' tooltip='Locks (handed out, returned) and Keys (handed out, returned)' cellDataGetter={dataGetterMagementData} cellRenderer={renderManagement} width={w2} flexGrow={1} />
+                    </Table>
+                  )}
+                </AutoSizer>
+              )
+            }}
+          </WindowScroller>
+        </div>
+      </div>
     )
   }
 }
 
 OrderTable.propTypes = {
   orders: React.PropTypes.array,
-  selectedId: React.PropTypes.string,
   reset: React.PropTypes.func,
-  pagination: React.PropTypes.shape({
+  viewSettings: React.PropTypes.shape({
     lookup: React.PropTypes.string,
     resultCap: React.PropTypes.number,
     count: React.PropTypes.number,
