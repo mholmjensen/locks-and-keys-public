@@ -52,7 +52,6 @@ HeaderBar.propTypes = {
 export default class Site extends React.Component {
   render () {
     let {auth} = this.props
-    console.log(auth)
     if (!auth) {
       return <Login />
     } else {

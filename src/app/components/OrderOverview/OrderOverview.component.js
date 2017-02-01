@@ -3,7 +3,6 @@
 import React from 'react'
 
 import OrderTable from './OrderTable/OrderTable.container'
-import {Card, CardText} from 'material-ui/Card'
 import s from './OrderOverview.css'
 
 import {firebase} from 'redux-react-firebase'
@@ -32,12 +31,8 @@ export default class OrderOverview extends React.Component {
     let selId = selectedEntry ? selectedEntry._id : ''
 
     return (
-      <div className={s.root}>
-        <Card>
-          <CardText expandable={false}>
-            <OrderTable selectedId={selId} />
-          </CardText>
-        </Card>
+      <div className={s.root} id='orderOverviewRoot'>
+        <OrderTable selectedId={selId} />
       </div>
     )
   }
@@ -48,5 +43,6 @@ OrderOverview.propTypes = {
   setSelectedOrder: React.PropTypes.func,
   getOrdersAsync: React.PropTypes.func,
   clearOrders: React.PropTypes.func,
-  firebase: React.PropTypes.object
+  firebase: React.PropTypes.object,
+  orders: React.PropTypes.array
 }

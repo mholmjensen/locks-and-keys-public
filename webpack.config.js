@@ -1,10 +1,10 @@
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack')
+var path = require('path')
 
-let NODE_ENV = process.env.NODE_ENV || 'development';
-let isDev = NODE_ENV === 'development';
+let NODE_ENV = process.env.NODE_ENV || 'development'
+let isDev = NODE_ENV === 'development'
 
 let development = {
   entry: {
@@ -15,7 +15,7 @@ let development = {
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
-		filename: isDev ? 'app.js' : 'app.[chunkhash].js'
+    filename: isDev ? 'app.js' : 'app.[chunkhash].js'
   },
   devServer: {
     proxy: {
@@ -30,6 +30,7 @@ let development = {
     loaders: [
       {
         test: /\.css$/, // See https://github.com/gajus/react-css-modules
+        // include: /node_modules\/react-virtualized/,
         loaders: [
           'style?sourceMap',
           'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
@@ -37,13 +38,13 @@ let development = {
       }, {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: 'babel-loader'
       }
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     })
   ]
 }

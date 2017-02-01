@@ -1,5 +1,5 @@
 /* @flow */
-import {SET_ORDERS, SET_SELECTED_ORDER, SET_PAGINATION_AT} from '../constants'
+import {SET_ORDERS, SET_SELECTED_ORDER} from '../constants'
 
 let ordersInitialState = {
   entries: [],
@@ -19,12 +19,6 @@ export default function orders (state: Object = ordersInitialState, action: Obje
       return {
         ...state,
         selectedEntry: action.payload.order
-      }
-
-    case SET_PAGINATION_AT:
-      return {
-        ...state,
-        paginationAt: action.payload.paginationAt
       }
 
     default:

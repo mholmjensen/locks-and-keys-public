@@ -1,7 +1,7 @@
 /* @flow */
 
 import {connect} from 'react-redux'
-import {setSelectedOrder, setPaginationAt} from '../../../actions/orders'
+import {setSelectedOrder} from '../../../actions/orders'
 import {formValueSelector} from 'redux-form'
 
 import OrderTable from './OrderTable.component'
@@ -30,28 +30,14 @@ const mapStateToProps = (state, ownProps) => {
   let resultCap = parseInt(selector(state, 'resultCap'))
 
   let filteredOrders = state.orders.entries.filter((o) => recurseForString(o, lookup))
-  let filterCount = filteredOrders.length
   let totalOrderCount = state.orders.entries.length
-  let paginationCount = Math.ceil(filterCount / resultCap)
-  let paginationAt = state.orders.paginationAt
-  let batchStart = paginationAt * resultCap
-  let batchEnd = Math.min(batchStart + resultCap, filterCount)
-  if (resultCap === 10000) { // All case
-    batchStart = 0
-    batchEnd = filterCount
-  }
-  let orders = filteredOrders.slice(batchStart, batchEnd)
+  let orders = filteredOrders
   return {
     orders,
-    pagination: {
+    viewSettings: {
       lookup,
       resultCap,
-      filterCount,
-      totalOrderCount,
-      count: paginationCount,
-      at: paginationAt,
-      start: batchStart + 1,
-      end: batchEnd
+      totalOrderCount
     },
     initialValues: {  // redux-form intialization
       lookup: '',
@@ -64,9 +50,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     'setSelectedOrder': (order) => {
       dispatch(setSelectedOrder(order))
-    },
-    'setPaginationAt': (at) => {
-      dispatch(setPaginationAt(at))
     }
   }
 }
