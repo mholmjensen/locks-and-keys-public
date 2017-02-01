@@ -190,9 +190,7 @@ OrderTable.propTypes = {
   reset: React.PropTypes.func,
   viewSettings: React.PropTypes.shape({
     lookup: React.PropTypes.string,
-    resultCap: React.PropTypes.number,
-    count: React.PropTypes.number,
-    at: React.PropTypes.number
+    totalOrderCount: React.PropTypes.number
   }),
   setSelectedOrder: React.PropTypes.func,
   setPaginationAt: React.PropTypes.func,
