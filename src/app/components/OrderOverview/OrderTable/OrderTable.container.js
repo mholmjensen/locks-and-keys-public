@@ -30,7 +30,7 @@ const mapStateToProps = (state, ownProps) => {
 
   let filteredOrders = state.orders.entries.filter((o) => recurseForString(o, lookup))
   let totalOrderCount = state.orders.entries.length
-  let orders = filteredOrders
+  let orders = filteredOrders.sort((a, b) => a.human_readable_id - b.human_readable_id)
   return {
     orders,
     viewSettings: {
