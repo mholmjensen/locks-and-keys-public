@@ -111,9 +111,9 @@ function keysToLines (dataKeys = []) { // Returns function with cellDataGetter s
 function dataGetterMagementData ({columnData, dataKey, rowData}): CellDataGetterParams {
   return {
     locksHandedOut: rowData['locksHandedOut'],
-    locksHandedIn: rowData['locksHandedIn'],
+    locksReturned: rowData['locksReturned'],
     keysHandedOut: rowData['keysHandedOut'],
-    keysHandedIn: rowData['keysHandedIn']
+    keysReturned: rowData['keysReturned']
   }
 }
 
@@ -165,14 +165,15 @@ class OrderTable extends React.Component {
                       scrollTop={scrollTop}
                       onRowClick={({index}) => { setSelectedOrder(orders[index]) }}
                       overscanRowCount={40}
-                      scrollElement={se} >
+                      scrollElement={se}
+                      rowStyle={{'alignItems': 'baseline'}} >
                       <Column dataKey='human_readable_id' label='#' tooltip='Order number' width={w1} flexGrow={0.2} />
                       <Column dataKey='StandMeta' label='Stand' tooltip='Stand name, number' cellDataGetter={keysToLines(['stand_name', 'stand_number'])} cellRenderer={renderLines} flexGrow={1} width={w2} />
                       <Column dataKey='ContactMeta' label='Contact' tooltip='Contact details' cellDataGetter={keysToLines(['contact_name', 'contact_email', 'contact_phone'])} cellRenderer={renderLines} flexGrow={1.5} width={w2} />
                       <Column dataKey='people_pro_location' label='Areas' tooltip='Areas people pro' flexGrow={1.5} width={w2} />
                       <Column dataKey='PlumbingItem' label='Ordered' tooltip='A for Toilet A, B for Toilet B, U for Urinals. Prefix signify quantity ordered.' cellRenderer={renderOrderedEquipment} width={w2} flexGrow={1} />
                       <Column dataKey='OrderStatus' label='Status' tooltip='Status is either locked or draft' width={w2} flexGrow={1} />
-                      <Column dataKey='ManagementMeta' label='Management' tooltip='Locks (handed out, returned) and Keys (handed out, returned)' cellDataGetter={dataGetterMagementData} cellRenderer={renderManagement} width={w2} flexGrow={1} />
+                      <Column dataKey='ManagementMeta' label='Management' tooltip='Locks (handed out, returned) and Keys (handed out, returned)' cellDataGetter={dataGetterMagementData} cellRenderer={renderManagement} width={w2} flexGrow={1.5} />
                     </Table>
                   )}
                 </AutoSizer>
