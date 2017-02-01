@@ -7,9 +7,9 @@ import {formValueSelector} from 'redux-form'
 import OrderTable from './OrderTable.component'
 
 function recurseForString (obj, string) {
-  if (string === '') {
-    return true
-  }
+  if (!obj) return false
+  if (string === '') return true
+
   if (obj instanceof String || typeof obj === 'string') { // LHS does not hold for e.g. "str"
     return obj.toLowerCase().includes(string.toLowerCase())
   } else if (obj instanceof Object) {
@@ -26,8 +26,7 @@ function recurseForString (obj, string) {
 
 const selector = formValueSelector('datafilter')
 const mapStateToProps = (state, ownProps) => {
-  let lookup = selector(state, 'lookup')
-  let resultCap = parseInt(selector(state, 'resultCap'))
+  let lookup = selector(state, 'lookup') || ''
 
   let filteredOrders = state.orders.entries.filter((o) => recurseForString(o, lookup))
   let totalOrderCount = state.orders.entries.length
@@ -36,12 +35,7 @@ const mapStateToProps = (state, ownProps) => {
     orders,
     viewSettings: {
       lookup,
-      resultCap,
       totalOrderCount
-    },
-    initialValues: {  // redux-form intialization
-      lookup: '',
-      resultCap: 25
     }
   }
 }

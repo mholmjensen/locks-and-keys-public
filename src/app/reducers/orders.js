@@ -3,6 +3,7 @@ import {SET_ORDERS, SET_SELECTED_ORDER} from '../constants'
 
 let ordersInitialState = {
   entries: [],
+  entriesLoaded: false,
   selectedEntry: undefined,
   paginationAt: 0
 }
@@ -12,7 +13,8 @@ export default function orders (state: Object = ordersInitialState, action: Obje
     case SET_ORDERS:
       return {
         ...state,
-        entries: action.payload.orders
+        entries: action.payload.orders,
+        entriesLoaded: true
       }
 
     case SET_SELECTED_ORDER:

@@ -13,11 +13,12 @@ export function loginChallenge (firebase, credentials) {
   return dispatch => {
     dispatch(setLoginStatus('LOGIN_INIT'))
     firebase.login(credentials)
-    credentials = null
     .then(successResponse => {
+      credentials = null
       dispatch(setLoginStatus(''))
     })
     .catch(failResponse => {
+      credentials = null
       dispatch(setLoginStatus(failResponse.message))
     })
   }
