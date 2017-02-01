@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     email: selector(state, 'email') || '',
     password: selector(state, 'password') || ''
   }
-  console.log(state.login.status)
+
   return {
     loginPayload,
     status: state.login.status,
