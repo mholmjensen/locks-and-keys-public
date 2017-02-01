@@ -32,17 +32,22 @@ class Login extends React.Component {
     let {firebase, loginChallenge, loginPayload, status} = this.props
     let showProgress = status === 'LOGIN_INIT'
     let challengeFailed = !showProgress && status !== ''
-
+    let doLogin = () => loginChallenge(firebase, loginPayload)
+    let enterHandling = (ev) => {
+      if (ev.which === 13) { // Enter
+        doLogin()
+      }
+    }
     return (
       <div className={s.login}>
         <Paper className={s.creds} zDepth={3} circle>
           <div style={{'width': '50%'}}>
             <h1>Locks and keys</h1>
             <form>
-              <Field component={renderTextField} hintText='Email' floatingLabelText='Email' name='email' />
-              <Field type='password' component={renderTextField} hintText='Password' floatingLabelText='Password' name='password' />
+              <Field component={renderTextField} hintText='Email' floatingLabelText='Email' name='email' onKeyDown={enterHandling} />
+              <Field type='password' component={renderTextField} hintText='Password' floatingLabelText='Password' name='password' onKeyDown={enterHandling} />
               <Divider />
-              <RaisedButton fullWidth onClick={() => loginChallenge(firebase, loginPayload)} disabled={showProgress}>
+              <RaisedButton fullWidth onClick={doLogin} disabled={showProgress}>
                 Sign in
               </RaisedButton>
               <div>
