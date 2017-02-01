@@ -4,7 +4,8 @@ import OrderOverview from './OrderOverview.component'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    selectedEntry: state.orders.selectedEntry
+    selectedEntry: state.orders.selectedEntry,
+    entriesLoaded: state.orders.entriesLoaded
   }
 }
 

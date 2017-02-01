@@ -3,6 +3,7 @@
 import React from 'react'
 
 import OrderTable from './OrderTable/OrderTable.container'
+import CircularProgress from 'material-ui/CircularProgress'
 import s from './OrderOverview.css'
 
 import {firebase} from 'redux-react-firebase'
@@ -18,7 +19,7 @@ export default class OrderOverview extends React.Component {
       }
     }
     document.addEventListener('keydown', keyDownHandler)
-    this.props.getOrdersAsync() // TODO insert refreshindicator when loading data, see Login
+    this.props.getOrdersAsync()
   }
 
   componentWillUnmount () {
@@ -27,18 +28,23 @@ export default class OrderOverview extends React.Component {
   }
 
   render () {
-    let {selectedEntry} = this.props
+    let {selectedEntry, entriesLoaded} = this.props
     let selId = selectedEntry ? selectedEntry._id : ''
-
     return (
       <div className={s.root} id='orderOverviewRoot'>
-        <OrderTable selectedId={selId} />
+        {!entriesLoaded &&
+          <div className={s.progress}>
+            <CircularProgress size={140} />
+          </div>
+        }
+        {entriesLoaded && <OrderTable selectedId={selId} />}
       </div>
     )
   }
 }
 
 OrderOverview.propTypes = {
+  entriesLoaded: React.PropTypes.bool,
   selectedEntry: React.PropTypes.object,
   setSelectedOrder: React.PropTypes.func,
   getOrdersAsync: React.PropTypes.func,
