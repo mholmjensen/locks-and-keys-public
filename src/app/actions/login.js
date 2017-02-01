@@ -11,9 +11,9 @@ export function setLoginStatus (status) {
 
 export function loginChallenge (firebase, credentials) {
   return dispatch => {
-    console.log(credentials)
     dispatch(setLoginStatus('LOGIN_INIT'))
     firebase.login(credentials)
+    credentials = null
     .then(successResponse => {
       dispatch(setLoginStatus(''))
     })
