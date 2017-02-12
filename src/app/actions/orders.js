@@ -1,8 +1,15 @@
 /* @flow */
 
-import {SET_ORDERS, SET_SELECTED_ORDER} from '../constants'
+import {SET_ORDERS, SET_SELECTED_ORDER, SET_SORT} from '../constants'
 
 import ThunkClient from './thunkclient'
+
+export function setSort (selectedDataKey) {
+  return {
+    type: SET_SORT,
+    payload: { sortBy: selectedDataKey }
+  }
+}
 
 export function clearOrders () {
   return {
