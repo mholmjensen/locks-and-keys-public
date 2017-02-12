@@ -95,7 +95,8 @@ let management = {
       keysReturned: rowData['keysReturned']
     }
   },
-  cellRenderer: function ({cellData}): CellRendererParams {
+  cellRenderer: (cellParams): CellRendererParams => {
+    let cellData = cellParams.cellData
     return (
       <div className='container'>
         <div className='row'>
