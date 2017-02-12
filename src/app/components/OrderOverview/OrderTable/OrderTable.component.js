@@ -3,13 +3,10 @@ import React from 'react'
 import s from './OrderTable.css'
 require('!style!css!react-virtualized/styles.css')
 import {Column, Table, AutoSizer, WindowScroller} from 'react-virtualized'
-import type { CellRendererParams, CellDataGetterParams } from 'react-virtualized/Table/types'
 import {Field, reduxForm} from 'redux-form'
 
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
-import LockOpen from 'material-ui/svg-icons/action/lock-open'
-import VpnKey from 'material-ui/svg-icons/communication/vpn-key'
 import Badge from 'material-ui/Badge'
 
 import SearchIcon from 'material-ui/svg-icons/action/search'
@@ -48,72 +45,23 @@ renderSelectField.propTypes = {
   children: React.PropTypes.array
 }
 
-let iconstyle = {'height': 16, 'width': 16}
-let handedOutColor = '#ec5400'
+import ColumnSetup from './ColumnSetup'
 
-let renderManagement = ({cellData}): CellRendererParams => {
-  return (
-    <div className='container'>
-      <div className='row'>
-        <div className='col-xs-1'>
-          <LockOpen color={handedOutColor} style={iconstyle} /> {cellData.locksHandedOut}
-        </div>
-        <div className='col-xs-1'>
-          <LockOpen style={iconstyle} /> {cellData.locksReturned}
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col-xs-1'>
-          <VpnKey color={handedOutColor} style={iconstyle} /> {cellData.keysHandedOut}
-        </div>
-        <div className='col-xs-1'>
-          <VpnKey style={iconstyle} /> {cellData.keysReturned}
-        </div>
-      </div>
-    </div>
-  )
-}
-renderManagement.propTypes = {
-  cellData: React.PropTypes.array
-}
+let CS = ColumnSetup
 
-let renderOrderedEquipment = ({cellData}): CellRendererParams => {
-  return cellData.map(item => {
-    if (parseInt(item.quantity) > 0) {
-      return (
-        <span key={item.name} style={{'marginRight': '1.5em'}}>
-          {item.quantity} x {item.name}
-        </span>
-      )
+let isString = (possibleStr) => typeof possibleStr === 'string' || possibleStr instanceof String
+function defaultSorter (viewSettings) {
+  return function defaultSorter (a, b) {
+    let directionFactor = viewSettings.sortDirection === 'ASC' ? 1 : -1
+    let left = a[viewSettings.sortBy] || ''
+    let right = b[viewSettings.sortBy] || ''
+    let comparison = 0
+    if (Number.isInteger(left) && Number.isInteger(right)) {
+      comparison = left - right
+    } else if (isString(left) && isString(right)) {
+      comparison = left.localeCompare(right)
     }
-  })
-}
-renderOrderedEquipment.propTypes = {
-  cellData: React.PropTypes.array
-}
-
-let renderLines = ({cellData = []}): CellRendererParams => (
-  <div>
-    {
-      cellData.map((d, i) => {
-        return <div key={i}>{d} <br /></div>
-      })
-    }
-  </div>
-)
-renderLines.propTypes = {
-  cellData: React.PropTypes.array
-}
-function keysToLines (dataKeys = []) { // Returns function with cellDataGetter signature having dataKeys as context
-  return ({columnData, dataKey, rowData}): CellDataGetterParams => dataKeys.map(key => rowData[key])
-}
-
-function dataGetterMagementData ({columnData, dataKey, rowData}): CellDataGetterParams {
-  return {
-    locksHandedOut: rowData['locksHandedOut'],
-    locksReturned: rowData['locksReturned'],
-    keysHandedOut: rowData['keysHandedOut'],
-    keysReturned: rowData['keysReturned']
+    return directionFactor * comparison
   }
 }
 
@@ -128,7 +76,9 @@ let {dataToJS} = helpers
 )
 class OrderTable extends React.Component {
   render () {
-    let {orders, reset, viewSettings, setSelectedOrder, locksAndKeys} = this.props
+    let w1 = 1 // TODO find some proper values
+    let w2 = 3
+    let {orders, reset, viewSettings, setSelectedOrder, setSort, locksAndKeys} = this.props
     orders = orders.map(order => {
       let addedData = {}
       if (locksAndKeys) {
@@ -136,11 +86,20 @@ class OrderTable extends React.Component {
       }
       return Object.assign({}, order, addedData)
     })
+    let sorter = defaultSorter(viewSettings)
+
+    if (viewSettings.sortBy === 'StandMeta') {
+      sorter = CS.stand.sorter(viewSettings)
+    } else if (viewSettings.sortBy === 'ContactMeta') {
+      sorter = CS.contact.sorter(viewSettings)
+    } else if (viewSettings.sortBy === 'PlumbingItem') {
+      sorter = CS.ordered.sorter(viewSettings)
+    } else if (viewSettings.sortBy === 'ManagementMeta') {  // Used here so we have access to firebase data
+      sorter = CS.management.sorter(viewSettings)
+    }
+    orders = orders.sort(sorter)
 
     let clearSearchStyle = viewSettings.lookup !== '' ? {} : {opacity: '0.1'}
-
-    let w1 = 1
-    let w2 = 3
     return (
       <div>
         <div className={s.superheader}>
@@ -159,21 +118,28 @@ class OrderTable extends React.Component {
               return (
                 <AutoSizer disableHeight>
                   {({ width }) => (
-                    <Table autoHeight height={height} width={width} headerHeight={30} rowHeight={70}
-                      rowCount={orders.length}
-                      rowGetter={({ index }) => orders[index]}
+                    <Table autoHeight height={height} width={width} headerHeight={40} rowHeight={70}
+                      sort={({ sortBy }) => setSort(sortBy)} sortBy={viewSettings.sortBy} sortDirection={viewSettings.sortDirection}
+                      rowCount={orders.length} rowGetter={({ index }) => orders[index]}
                       scrollTop={scrollTop}
                       onRowClick={({index}) => { setSelectedOrder(orders[index]) }}
                       overscanRowCount={40}
                       scrollElement={se}
                       rowStyle={{'alignItems': 'baseline'}} >
-                      <Column dataKey='human_readable_id' label='#' tooltip='Order number' width={w1} flexGrow={0.2} />
-                      <Column dataKey='StandMeta' label='Stand' tooltip='Stand name, number' cellDataGetter={keysToLines(['stand_name', 'stand_number'])} cellRenderer={renderLines} flexGrow={1} width={w2} />
-                      <Column dataKey='ContactMeta' label='Contact' tooltip='Contact details' cellDataGetter={keysToLines(['contact_name', 'contact_email', 'contact_phone'])} cellRenderer={renderLines} flexGrow={1.5} width={w2} />
-                      <Column dataKey='people_pro_location' label='Areas' tooltip='Areas people pro' flexGrow={1.5} width={w2} />
-                      <Column dataKey='PlumbingItem' label='Ordered' tooltip='A for Toilet A, B for Toilet B, U for Urinals. Prefix signify quantity ordered.' cellRenderer={renderOrderedEquipment} width={w2} flexGrow={1} />
-                      <Column dataKey='OrderStatus' label='Status' tooltip='Status is either locked or draft' width={w2} flexGrow={1} />
-                      <Column dataKey='ManagementMeta' label='Management' tooltip='Locks (handed out, returned) and Keys (handed out, returned)' cellDataGetter={dataGetterMagementData} cellRenderer={renderManagement} width={w2} flexGrow={1.5} />
+                      <Column dataKey='human_readable_id' label='#' tooltip='Order number' width={w1} flexGrow={0.4}
+                        headerRenderer={CS.headerSortRenderer} />
+                      <Column dataKey='StandMeta' label='Stand' flexGrow={1} width={w2}
+                        headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.stand.cellDataGetter} cellRenderer={CS.stand.cellRenderer} />
+                      <Column dataKey='ContactMeta' label='Contact' flexGrow={1.5} width={w2}
+                        headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.contact.cellDataGetter} cellRenderer={CS.contact.cellRenderer} />
+                      <Column dataKey='people_pro_location' label='Areas' flexGrow={1.5} width={w2}
+                        headerRenderer={CS.headerSortRenderer} />
+                      <Column dataKey='PlumbingItem' label='Ordered' width={w2} flexGrow={1}
+                        headerRenderer={CS.headerSortRenderer} cellRenderer={CS.ordered.cellRenderer} />
+                      <Column dataKey='OrderStatus' label='Status' width={w2} flexGrow={1}
+                        headerRenderer={CS.headerSortRenderer} />
+                      <Column dataKey='ManagementMeta' label='Management' width={w2} flexGrow={1.5}
+                        headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.management.cellDataGetter} cellRenderer={CS.management.cellRenderer} />
                     </Table>
                   )}
                 </AutoSizer>
@@ -191,10 +157,12 @@ OrderTable.propTypes = {
   reset: React.PropTypes.func,
   viewSettings: React.PropTypes.shape({
     lookup: React.PropTypes.string,
-    totalOrderCount: React.PropTypes.number
+    totalOrderCount: React.PropTypes.number,
+    sortBy: React.PropTypes.string,
+    sortDirection: React.PropTypes.string
   }),
   setSelectedOrder: React.PropTypes.func,
-  setPaginationAt: React.PropTypes.func,
+  setSort: React.PropTypes.func,
   locksAndKeys: React.PropTypes.object
 }
 

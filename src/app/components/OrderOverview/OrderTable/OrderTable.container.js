@@ -1,7 +1,7 @@
 /* @flow */
 
 import {connect} from 'react-redux'
-import {setSelectedOrder} from '../../../actions/orders'
+import {setSelectedOrder, setSort} from '../../../actions/orders'
 import {formValueSelector} from 'redux-form'
 
 import OrderTable from './OrderTable.component'
@@ -30,12 +30,14 @@ const mapStateToProps = (state, ownProps) => {
 
   let filteredOrders = state.orders.entries.filter((o) => recurseForString(o, lookup))
   let totalOrderCount = state.orders.entries.length
-  let orders = filteredOrders.sort((a, b) => a.human_readable_id - b.human_readable_id)
+
   return {
-    orders,
+    orders: filteredOrders,
     viewSettings: {
       lookup,
-      totalOrderCount
+      totalOrderCount,
+      sortBy: state.orders.sortBy,
+      sortDirection: state.orders.sortDirection
     }
   }
 }
@@ -44,6 +46,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     'setSelectedOrder': (order) => {
       dispatch(setSelectedOrder(order))
+    },
+    'setSort': (dataKey) => {
+      dispatch(setSort(dataKey))
     }
   }
 }
