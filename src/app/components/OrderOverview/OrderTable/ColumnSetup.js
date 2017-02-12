@@ -137,28 +137,29 @@ import ArrowDropAsc from 'material-ui/svg-icons/navigation/arrow-drop-up'
 import ArrowDropDesc from 'material-ui/svg-icons/navigation/arrow-drop-down'
 import IconButton from 'material-ui/IconButton'
 
-let sortStyleSelected = {'color': '#ec5400'}
 let iconButtonStyle = {
   'padding': '0px',
-  'width': '0px',
-  'height': '0px'
+  'width': '24px',
+  'height': '24px'
 }
 
 let headerSortRenderer = (headerData) => {
-  let SelectedIndicator = headerData.sortDirection === 'ASC' ? <ArrowDropDesc style={sortStyleSelected} /> : <ArrowDropAsc style={sortStyleSelected} />
+  let SelectedArrow = headerData.sortDirection === 'ASC' ? <ArrowDropDesc color='#ec5400' /> : <ArrowDropAsc color='#ec5400' />
   return (
     <div style={{'display': 'flex'}}>
       <div style={{'flex': '0 1'}}>
         {headerData.label}
       </div>
-      <div style={{'flex': '1 1 24px'}}>
+      <div style={{'flex': '0 1 24px'}}>
         {headerData.dataKey !== headerData.sortBy &&
           <IconButton style={iconButtonStyle}>
             <ArrowDropDesc />
           </IconButton>
         }
         {headerData.dataKey === headerData.sortBy &&
-          SelectedIndicator
+          <IconButton style={iconButtonStyle}>
+            {SelectedArrow}
+          </IconButton>
         }
       </div>
     </div>
