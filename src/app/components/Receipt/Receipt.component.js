@@ -35,7 +35,7 @@ class Receipt extends React.Component {
           Stand name: {order.stand_name}
         </div>
         <div>
-          Keys: {lak.keysHandedOut}
+          Keys: {lak.keysHandedOut || ''}
         </div>
         <div>
           Date: {now.toLocaleDateString()}
@@ -60,10 +60,10 @@ class Receipt extends React.Component {
           Stand name: {order.stand_name}
         </div>
         <div>
-          Keys: {lak.keysReturned}
+          Keys: {lak.keysReturned || ''}
         </div>
         <div>
-          Locks: {lak.locksReturned}
+          Locks: {lak.locksReturned || ''}
         </div>
         <div>
           Date: {now.toLocaleDateString()}
