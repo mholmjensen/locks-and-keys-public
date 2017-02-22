@@ -92,7 +92,7 @@ function sorterFromKey (viewSettings) {
     sorter = CS.contact.sorter(viewSettings)
   } else if (viewSettings.sortBy === 'PlumbingItem') {
     sorter = CS.ordered.sorter(viewSettings)
-  } else if (viewSettings.sortBy === 'ManagementMeta') {  // Used here so we have access to firebase data
+  } else if (viewSettings.sortBy === 'ManagementMeta') {
     sorter = CS.management.sorter(viewSettings)
   }
   return sorter

@@ -27,7 +27,7 @@ export default class Site extends React.Component {
     if (!auth) {
       return <Login />
     } else {
-      let signout = () => firebase.logout()
+      let signout = () => firebase.logout() // TODO should also set entriesLoaded = false
       let OrderView = ({props}) =>
         <div className={s.root}>
           <div>
