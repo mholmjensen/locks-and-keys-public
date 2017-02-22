@@ -44,7 +44,7 @@ export default class Site extends React.Component {
         <Router history={hashHistory}>
           <Route path='/' component={DataContext}>
             <IndexRoute component={OrderView} />
-            <Route path='(:id)/(:type)' component={Receipt} />
+            <Route path=':id/:type' component={Receipt} />
           </Route>
         </Router>
       )
