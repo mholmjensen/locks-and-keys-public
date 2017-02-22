@@ -3,7 +3,7 @@ import React from 'react'
 import s from './OrderTable.css'
 require('!style!css!react-virtualized/styles.css')
 import {Column, Table, AutoSizer, WindowScroller} from 'react-virtualized'
-import {Field, reduxForm} from 'redux-form'
+import {Field, reduxForm, formValueSelector} from 'redux-form'
 
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
@@ -50,6 +50,25 @@ import ColumnSetup from './ColumnSetup'
 let CS = ColumnSetup
 
 let isString = (possibleStr) => typeof possibleStr === 'string' || possibleStr instanceof String
+// returns true: if a) @obj is a substring of @string; or b) obj has a property for which a) or b) holds
+function recurseForString (obj, string) {
+  if (!obj) return false
+  if (string === '') return true // early out
+
+  if (isString(obj)) { // LHS does not hold for e.g. "str"
+    return obj.toLowerCase().includes(string.toLowerCase())
+  } else if (obj instanceof Object) {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (recurseForString(obj[key], string)) {
+          return true
+        }
+      }
+    }
+  }
+  return false
+}
+
 function defaultSorter (viewSettings) {
   return function defaultSorter (a, b) {
     let directionFactor = viewSettings.sortDirection === 'ASC' ? 1 : -1
@@ -65,39 +84,52 @@ function defaultSorter (viewSettings) {
   }
 }
 
+function sorterFromKey (viewSettings) {
+  let sorter = defaultSorter(viewSettings)
+  if (viewSettings.sortBy === 'StandMeta') {
+    sorter = CS.stand.sorter(viewSettings)
+  } else if (viewSettings.sortBy === 'ContactMeta') {
+    sorter = CS.contact.sorter(viewSettings)
+  } else if (viewSettings.sortBy === 'PlumbingItem') {
+    sorter = CS.ordered.sorter(viewSettings)
+  } else if (viewSettings.sortBy === 'ManagementMeta') {  // Used here so we have access to firebase data
+    sorter = CS.management.sorter(viewSettings)
+  }
+  return sorter
+}
+
+const selector = formValueSelector('datafilter')
 let {dataToJS} = helpers
 @firebase([
   ['locksAndKeys']
 ])
 @connect(
   (state, props) => ({
-    locksAndKeys: dataToJS(state.firebase, `locksAndKeys`)
+    ordersFromSettings: (viewSettings) => {
+      let lookup = selector(state, 'lookup') || ''
+      let locksAndKeys = dataToJS(state.firebase, 'locksAndKeys')
+      let merged = state.orders.entries || []
+      merged = merged.map(order => {
+        let addedData = {}
+        if (locksAndKeys) {
+          addedData = locksAndKeys[order._id] ? locksAndKeys[order._id] : {}
+        }
+        return Object.assign({}, order, addedData)
+      })
+
+      let filtered = merged.filter((o) => recurseForString(o, lookup))
+
+      let sorter = sorterFromKey(viewSettings)
+      return filtered.sort(sorter)
+    }
   })
 )
 class OrderTable extends React.Component {
   render () {
-    let w1 = 1 // TODO find some proper values
+    let w1 = 1
     let w2 = 3
-    let {orders, reset, viewSettings, setSelectedOrder, setSort, locksAndKeys} = this.props
-    orders = orders.map(order => {
-      let addedData = {}
-      if (locksAndKeys) {
-        addedData = locksAndKeys[order._id] ? locksAndKeys[order._id] : {}
-      }
-      return Object.assign({}, order, addedData)
-    })
-    let sorter = defaultSorter(viewSettings)
-
-    if (viewSettings.sortBy === 'StandMeta') {
-      sorter = CS.stand.sorter(viewSettings)
-    } else if (viewSettings.sortBy === 'ContactMeta') {
-      sorter = CS.contact.sorter(viewSettings)
-    } else if (viewSettings.sortBy === 'PlumbingItem') {
-      sorter = CS.ordered.sorter(viewSettings)
-    } else if (viewSettings.sortBy === 'ManagementMeta') {  // Used here so we have access to firebase data
-      sorter = CS.management.sorter(viewSettings)
-    }
-    orders = orders.sort(sorter)
+    let {reset, viewSettings, setSelectedOrder, setSort, ordersFromSettings} = this.props
+    let orders = ordersFromSettings(viewSettings)
 
     let clearSearchStyle = viewSettings.lookup !== '' ? {} : {opacity: '0.1'}
     return (
@@ -153,7 +185,6 @@ class OrderTable extends React.Component {
 }
 
 OrderTable.propTypes = {
-  orders: React.PropTypes.array,
   reset: React.PropTypes.func,
   viewSettings: React.PropTypes.shape({
     lookup: React.PropTypes.string,
@@ -163,7 +194,7 @@ OrderTable.propTypes = {
   }),
   setSelectedOrder: React.PropTypes.func,
   setSort: React.PropTypes.func,
-  locksAndKeys: React.PropTypes.object
+  ordersFromSettings: React.PropTypes.func
 }
 
 export default reduxForm({
