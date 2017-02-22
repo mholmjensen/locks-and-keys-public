@@ -16,7 +16,7 @@ import s from './Receipt.css'
 )
 class Receipt extends React.Component {
   render () {
-    let {params, orders, locksAndKeys} = this.props // from @firebase
+    let {params, orders, locksAndKeys} = this.props
     let receiptId  = params.id
     let type = params.type
     let order = orders.find((o) => o.human_readable_id === parseInt(receiptId))
