@@ -4,6 +4,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {firebase, helpers} from 'redux-react-firebase'
 
+import s from './Receipt.css'
+
 @firebase([
   ['locksAndKeys']
 ])
@@ -21,60 +23,81 @@ class Receipt extends React.Component {
     if (!order) {
       return <div />
     }
-    console.log(locksAndKeys, receiptId, order, orders)
     let now = new Date()
-    let lak = locksAndKeys[order._id]
-    console.log(lak)
+    let lakOrder = locksAndKeys[order._id]
     if (type === 'handedout') {
-      return <div>
-        <h1>Receipt for keys for toilet locks: Handout</h1>
-        <div>
-          Stand number: {order.stand_number}
-        </div>
-        <div>
-          Stand name: {order.stand_name}
-        </div>
-        <div>
-          Keys: {lak.keysHandedOut || ''}
-        </div>
-        <div>
-          Date: {now.toLocaleDateString()}
-        </div>
-        <div>
-          Signature
-          <hr />
-        </div>
-        <div>
-          Name (capital letter)
-          <hr />
+      let keys = ''
+      if (lakOrder) {
+        keys = lakOrder.keysHandedOut || ''
+      }
+      return <div className={s.section}>
+        <div className={s.receipt}>
+          <h2 className={s.header}>Receipt for keys for toilet locks: Handout</h2>
+          <div>
+            <span className={s.left}>Stand number:</span>
+            <span className={s.right}>{order.stand_number}</span>
+          </div>
+          <div>
+            <span className={s.left}>Stand name:</span>
+            <span className={s.right}>{order.stand_name}</span>
+          </div>
+          <div>
+            <span className={s.left}>Keys:</span>
+            <span className={s.right}>{keys}</span>
+          </div>
+          <div>
+            <span className={s.left}>Date:</span>
+            <span className={s.right}>{now.toLocaleDateString()}</span>
+          </div>
+          <div>
+            <span className={s.left}>Signature</span>
+            <span className={s.right}>_________________________________________________________________________</span>
+          </div>
+          <div>
+            <span className={s.left}>Name (capital letter)</span>
+            <span className={s.right}>_________________________________________________________________________</span>
+          </div>
         </div>
       </div>
     }
     if (type === 'returned') {
-      return <div>
-        <h1>Receipt for keys for toilet locks: Return</h1>
-        <div>
-          Stand number: {order.stand_number}
-        </div>
-        <div>
-          Stand name: {order.stand_name}
-        </div>
-        <div>
-          Keys: {lak.keysReturned || ''}
-        </div>
-        <div>
-          Locks: {lak.locksReturned || ''}
-        </div>
-        <div>
-          Date: {now.toLocaleDateString()}
-        </div>
-        <div>
-          Signature
-          <hr />
-        </div>
-        <div>
-          Name (capital letter)
-          <hr />
+      let keys = ''
+      let locks = ''
+      if (lakOrder) {
+        keys = lakOrder.keysReturned || ''
+        locks = lakOrder.keysHandedOut || ''
+      }
+      return <div className={s.section}>
+        <div className={s.receipt}>
+          <h2 className={s.header}>Receipt for keys for toilet locks: Return</h2>
+          <div>
+            <span className={s.left}>Stand number:</span>
+            <span className={s.right}>{order.stand_number}</span>
+          </div>
+          <div>
+            <span className={s.left}>Stand name:</span>
+            <span className={s.right}>{order.stand_name}</span>
+          </div>
+          <div>
+            <span className={s.left}>Keys:</span>
+            <span className={s.right}>{keys}</span>
+          </div>
+          <div>
+            <span className={s.left}>Locks:</span>
+            <span className={s.right}>{locks}</span>
+          </div>
+          <div>
+            <span className={s.left}>Date:</span>
+            <span className={s.right}>{now.toLocaleDateString()}</span>
+          </div>
+          <div>
+            <span className={s.left}>Signature</span>
+            <span className={s.right}>_________________________________________________________________________</span>
+          </div>
+          <div>
+            <span className={s.left}>Name (capital letter)</span>
+            <span className={s.right}>_________________________________________________________________________</span>
+          </div>
         </div>
       </div>
     }

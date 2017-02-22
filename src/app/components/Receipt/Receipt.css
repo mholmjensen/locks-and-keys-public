@@ -1,0 +1,40 @@
+.section {
+    /* width: 800px; */
+    -webkit-region-break-inside: avoid !important;
+    /* -webkit-region-break-after: always !important; */
+    page-break-inside: avoid;
+    /* page-break-after: always; */
+    margin:0;
+    padding:0;
+    top:0;
+    width: 210mm;
+    min-height: 290mm;
+    margin-top: 10mm;
+    margin-bottom: 10mm;
+    background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important;
+}
+.receipt {
+  margin: 20px;
+  width: 1080px;
+  font-family: Arial;
+}
+.header {
+  font-size: 24px;
+}
+.receipt > div {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.left {
+  flex: 0 1 180px;
+}
+
+.right {
+  flex: 1 1 600px;
+}
+
+@page {
+  margin: 0.3cm;
+  size: A4;
+}
