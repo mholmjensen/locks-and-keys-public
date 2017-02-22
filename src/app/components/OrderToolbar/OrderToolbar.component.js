@@ -1,8 +1,6 @@
 /* @flow */
 
 import React from 'react'
-import {reduxForm} from 'redux-form'
-import {firebase} from 'redux-react-firebase'
 
 import {Card, CardHeader, CardText} from 'material-ui/Card'
 
@@ -12,36 +10,35 @@ import Divider from 'material-ui/Divider'
 import Drawer from 'material-ui/Drawer'
 import AppBar from 'material-ui/AppBar'
 
-import OrderHandler from './OrderHandler/OrderHandler.component'
+import OrderHandler from './OrderHandler/OrderHandler.container'
 import OrderComments from './OrderComments/OrderComments.component'
 import ContactInformation from './ContactInformation/ContactInformation.component'
 
-@firebase()
 class OrderToolbar extends React.Component {
   render () {
-    let {selectedEntry, formSaveable, setSelectedOrder, formPayload, firebase} = this.props // from reduxForm and @firebase
+    let {selectedEntry, setSelectedOrder} = this.props // from reduxForm and @firebase
 
     let title = ''
     let hasRemarksOrComments = false
     let hasSelection = selectedEntry !== undefined
+    let deselectOrder = () => setSelectedOrder()
 
     if (hasSelection) {
       title = '#' + selectedEntry.human_readable_id + ' ' + (selectedEntry.stand_number === '' ? '' : '(' + selectedEntry.stand_number + ')')
       hasRemarksOrComments = (selectedEntry.Comment && selectedEntry.Comment.length > 0) || selectedEntry.remarks !== ''
     }
 
-    let onSave = () => firebase.set('locksAndKeys/' + selectedEntry._id, formPayload)
     let closeIcon = <IconButton><NavigationClose /></IconButton>
     return <div>
       {selectedEntry &&
         <div>
           <Drawer width={400} open={hasSelection}>
-            <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={() => setSelectedOrder()} />
+            <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={deselectOrder} />
             <div>
               <Card initiallyExpanded>
                 <CardHeader title={selectedEntry.stand_name} subtitle={selectedEntry.stand_number} />
                 <CardText>
-                  <OrderHandler onSave={onSave} formSaveable={formSaveable} />
+                  <OrderHandler order={selectedEntry} />
                 </CardText>
               </Card>
             </div>
@@ -56,7 +53,7 @@ class OrderToolbar extends React.Component {
             </div>
           </Drawer>
           <Drawer width={500} openSecondary open={hasRemarksOrComments}>
-            <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={() => setSelectedOrder()} />
+            <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={deselectOrder} />
             <div>
               <Card>
                 <CardHeader title='Remarks and Comments' subtitle={selectedEntry.Comment && (selectedEntry.Comment.length + ' comments')} />
@@ -76,12 +73,7 @@ OrderToolbar.propTypes = {
   selectedEntry: React.PropTypes.object,
   formPayload: React.PropTypes.object,
   firebase: React.PropTypes.object,
-  setSelectedOrder: React.PropTypes.func,
-  formSaveable: React.PropTypes.bool
+  setSelectedOrder: React.PropTypes.func
 }
 
-// Decorate the form component
-export default reduxForm({
-  form: 'toolbar', // a unique name for this form
-  enableReinitialize: true
-})(OrderToolbar)
+export default OrderToolbar

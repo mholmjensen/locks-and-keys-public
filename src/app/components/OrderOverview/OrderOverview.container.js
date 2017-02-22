@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {setSelectedOrder, getOrdersAsync, clearOrders} from '../../actions/orders'
+import {setSelectedOrder} from '../../actions/orders'
 import OrderOverview from './OrderOverview.component'
 
 const mapStateToProps = (state, ownProps) => {
@@ -11,14 +11,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    'getOrdersAsync': () => {
-      return dispatch(getOrdersAsync())
-    },
     'setSelectedOrder': (order) => {
       dispatch(setSelectedOrder(order))
-    },
-    'clearOrders': () => {
-      dispatch(clearOrders())
     }
   }
 }
