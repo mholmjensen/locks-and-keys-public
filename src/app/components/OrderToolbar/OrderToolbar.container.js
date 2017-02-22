@@ -40,7 +40,7 @@ function formPayloadDiffers (fp, e) {
 
 const mapStateToProps = (state, ownProps) => {
   let formPayload = makeFormPayload(state)
-  let saveable = formPayloadDiffers(formPayload, state.orders.selectedEntry)
+  let saveable = formPayloadDiffers(formPayload, state.orders.selectedEntry) // TODO broken from refactor
   return {
     selectedEntry: state.orders.selectedEntry,
     formPayload, // TODO refactor into OrderHandler.container.js

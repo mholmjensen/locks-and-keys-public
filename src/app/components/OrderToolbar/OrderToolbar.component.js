@@ -41,7 +41,7 @@ class OrderToolbar extends React.Component {
               <Card initiallyExpanded>
                 <CardHeader title={selectedEntry.stand_name} subtitle={selectedEntry.stand_number} />
                 <CardText>
-                  <OrderHandler onSave={onSave} formSaveable={formSaveable} />
+                  <OrderHandler onSave={onSave} formSaveable={formSaveable} orderId={selectedEntry.human_readable_id} />
                 </CardText>
               </Card>
             </div>

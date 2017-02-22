@@ -1,0 +1,19 @@
+.icon {
+}
+.iconButton {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 16px !important;
+}
+.actionRow {
+  display: flex;
+}
+
+.flexspacer {
+  flex: 1;
+  text-align: center;
+}
+
+.rightalign {
+  margin-left: auto;
+}
