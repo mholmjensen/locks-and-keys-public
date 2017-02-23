@@ -1,6 +1,5 @@
 /* @flow */
-
-import {SET_ORDERS, SET_SELECTED_ORDER, SET_SORT} from '../constants'
+import {SET_ORDERS, SET_SELECTED_ORDER, SET_ORDERS_LOADED, SET_SORT} from '../constants'
 
 import ThunkClient from './thunkclient'
 
@@ -30,6 +29,15 @@ export function setSelectedOrder (order) {
     dispatch({
       type: SET_SELECTED_ORDER,
       payload: { order }
+    })
+  }
+}
+
+export function setOrdersLoaded (ordersLoaded) {
+  return dispatch => {
+    dispatch({
+      type: SET_ORDERS_LOADED,
+      payload: { ordersLoaded }
     })
   }
 }

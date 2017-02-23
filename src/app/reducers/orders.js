@@ -1,5 +1,5 @@
 /* @flow */
-import {SET_ORDERS, SET_SELECTED_ORDER, SET_SORT} from '../constants'
+import {SET_ORDERS, SET_SELECTED_ORDER, SET_ORDERS_LOADED, SET_SORT} from '../constants'
 
 let ordersInitialState = {
   entries: [],
@@ -36,6 +36,12 @@ export default function orders (state: Object = ordersInitialState, action: Obje
       return {
         ...state,
         selectedEntry: action.payload.order
+      }
+
+    case SET_ORDERS_LOADED:
+      return {
+        ...state,
+        entriesLoaded: action.payload.ordersLoaded
       }
 
     default:
