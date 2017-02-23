@@ -45,24 +45,6 @@ const styles = {
     padding: 18
   }
 }
-
-function payloadDifferFromSelected (fp, e, key) {
-  if (e && e[key]) {
-    return e[key] !== fp[key] // form has a different value
-  } else if (e && !e[key]) { // No data stored about e[key] (the order)
-    return fp[key] !== '' // form has a non empty value
-  }
-  return false
-}
-
-function formPayloadDiffers (fp, e) {
-  let differs = payloadDifferFromSelected(fp, e, 'locksHandedOut')
-  differs = differs || payloadDifferFromSelected(fp, e, 'locksReturned')
-  differs = differs || payloadDifferFromSelected(fp, e, 'keysHandedOut')
-  differs = differs || payloadDifferFromSelected(fp, e, 'keysReturned')
-  return differs || payloadDifferFromSelected(fp, e, 'notes')
-}
-
 const selector = formValueSelector('toolbar')
 
 @firebase()
@@ -84,9 +66,21 @@ const selector = formValueSelector('toolbar')
 )
 class OrderHandler extends React.Component {
   render () {
-    let {order, locksAndKeys, formPayload, firebase} = this.props
-    let onSave = () => firebase.set('locksAndKeys/' + order._id, formPayload)
-    let saveable = formPayloadDiffers(formPayload, locksAndKeys)
+    let {order, formPayload, firebase, setSelectedOrder, toolbarSaveable} = this.props
+    let onSave = () => {
+      firebase.set('locksAndKeys/' + order._id, formPayload)
+      .then((x) => {
+        let savedOrder = Object.assign({}, order)
+        Object.keys(formPayload).forEach((k) => {
+          savedOrder[k] = formPayload[k]
+        })
+        setSelectedOrder(savedOrder)
+      })
+      .catch((err) => {
+        console.warn('Firebase.set error', err)
+        setSelectedOrder(order)
+      })
+    }
     return (
       <div>
         <div>
@@ -111,7 +105,7 @@ class OrderHandler extends React.Component {
           </Link>
           <div className={s.flexspacer} />
           <div>
-            <FloatingActionButton disabled={!saveable} onClick={onSave}>
+            <FloatingActionButton disabled={!toolbarSaveable} onClick={onSave}>
               <ContentSave />
             </FloatingActionButton>
           </div>
@@ -124,7 +118,9 @@ OrderHandler.propTypes = {
   order: React.PropTypes.object.isRequired,
   locksAndKeys: React.PropTypes.object,
   firebase: React.PropTypes.object,
-  formPayload: React.PropTypes.object
+  formPayload: React.PropTypes.object,
+  toolbarSaveable: React.PropTypes.bool.isRequired,
+  setSelectedOrder: React.PropTypes.func.isRequired
 }
 // Decorate the form component
 export default reduxForm({

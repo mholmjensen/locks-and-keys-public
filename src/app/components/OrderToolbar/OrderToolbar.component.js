@@ -16,7 +16,7 @@ import ContactInformation from './ContactInformation/ContactInformation.componen
 
 class OrderToolbar extends React.Component {
   render () {
-    let {selectedEntry, setSelectedOrder} = this.props // from reduxForm and @firebase
+    let {selectedEntry, setSelectedOrder, toolbarSaveable} = this.props // from reduxForm and @firebase
 
     let title = ''
     let hasRemarksOrComments = false
@@ -32,7 +32,7 @@ class OrderToolbar extends React.Component {
     return <div>
       {selectedEntry &&
         <div>
-          <Drawer width={400} open={hasSelection}>
+          <Drawer width={400} open={hasSelection} docked={!toolbarSaveable}>
             <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={deselectOrder} />
             <div>
               <Card initiallyExpanded>
@@ -52,7 +52,7 @@ class OrderToolbar extends React.Component {
               </Card>
             </div>
           </Drawer>
-          <Drawer width={500} openSecondary open={hasRemarksOrComments}>
+          <Drawer width={500} openSecondary open={hasRemarksOrComments} docked={!toolbarSaveable}>
             <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={deselectOrder} />
             <div>
               <Card>
@@ -73,6 +73,7 @@ OrderToolbar.propTypes = {
   selectedEntry: React.PropTypes.object,
   formPayload: React.PropTypes.object,
   firebase: React.PropTypes.object,
+  toolbarSaveable: React.PropTypes.func.isRequired,
   setSelectedOrder: React.PropTypes.func
 }
 

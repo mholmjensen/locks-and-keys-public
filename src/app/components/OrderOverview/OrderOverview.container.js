@@ -1,11 +1,13 @@
 import {connect} from 'react-redux'
 import {setSelectedOrder} from '../../actions/orders'
+import lakutil from '../../utils'
 import OrderOverview from './OrderOverview.component'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     selectedEntry: state.orders.selectedEntry,
-    entriesLoaded: state.orders.entriesLoaded
+    entriesLoaded: state.orders.entriesLoaded,
+    toolbarSaveable: lakutil.toolbarSaveable(state.form.toolbar)
   }
 }
 
