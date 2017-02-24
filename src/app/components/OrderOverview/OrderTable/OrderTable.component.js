@@ -156,7 +156,7 @@ class OrderTable extends React.Component {
               return (
                 <AutoSizer disableHeight>
                   {({ width }) => (
-                    <Table autoHeight height={height} width={width} headerHeight={40} rowHeight={70} overscanRowCount={40}
+                    <Table autoHeight height={height} width={width} headerHeight={40} rowHeight={70} overscanRowCount={50}
                       sort={({ sortBy }) => setSort(sortBy)} sortBy={viewSettings.sortBy} sortDirection={viewSettings.sortDirection}
                       rowCount={orders.length}
                       rowGetter={({ index }) => orders[index]}
