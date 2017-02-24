@@ -92,8 +92,10 @@ function sorterFromKey (viewSettings) {
     sorter = CS.contact.sorter(viewSettings)
   } else if (viewSettings.sortBy === 'PlumbingItem') {
     sorter = CS.ordered.sorter(viewSettings)
-  } else if (viewSettings.sortBy === 'ManagementMeta') {
+  } else if (viewSettings.sortBy === 'BookkeepingMeta') {
     sorter = CS.management.sorter(viewSettings)
+  } else if (viewSettings.sortBy === 'StateMeta') {
+    sorter = CS.state.sorter(viewSettings)
   }
   return sorter
 }
@@ -169,14 +171,16 @@ class OrderTable extends React.Component {
                         headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.stand.cellDataGetter} cellRenderer={CS.stand.cellRenderer} />
                       <Column dataKey='ContactMeta' label='Contact' flexGrow={1.5} width={w2}
                         headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.contact.cellDataGetter} cellRenderer={CS.contact.cellRenderer} />
-                      <Column dataKey='people_pro_location' label='Areas' flexGrow={1.5} width={w2}
-                        headerRenderer={CS.headerSortRenderer} />
+                      <Column dataKey='BookkeepingMeta' label='Bookkeeping' width={w2} flexGrow={1.5}
+                        headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.management.cellDataGetter} cellRenderer={CS.management.cellRenderer} />
+                      <Column dataKey='StateMeta' label='State' width={w1} flexGrow={0.5}
+                        headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.state.cellDataGetter} cellRenderer={CS.state.cellRenderer} />
                       <Column dataKey='PlumbingItem' label='Ordered' width={w2} flexGrow={1}
                         headerRenderer={CS.headerSortRenderer} cellRenderer={CS.ordered.cellRenderer} />
+                      <Column dataKey='people_pro_location' label='Areas' flexGrow={1} width={w2}
+                        headerRenderer={CS.headerSortRenderer} />
                       <Column dataKey='OrderStatus' label='Status' width={w2} flexGrow={1}
                         headerRenderer={CS.headerSortRenderer} />
-                      <Column dataKey='ManagementMeta' label='Management' width={w2} flexGrow={1.5}
-                        headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.management.cellDataGetter} cellRenderer={CS.management.cellRenderer} />
                     </Table>
                   )}
                 </AutoSizer>
