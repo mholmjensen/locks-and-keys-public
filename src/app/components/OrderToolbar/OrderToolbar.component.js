@@ -73,7 +73,7 @@ OrderToolbar.propTypes = {
   selectedEntry: React.PropTypes.object,
   formPayload: React.PropTypes.object,
   firebase: React.PropTypes.object,
-  toolbarSaveable: React.PropTypes.func.isRequired,
+  toolbarSaveable: React.PropTypes.bool.isRequired,
   setSelectedOrder: React.PropTypes.func
 }
 

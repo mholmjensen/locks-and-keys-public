@@ -77,7 +77,7 @@ class OrderHandler extends React.Component {
         setSelectedOrder(savedOrder)
       })
       .catch((err) => {
-        console.warn('Firebase.set error', err)
+        console.warn('failed trying firebase.set(', 'locksAndKeys/' + order._id, formPayload, ')', err)
         setSelectedOrder(order)
       })
     }

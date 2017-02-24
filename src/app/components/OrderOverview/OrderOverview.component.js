@@ -45,5 +45,5 @@ OrderOverview.propTypes = {
   selectedEntry: React.PropTypes.object,
   setSelectedOrder: React.PropTypes.func,
   orders: React.PropTypes.array,
-  toolbarSaveable: React.PropTypes.func.isRequired
+  toolbarSaveable: React.PropTypes.bool.isRequired
 }
