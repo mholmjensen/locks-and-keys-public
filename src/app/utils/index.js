@@ -1,9 +1,4 @@
-export const SET_ORDERS = 'SET_ORDERS'
-export const SET_SELECTED_ORDER = 'SET_SELECTED_ORDER'
-export const SET_ORDERS_LOADED = 'SET_ORDERS_LOADED'
-export const SET_SORT = 'SET_SORT'
-
-export const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS'
+/* @flow */
 
 let objectsDiffer = (a, b) => {
   for (let k of new Set([...Object.keys(a), ...Object.keys(b)])) {
