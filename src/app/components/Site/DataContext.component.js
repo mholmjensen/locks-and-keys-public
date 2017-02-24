@@ -4,7 +4,6 @@ import React from 'react'
 export default class DataContext extends React.Component {
   componentDidMount () {
     this.props.getOrdersAsync()
-    // TODO add auto refresh interval
   }
 
   componentWillUnmount () {

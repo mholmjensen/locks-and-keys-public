@@ -121,17 +121,23 @@ let {dataToJS} = helpers
 
       let sorter = sorterFromKey(viewSettings)
       return filtered.sort(sorter)
-    }
+    },
+    lookup: selector(state, 'lookup') || ''
   })
 )
 class OrderTable extends React.Component {
   render () {
     let w1 = 1
     let w2 = 3
-    let {reset, viewSettings, setSelectedOrder, setSort, ordersFromSettings} = this.props
+    let {reset, viewSettings, setSelectedOrder, setSort, ordersFromSettings, toolbarSaveable, lookup} = this.props
     let orders = ordersFromSettings(viewSettings)
+    let rowClick = ({index}) => {
+      if (!toolbarSaveable) {
+        setSelectedOrder(orders[index])
+      }
+    }
 
-    let clearSearchStyle = viewSettings.lookup !== '' ? {} : {opacity: '0.1'}
+    let clearSearchStyle = lookup !== '' ? {} : {opacity: '0.1'}
     return (
       <div>
         <div className={s.superheader}>
@@ -150,13 +156,12 @@ class OrderTable extends React.Component {
               return (
                 <AutoSizer disableHeight>
                   {({ width }) => (
-                    <Table autoHeight height={height} width={width} headerHeight={40} rowHeight={70}
+                    <Table autoHeight height={height} width={width} headerHeight={40} rowHeight={70} overscanRowCount={50}
                       sort={({ sortBy }) => setSort(sortBy)} sortBy={viewSettings.sortBy} sortDirection={viewSettings.sortDirection}
-                      rowCount={orders.length} rowGetter={({ index }) => orders[index]}
-                      scrollTop={scrollTop}
-                      onRowClick={({index}) => { setSelectedOrder(orders[index]) }}
-                      overscanRowCount={40}
-                      scrollElement={se}
+                      rowCount={orders.length}
+                      rowGetter={({ index }) => orders[index]}
+                      onRowClick={rowClick}
+                      scrollTop={scrollTop} scrollElement={se}
                       rowStyle={{'alignItems': 'baseline'}} >
                       <Column dataKey='human_readable_id' label='#' tooltip='Order number' width={w1} flexGrow={0.4}
                         headerRenderer={CS.headerSortRenderer} />
@@ -187,14 +192,14 @@ class OrderTable extends React.Component {
 OrderTable.propTypes = {
   reset: React.PropTypes.func,
   viewSettings: React.PropTypes.shape({
-    lookup: React.PropTypes.string,
-    totalOrderCount: React.PropTypes.number,
     sortBy: React.PropTypes.string,
     sortDirection: React.PropTypes.string
   }),
   setSelectedOrder: React.PropTypes.func,
   setSort: React.PropTypes.func,
-  ordersFromSettings: React.PropTypes.func
+  ordersFromSettings: React.PropTypes.func,
+  toolbarSaveable: React.PropTypes.bool.isRequired,
+  lookup: React.PropTypes.string
 }
 
 export default reduxForm({

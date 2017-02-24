@@ -6,20 +6,21 @@ import {firebase, helpers} from 'redux-react-firebase'
 
 import s from './Receipt.css'
 
-@firebase([
-  ['locksAndKeys']
-])
+@firebase(
+  props => ([
+    'locksAndKeys/' + (props.order ? props.order._id : '')
+  ])
+)
 @connect(
   (state, props) => ({
-    locksAndKeys: helpers.dataToJS(state.firebase, `locksAndKeys`)
+    locksAndKeys: helpers.dataToJS(state.firebase, `locksAndKeys`),
+    order: state.orders.entries.find((o) => o.human_readable_id === parseInt(props.params.id))
   })
 )
 class Receipt extends React.Component {
   render () {
-    let {params, orders, locksAndKeys} = this.props
-    let receiptId  = params.id
+    let {params, order, locksAndKeys} = this.props
     let type = params.type
-    let order = orders.find((o) => o.human_readable_id === parseInt(receiptId))
     if (!order) {
       return <div />
     }
@@ -107,6 +108,7 @@ class Receipt extends React.Component {
 Receipt.propTypes = {
   params: React.PropTypes.object,
   orders: React.PropTypes.array,
+  order: React.PropTypes.object,
   locksAndKeys: React.PropTypes.object
 }
 

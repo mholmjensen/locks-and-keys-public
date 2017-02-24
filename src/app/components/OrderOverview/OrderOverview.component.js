@@ -12,7 +12,9 @@ export default class OrderOverview extends React.Component {
   componentDidMount () {
     keyDownHandler = (ev) => {
       if (ev.which === 27) { // Esc
-        this.props.setSelectedOrder() // TODO save modal on deselect with unsaved using formSaveable
+        if (!this.props.toolbarSaveable) {
+          this.props.setSelectedOrder()
+        }
       }
     }
     document.addEventListener('keydown', keyDownHandler)
@@ -42,5 +44,6 @@ OrderOverview.propTypes = {
   entriesLoaded: React.PropTypes.bool,
   selectedEntry: React.PropTypes.object,
   setSelectedOrder: React.PropTypes.func,
-  orders: React.PropTypes.array
+  orders: React.PropTypes.array,
+  toolbarSaveable: React.PropTypes.bool.isRequired
 }

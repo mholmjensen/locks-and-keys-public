@@ -2,6 +2,7 @@
 
 import {connect} from 'react-redux'
 import {setSelectedOrder, setSort} from '../../../actions/orders'
+import lakutil from '../../../utils'
 import OrderTable from './OrderTable.component'
 
 const mapStateToProps = (state, ownProps) => {
@@ -9,7 +10,8 @@ const mapStateToProps = (state, ownProps) => {
     viewSettings: {
       sortBy: state.orders.sortBy,
       sortDirection: state.orders.sortDirection
-    }
+    },
+    toolbarSaveable: lakutil.toolbarSaveable(state.form.toolbar)
   }
 }
 

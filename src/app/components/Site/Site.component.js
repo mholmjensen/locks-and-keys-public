@@ -23,11 +23,14 @@ import HeaderBar from './HeaderBar.component'
 )
 export default class Site extends React.Component {
   render () {
-    let {auth, firebase} = this.props
+    let {auth, firebase, clearOrders} = this.props
     if (!auth) {
       return <Login />
     } else {
-      let signout = () => firebase.logout() // TODO should also set entriesLoaded = false
+      let signout = () => {
+        clearOrders()
+        firebase.logout()
+      }
       let OrderView = ({props}) =>
         <div className={s.root}>
           <div>
@@ -53,5 +56,6 @@ export default class Site extends React.Component {
 }
 Site.propTypes = {
   firebase: React.PropTypes.object,
-  auth: React.PropTypes.object
+  auth: React.PropTypes.object,
+  clearOrders: React.PropTypes.func.isRequired
 }

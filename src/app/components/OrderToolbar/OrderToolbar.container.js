@@ -1,12 +1,13 @@
 
 import {connect} from 'react-redux'
 import OrderToolbar from './OrderToolbar.component'
+import lakutil from '../../utils'
 import {setSelectedOrder} from '../../actions/orders'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     selectedEntry: state.orders.selectedEntry,
-    initialValues: state.orders.selectedEntry // redux-form intialization
+    toolbarSaveable: lakutil.toolbarSaveable(state.form.toolbar)
   }
 }
 

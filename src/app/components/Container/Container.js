@@ -4,7 +4,7 @@ import React from 'react'
 
 import s from './Container.css'
 
-import Site from './../Site/Site.component'
+import Site from './../Site/Site.container'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
