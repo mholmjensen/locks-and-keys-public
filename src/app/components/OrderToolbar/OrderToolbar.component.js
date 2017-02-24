@@ -36,7 +36,7 @@ class OrderToolbar extends React.Component {
             <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={deselectOrder} />
             <div>
               <Card initiallyExpanded>
-                <CardHeader title={selectedEntry.stand_name} subtitle={selectedEntry.rf_identifier} />
+                <CardHeader title={selectedEntry.stand_name} />
                 <CardText>
                   <OrderHandler order={selectedEntry} />
                 </CardText>
