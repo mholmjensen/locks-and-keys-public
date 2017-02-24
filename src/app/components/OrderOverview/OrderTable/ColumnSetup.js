@@ -169,7 +169,7 @@ let stateSetup = {
       let rightState = stateOfOrder(right)
       let leftVal = (leftState.locksNotMatching | 0) + (leftState.keysNotMatching | 0) + (leftState.locksUnused | 0)
       let rightVal = (rightState.locksNotMatching | 0) + (rightState.keysNotMatching | 0) + (rightState.locksUnused | 0)
-      return directionFactor * (leftVal - rightVal)
+      return directionFactor * (rightVal - leftVal)
     }
   }
 }
