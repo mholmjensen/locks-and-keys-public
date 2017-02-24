@@ -49,7 +49,7 @@ export function getOrdersAsync (limit = 999) {
     return client.plumbingordersRequest()
     .then(plumbingordersData => {
       let data = plumbingordersData.map((d) => {
-        let usedKeys = ['_id', 'Creator', 'PlumbingItem', 'stand_name', 'stand_number', 'contact_name', 'contact_phone', 'contact_email', 'people_pro_location', 'OrderStatus', 'human_readable_id', 'organisation_name', 'remarks', 'Comment']
+        let usedKeys = ['_id', 'Creator', 'PlumbingItem', 'stand_name', 'rf_identifier', 'contact_name', 'contact_phone', 'contact_email', 'people_pro_location', 'OrderStatus', 'human_readable_id', 'organisation_name', 'remarks', 'Comment']
         let usedData = {}
         usedKeys.forEach(key => { usedData[key] = d.PlumbingOrder[key] })
         return usedData

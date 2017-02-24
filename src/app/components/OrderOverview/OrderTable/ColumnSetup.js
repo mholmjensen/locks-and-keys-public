@@ -28,13 +28,13 @@ function keysToLines (dataKeys = []) { // Returns function with cellDataGetter s
   return ({columnData, dataKey, rowData}): CellDataGetterParams => dataKeys.map(key => rowData[key])
 }
 let stand  = {
-  cellDataGetter: keysToLines(['stand_name', 'stand_number']),
+  cellDataGetter: keysToLines(['stand_name', 'rf_identifier']),
   cellRenderer: renderLines,
   sorter: (viewSettings) => {
     return (left, right) => {
       let directionFactor = viewSettings.sortDirection === 'ASC' ? 1 : -1
       if (left['stand_name'] === right['stand_name']) {
-        return directionFactor * (left['stand_number'] || '').localeCompare((right['stand_number'] || ''))
+        return directionFactor * (left['rf_identifier'] || '').localeCompare((right['rf_identifier'] || ''))
       }
       return directionFactor * left['stand_name'].localeCompare(right['stand_name'])
     }
