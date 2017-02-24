@@ -17,3 +17,12 @@
 .searchflex {
   flex: 2.5;
 }
+
+.bookkeepingRow {
+  display: flex;
+}
+.bookkeepingRow > div {
+  flex: 0 0 50%;
+  text-overflow: ellipsis;
+  white-space: normal;
+}

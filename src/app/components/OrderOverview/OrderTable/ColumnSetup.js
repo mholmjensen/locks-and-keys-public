@@ -1,10 +1,12 @@
 /* @flow */
 import React from 'react'
+import s from './OrderTable.css'
 
 import type { CellRendererParams, CellDataGetterParams } from 'react-virtualized/Table/types'
 
 import LockOpen from 'material-ui/svg-icons/action/lock-open'
 import VpnKey from 'material-ui/svg-icons/communication/vpn-key'
+import Unused from 'material-ui/svg-icons/device/access-time'
 
 let iconstyle = {'height': 16, 'width': 16}
 let handedOutColor = '#ec5400'
@@ -98,20 +100,20 @@ let management = {
   cellRenderer: (cellParams): CellRendererParams => {
     let cellData = cellParams.cellData
     return (
-      <div className='container'>
-        <div className='row'>
-          <div className='col-xs-1'>
+      <div className={s.bookkeeping}>
+        <div className={s.bookkeepingRow}>
+          <div>
             <LockOpen color={handedOutColor} style={iconstyle} /> {cellData.locksHandedOut}
           </div>
-          <div className='col-xs-1'>
+          <div>
             <LockOpen style={iconstyle} /> {cellData.locksReturned}
           </div>
         </div>
-        <div className='row'>
-          <div className='col-xs-1'>
+        <div className={s.bookkeepingRow}>
+          <div>
             <VpnKey color={handedOutColor} style={iconstyle} /> {cellData.keysHandedOut}
           </div>
-          <div className='col-xs-1'>
+          <div>
             <VpnKey style={iconstyle} /> {cellData.keysReturned}
           </div>
         </div>
@@ -129,6 +131,45 @@ let management = {
         return directionFactor * llr.localeCompare(rlr)
       }
       return directionFactor * llho.localeCompare(rlho)
+    }
+  }
+}
+
+let stateOfOrder = function (cellData) {
+  return {
+    locksNotMatching: cellData.locksHandedOut !== cellData.locksReturned,
+    keysNotMatching: cellData.keysHandedOut !== cellData.keysReturned,
+    locksUnused: cellData.locksHandedOut !== '' && cellData.keysHandedOut === ''
+  }
+}
+
+let stateSetup = {
+  cellDataGetter: function ({columnData, dataKey, rowData}): CellDataGetterParams {
+    return {
+      locksHandedOut: rowData['locksHandedOut'],
+      locksReturned: rowData['locksReturned'],
+      keysHandedOut: rowData['keysHandedOut'],
+      keysReturned: rowData['keysReturned']
+    }
+  },
+  cellRenderer: (cellParams): CellRendererParams => {
+    let orderState = stateOfOrder(cellParams.cellData)
+    return (
+      <div>
+        {orderState.locksNotMatching && <LockOpen color={'#f00'} style={iconstyle} />}
+        {orderState.keysNotMatching && <VpnKey color={'#f00'} style={iconstyle} />}
+        {orderState.locksUnused && <Unused color={'#f00'} style={iconstyle} />}
+      </div>
+    )
+  },
+  sorter: (viewSettings) => {
+    return (left, right) => {
+      let directionFactor = viewSettings.sortDirection === 'ASC' ? 1 : -1
+      let leftState = stateOfOrder(left)
+      let rightState = stateOfOrder(right)
+      let leftVal = (leftState.locksNotMatching | 0) + (leftState.keysNotMatching | 0) + (leftState.locksUnused | 0)
+      let rightVal = (rightState.locksNotMatching | 0) + (rightState.keysNotMatching | 0) + (rightState.locksUnused | 0)
+      return directionFactor * (leftVal - rightVal)
     }
   }
 }
@@ -174,6 +215,7 @@ let ColumnSetup = {
   contact,
   management,
   ordered,
+  state: stateSetup,
   headerSortRenderer
 }
 
