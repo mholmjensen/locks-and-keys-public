@@ -10,6 +10,7 @@ import Unused from 'material-ui/svg-icons/device/access-time'
 
 let iconstyle = {'height': 16, 'width': 16}
 let handedOutColor = '#ec5400'
+let stateColor = '#f00'
 
 let renderLines = ({cellData = []}): CellRendererParams => (
   <div>
@@ -156,9 +157,9 @@ let stateSetup = {
     let orderState = stateOfOrder(cellParams.cellData)
     return (
       <div>
-        {orderState.locksNotMatching && <LockOpen color={'#f00'} style={iconstyle} />}
-        {orderState.keysNotMatching && <VpnKey color={'#f00'} style={iconstyle} />}
-        {orderState.locksUnused && <Unused color={'#f00'} style={iconstyle} />}
+        {orderState.locksNotMatching && <LockOpen color={stateColor} style={iconstyle} />}
+        {orderState.keysNotMatching && <VpnKey color={stateColor} style={iconstyle} />}
+        {orderState.locksUnused && <Unused color={stateColor} style={iconstyle} />}
       </div>
     )
   },
