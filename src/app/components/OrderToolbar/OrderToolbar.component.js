@@ -24,7 +24,7 @@ class OrderToolbar extends React.Component {
     let deselectOrder = () => setSelectedOrder()
 
     if (hasSelection) {
-      title = '#' + selectedEntry.human_readable_id + ' ' + (selectedEntry.stand_number === '' ? '' : '(' + selectedEntry.stand_number + ')')
+      title = '#' + selectedEntry.human_readable_id + ' ' + (selectedEntry.rf_identifier === '' ? '' : '(' + selectedEntry.rf_identifier + ')')
       hasRemarksOrComments = (selectedEntry.Comment && selectedEntry.Comment.length > 0) || selectedEntry.remarks !== ''
     }
 
@@ -36,7 +36,7 @@ class OrderToolbar extends React.Component {
             <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={deselectOrder} />
             <div>
               <Card initiallyExpanded>
-                <CardHeader title={selectedEntry.stand_name} subtitle={selectedEntry.stand_number} />
+                <CardHeader title={selectedEntry.stand_name} subtitle={selectedEntry.rf_identifier} />
                 <CardText>
                   <OrderHandler order={selectedEntry} />
                 </CardText>

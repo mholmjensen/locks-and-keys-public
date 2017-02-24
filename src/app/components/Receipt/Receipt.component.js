@@ -36,7 +36,7 @@ class Receipt extends React.Component {
           <h2 className={s.header}>Receipt for keys for toilet locks: Handout</h2>
           <div>
             <span className={s.left}>Stand number:</span>
-            <span className={s.right}>{order.stand_number}</span>
+            <span className={s.right}>{order.rf_identifier}</span>
           </div>
           <div>
             <span className={s.left}>Stand name:</span>
@@ -73,7 +73,7 @@ class Receipt extends React.Component {
           <h2 className={s.header}>Receipt for keys for toilet locks: Return</h2>
           <div>
             <span className={s.left}>Stand number:</span>
-            <span className={s.right}>{order.stand_number}</span>
+            <span className={s.right}>{order.rf_identifier}</span>
           </div>
           <div>
             <span className={s.left}>Stand name:</span>
