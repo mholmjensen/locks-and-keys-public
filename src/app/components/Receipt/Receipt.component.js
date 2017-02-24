@@ -66,7 +66,7 @@ class Receipt extends React.Component {
       let locks = ''
       if (lakOrder) {
         keys = lakOrder.keysReturned || ''
-        locks = lakOrder.keysHandedOut || ''
+        locks = lakOrder.locksHandedOut || ''
       }
       return <div className={s.section}>
         <div className={s.receipt}>
