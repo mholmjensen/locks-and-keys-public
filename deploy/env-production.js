@@ -2,11 +2,11 @@
 /* exported FIREBASE_CONFIG EL_CONFIG */
 
 FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyDl1OSOhOXi675utk-sh8h1i8P7H2Xkq9g',
-  authDomain: 'rf-locks-and-keys.firebaseapp.com',
-  databaseURL: 'https://rf-locks-and-keys.firebaseio.com',
-  storageBucket: 'rf-locks-and-keys.appspot.com',
-  messagingSenderId: '866416143250'
+  apiKey: "AIzaSyAk8hpu5zMvdzVK8T5N0OQeZEQH9MeOlhM",
+  authDomain: "locks-and-keys-production.firebaseapp.com",
+  databaseURL: "https://locks-and-keys-production.firebaseio.com",
+  storageBucket: "locks-and-keys-production.appspot.com",
+  messagingSenderId: "223696334697"
 }
 
 EL_CONFIG = {
