@@ -4,6 +4,12 @@ machine:
   services:
     - docker
 
+test:
+  pre:
+    - npm i
+  override:
+    - npm run test || true
+
 deployment:
    release:
      tag: /v[0-9]+(\.[0-9]+)*/
