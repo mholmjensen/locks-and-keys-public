@@ -10,6 +10,6 @@ FIREBASE_CONFIG = {
 }
 
 EL_CONFIG = {
-  host: 'https://el.roskilde-festival.dk//PlumbingOrders/export_json.json',
+  host: 'https://el.roskilde-festival.dk/PlumbingOrders/export_json.json',
   timeout: 60000
 }
