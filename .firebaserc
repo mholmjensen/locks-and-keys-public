@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "rf-locks-and-keys-staging"
+    "production": "locks-and-keys-production",
+    "staging": "locks-and-keys-staging"
   }
 }
