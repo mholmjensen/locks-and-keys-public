@@ -4,22 +4,17 @@ machine:
   services:
     - docker
 
-test:
-  pre:
-    - npm i
-  override:
-    - docker run -d -p 4444:4444 selenium/standalone-chrome
-    - npm run test || true
-
 deployment:
    release:
      tag: /v[0-9]+(\.[0-9]+)*/
      owner: rfit
      commands:
+       - npm i
        - npm run deploy
-       - firebase -P production deploy -p deploy/production
+       - firebase -P production deploy -p deploy/production --token $FIREBASE_TOKEN
    staging:
      branch: [master]
      commands:
+       - npm i
        - npm run deploy
-       - firebase -P staging deploy -p deploy/staging
+       - firebase -P staging deploy -p deploy/staging --token $FIREBASE_TOKEN
