@@ -14,7 +14,7 @@ ENV_JS="env.${APP_BUNDLE_HASH}.js"
 
 echo "Releasing with $APP_BUNDLE_NAME, cleaning $STAGING_OUTPUT and $PRODUCTION_OUTPUT"
 echo "/ **    Built on     ** \\"
-stat -f "%Sm" -t "  %Y/%b/%d %H:%M:%S" build/app.*.js
+stat -f "%Sm" -t "  %Y/%b/%d %H:%M:%S" $APP_BUNDLE_LOCATION
 echo "\ **                  **/"
 echo "Cleaning output folders $STAGING_OUTPUT and $PRODUCTION_OUTPUT"
 rm -Rf $STAGING_OUTPUT
@@ -24,16 +24,16 @@ echo "Copying $APP_BUNDLE_LOCATION and $STATICS_LOCATION to $STAGING_OUTPUT and 
 echo ""
 mkdir -p $STAGING_OUTPUT
 cp -v $STATICS_LOCATION $STAGING_OUTPUT
-sed -i '' "s/app.js/${APP_BUNDLE_NAME}/" $STAGING_OUTPUT/index.html
-sed -i '' "s/env.js/${ENV_JS}/" $STAGING_OUTPUT/index.html
+sed -i'' -e "s/app.js/${APP_BUNDLE_NAME}/" $STAGING_OUTPUT/index.html
+sed -i'' -e "s/env.js/${ENV_JS}/" $STAGING_OUTPUT/index.html
 cp -v $APP_BUNDLE_LOCATION $STAGING_OUTPUT/
 cp -v deploy/env-staging.js $STAGING_OUTPUT/$ENV_JS
 
 echo ""
 mkdir -p $PRODUCTION_OUTPUT
 cp -v $STATICS_LOCATION $PRODUCTION_OUTPUT
-sed -i '' "s/app.js/${APP_BUNDLE_NAME}/" $PRODUCTION_OUTPUT/index.html
-sed -i '' "s/env.js/${ENV_JS}/" $PRODUCTION_OUTPUT/index.html
+sed -i'' -e "s/app.js/${APP_BUNDLE_NAME}/" $PRODUCTION_OUTPUT/index.html
+sed -i'' -e "s/env.js/${ENV_JS}/" $PRODUCTION_OUTPUT/index.html
 cp -v $APP_BUNDLE_LOCATION $PRODUCTION_OUTPUT/
 cp -v deploy/env-production.js $PRODUCTION_OUTPUT/$ENV_JS
 
