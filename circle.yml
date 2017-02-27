@@ -14,7 +14,6 @@ test:
     - docker run -d -p 80:80 serve-staging-nginx
   override:
     - curl http://localhost:80
-    - false && npm run test
 
 deployment:
    release:
