@@ -10,7 +10,8 @@
     "dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --port 8082 --colors --content-base build/ --progress --watch-poll",
     "dev-local": "webpack -d --watch --progress --colors",
     "lint": "eslint src/",
-    "test": "wdio ./wdio.conf.js"
+    "test": "docker-compose up -d selenium-server-host && wdio ./wdio.conf.js",
+    "test-integration": "wdio --baseUrl=http://front ./wdio.conf.js"
   },
   "repository": {
     "type": "git",

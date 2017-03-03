@@ -7,14 +7,14 @@ machine:
 general:
   artifacts:
     - "errorShots/"
+
 test:
   pre:
-    - npm run deploy
-    - docker build -f Dockerfile.front -t serve-staging-nginx .
-    - docker run -d -p 80:80 serve-staging-nginx
+    - mkdir -p errorShots
+    - docker-compose up -d front selenium-server
   override:
-    - curl http://localhost:80
-    - npm run test
+    - curl --retry 60 --retry-delay 1 -sS http://localhost:4444
+    - npm run test-integration
 
 deployment:
    release:
