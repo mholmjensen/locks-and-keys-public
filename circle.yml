@@ -12,7 +12,8 @@ general:
 
 dependencies:
   post:
-      - pip install docker-compose
+    - pip install docker-compose
+    - npm run deploy
 
 test:
   pre:
