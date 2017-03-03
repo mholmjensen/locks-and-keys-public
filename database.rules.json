@@ -1,11 +1,8 @@
-// These rules require authentication
 {
   "rules": {
-    "users": {
-      "$user_id": {
-        ".read": "$user_id === auth.uid",
-        ".write": "$user_id === auth.uid"
-      }
+    "locksAndKeys": {
+      ".read": "auth.token.email.matches(/.*@rfit.dk$/)",
+      ".write": "auth.token.email.matches(/.*@rfit.dk$/)"
     }
   }
 }
