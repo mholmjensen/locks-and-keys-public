@@ -1,8 +1,8 @@
 {
   "rules": {
     "locksAndKeys": {
-      ".read": "auth.token.email.matches(/.*@rfit.dk$/)",
-      ".write": "auth.token.email.matches(/.*@rfit.dk$/)"
+      ".read": "auth.token.email.matches(/lon@rfit.dk$/)",
+      ".write": "auth.token.email.matches(/lon@rfit.dk$/)"
     }
   }
 }
