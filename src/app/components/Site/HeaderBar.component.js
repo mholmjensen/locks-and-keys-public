@@ -1,7 +1,9 @@
 /* @flow */
 
 import React from 'react'
+import {Link} from 'react-router'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
+import Divider from 'material-ui/Divider';
 import IconMenu from 'material-ui/IconMenu'
 import IconButton from 'material-ui/IconButton'
 import MenuItem from 'material-ui/MenuItem'
@@ -15,6 +17,10 @@ class HeaderBar extends React.Component {
       <Toolbar>
         <ToolbarGroup firstChild>
           <IconMenu iconButtonElement={navElement}>
+            <Link to={'export'} target='_blank'>
+              <MenuItem primaryText='View as Spreadsheet' />
+            </Link>
+            <Divider />
             <MenuItem primaryText='Sign out' onClick={signout} />
           </IconMenu>
           <ToolbarSeparator />

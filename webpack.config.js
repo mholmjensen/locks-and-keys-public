@@ -17,14 +17,6 @@ let development = {
     publicPath: '/',
     filename: isDev ? 'app.js' : 'app.[chunkhash].js'
   },
-  devServer: {
-    proxy: {
-      '/backend': {
-        target: 'http://localhost:80/',
-        secure: false
-      }
-    }
-  },
   devtool: 'dev-sourcemap',
   module: {
     loaders: [

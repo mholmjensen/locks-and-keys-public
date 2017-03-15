@@ -7,34 +7,32 @@
     margin:0;
     padding:0;
     top:0;
-    width: 210mm;
-    min-height: 290mm;
-    margin-top: 10mm;
-    margin-bottom: 10mm;
     background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important;
 }
 .receipt {
   margin: 20px;
-  width: 1080px;
+  width: 17cm;
   font-family: Arial;
 }
 .header {
-  font-size: 24px;
+  font-size: 24pt;
+  margin-bottom: 36pt;
 }
 .receipt > div {
   display: flex;
-  margin-bottom: 25px;
+  margin-bottom: 24pt;
+  font-size: 12pt;
 }
 
 .left {
-  flex: 0 1 180px;
+  flex: 0 0 6cm;
 }
 
 .right {
-  flex: 1 1 600px;
+  flex: 1 1 11cm;
 }
 
 @page {
-  margin: 0.3cm;
-  size: A5;
+  size: 21cm 29.7cm;
+  margin: 20mm 30mm 20mm 30mm;
 }

@@ -9,7 +9,7 @@ import TextField from 'material-ui/TextField'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentSave from 'material-ui/svg-icons/content/save'
 import IconButton from 'material-ui/IconButton'
-import ReceiptIcon from 'material-ui/svg-icons/action/assignment'
+import ReceiptIcon from 'material-ui/svg-icons/action/receipt'
 import {Link} from 'react-router'
 
 import s from './OrderHandler.css'
