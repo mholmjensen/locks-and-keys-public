@@ -4,16 +4,31 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {firebase, helpers} from 'redux-react-firebase'
 
-import {Router, Route, IndexRoute, hashHistory} from 'react-router'
 import s from './Site.css'
 
 import Login from '../Login/Login.container'
 import OrderOverview from '../OrderOverview/OrderOverview.container'
 import OrderToolbar from '../OrderToolbar/OrderToolbar.container'
 
-import Receipt from '../Receipt/Receipt.container'
-import DataContext from './DataContext.container'
 import HeaderBar from './HeaderBar.component'
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import {cyan500} from 'material-ui/styles/colors'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+// More on Colors: http://www.material-ui.com/#/customization/colors
+const muiTheme = getMuiTheme({
+  palette: {
+    canvasColor: '#fbfbfb',
+    primary1Color: '#ec5400',
+    accent1Color: cyan500
+  },
+  tableRowColumn: {
+    spacing: 6
+  },
+  card: {
+    titleColor: '#ec5400'
+  }
+})
 
 @firebase()
 @connect(
@@ -25,13 +40,15 @@ export default class Site extends React.Component {
   render () {
     let {auth, firebase, clearOrders} = this.props
     if (!auth) {
-      return <Login />
+      return <MuiThemeProvider muiTheme={muiTheme}>
+        <Login />
+      </MuiThemeProvider>
     } else {
       let signout = () => {
         clearOrders()
         firebase.logout()
       }
-      let OrderView = ({props}) =>
+      return <MuiThemeProvider muiTheme={muiTheme}>
         <div className={s.root}>
           <div>
             <HeaderBar signout={signout} />
@@ -43,14 +60,7 @@ export default class Site extends React.Component {
             <OrderToolbar />
           </div>
         </div>
-      return (
-        <Router history={hashHistory}>
-          <Route path='/' component={DataContext}>
-            <IndexRoute component={OrderView} />
-            <Route path=':id/:type' component={Receipt} />
-          </Route>
-        </Router>
-      )
+      </MuiThemeProvider>
     }
   }
 }

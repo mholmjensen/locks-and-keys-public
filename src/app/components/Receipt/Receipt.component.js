@@ -93,11 +93,11 @@ class Receipt extends React.Component {
           </div>
           <div>
             <span className={s.left}>Signature</span>
-            <span className={s.right}>_________________________________________________________________________</span>
+            <span className={s.right}>______________________________________________________</span>
           </div>
           <div>
             <span className={s.left}>Name (capital letter)</span>
-            <span className={s.right}>_________________________________________________________________________</span>
+            <span className={s.right}>______________________________________________________</span>
           </div>
         </div>
       </div>
