@@ -26,7 +26,6 @@ class ThunkClient {
   }
 
   plumbingordersRequest () {
-    console.log('Making request for orders data to', EL_CONFIG.host, '[timeout =', EL_CONFIG.timeout, ']')
     return fetchJsonp(EL_CONFIG.host, { timeout: EL_CONFIG.timeout })
       .then(this.jsonParse)
       .then((response) => {

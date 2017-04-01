@@ -18,13 +18,19 @@ const createStoreWithFirebase = compose(
   reduxReactFirebase(FIREBASE_CONFIG, {userProfile: 'users'}),
 )(createStore)
 
+var middleWare = applyMiddleware(thunkMiddleware)// lets us dispatch() functions (for async support)
+
+if (FIREBASE_CONFIG.authDomain.startsWith('locks-and-keys-staging.firebaseapp.com')) {
+  middleWare = applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware
+  )
+}
+
 // Initial state of store is handled by individual reducers
 const store = createStoreWithFirebase(
   rootReducer,
-  applyMiddleware(
-    thunkMiddleware, // lets us dispatch() functions (for async support)
-    loggerMiddleware
-  )
+  middleWare
 )
 
 import {Container} from './components/Container/Container'
