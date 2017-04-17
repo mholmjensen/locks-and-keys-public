@@ -10,7 +10,7 @@ services:
     ports:
       - 4444:4444
     volumes:
-      - ./errorShots:/errorShots
+      - ./errorShots:/home/ubuntu/locks-and-keys/errorShots
   selenium-server-host:
     image: selenium/standalone-chrome
     network_mode: "host"
