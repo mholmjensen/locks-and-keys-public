@@ -5,15 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.front
-    ports:
-      - 80:80
   selenium-server:
     image: selenium/standalone-chrome
     ports:
       - 4444:4444
-    links:
-      - front
-      # Path on the host, relative to the Compose file
     volumes:
       - ./errorShots:/errorShots
   selenium-server-host:

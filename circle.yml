@@ -18,7 +18,7 @@ dependencies:
 test:
   pre:
     - mkdir -p errorShots
-    - docker-compose up -d front selenium-server
+    - docker-compose up -d --build front selenium-server
   override:
     - curl --retry 60 --retry-delay 1 -sS http://localhost:4444
     - npm run test-integration
