@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {reduxForm, Field} from 'redux-form'
+import {translate} from 'react-i18next'
 import {firebase} from 'redux-react-firebase'
 
 import s from './Login.css'
@@ -29,7 +30,7 @@ renderTextField.propTypes = {
 @firebase()
 class Login extends React.Component {
   render () {
-    let {firebase, loginChallenge, loginPayload, status} = this.props
+    let {firebase, loginChallenge, loginPayload, status, t} = this.props
     let showProgress = status === 'LOGIN_INIT'
     let challengeFailed = !showProgress && status !== ''
     let doLogin = () => loginChallenge(firebase, loginPayload)
@@ -42,13 +43,13 @@ class Login extends React.Component {
       <div className={s.login}>
         <Paper className={s.creds} zDepth={3} circle>
           <div style={{'width': '50%'}}>
-            <h1>Locks and keys</h1>
+            <h1>{t('Locks and keys')}</h1>
             <form>
-              <Field component={renderTextField} hintText='Email' floatingLabelText='Email' name='email' onKeyDown={enterHandling} />
-              <Field type='password' component={renderTextField} hintText='Password' floatingLabelText='Password' name='password' onKeyDown={enterHandling} />
+              <Field component={renderTextField} hintText={t('Email')} floatingLabelText={t('Email')} name='email' onKeyDown={enterHandling} />
+              <Field type='password' component={renderTextField} hintText={t('Password')} floatingLabelText={t('Password')} name='password' onKeyDown={enterHandling} />
               <Divider />
               <RaisedButton fullWidth onClick={doLogin} disabled={showProgress}>
-                Sign in
+                {t('Sign in')}
               </RaisedButton>
               <div>
                 <Divider />
@@ -69,10 +70,11 @@ Login.propTypes = {
   authError: React.PropTypes.object,
   loginChallenge: React.PropTypes.func,
   loginPayload: React.PropTypes.object,
-  status: React.PropTypes.string
+  status: React.PropTypes.string,
+  t: React.PropTypes.func.isRequired
 }
 
 export default reduxForm({
   form: 'login',
   enableReinitialize: true
-})(Login)
+})(translate('', [{ wait: true }])(Login))

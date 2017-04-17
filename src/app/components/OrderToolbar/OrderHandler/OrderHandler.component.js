@@ -13,6 +13,7 @@ import ReceiptIcon from 'material-ui/svg-icons/action/receipt'
 import {Link} from 'react-router'
 
 import s from './OrderHandler.css'
+import {translate} from 'react-i18next'
 
 const renderTextField = ({input, label, meta: { touched, error }, ...custom}) => (
   <TextField fullWidth hintText={label}
@@ -66,7 +67,7 @@ const selector = formValueSelector('toolbar')
 )
 class OrderHandler extends React.Component {
   render () {
-    let {order, formPayload, firebase, setSelectedOrder, toolbarSaveable} = this.props
+    let {order, formPayload, firebase, setSelectedOrder, toolbarSaveable, t} = this.props
     let onSave = () => {
       firebase.set('locksAndKeys/' + order._id, formPayload)
       .then((x) => {
@@ -85,11 +86,11 @@ class OrderHandler extends React.Component {
       <div>
         <div>
           <form>
-            <Field name='locksHandedOut' label='Locks handed out' component={renderTextField} />
-            <Field name='locksReturned' label='Locks returned' component={renderTextField} />
-            <Field name='keysHandedOut' label='Keys handed out' component={renderTextField} />
-            <Field name='keysReturned' label='Keys returned' component={renderTextField} />
-            <Field name='notes' label='Notes' multiLine component={renderTextField} />
+            <Field name='locksHandedOut' label={t('Locks handed out')} component={renderTextField} />
+            <Field name='locksReturned' label={t('Locks handed in')} component={renderTextField} />
+            <Field name='keysHandedOut' label={t('Keys handed out')} component={renderTextField} />
+            <Field name='keysReturned' label={t('Keys handed in')} component={renderTextField} />
+            <Field name='notes' label={t('Notes')} multiLine component={renderTextField} />
           </form>
         </div>
         <div className={s.actionRow}>
@@ -120,10 +121,11 @@ OrderHandler.propTypes = {
   firebase: React.PropTypes.object,
   formPayload: React.PropTypes.object,
   toolbarSaveable: React.PropTypes.bool.isRequired,
-  setSelectedOrder: React.PropTypes.func.isRequired
+  setSelectedOrder: React.PropTypes.func.isRequired,
+  t: React.PropTypes.func.isRequired
 }
 // Decorate the form component
 export default reduxForm({
   form: 'toolbar', // a unique name for this form
   enableReinitialize: true
-})(OrderHandler)
+})(translate('', [{ wait: true }])(OrderHandler))
