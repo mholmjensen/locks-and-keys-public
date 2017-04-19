@@ -2,7 +2,11 @@
 import React from 'react'
 import s from './OrderTable.css'
 
-import type { CellRendererParams, CellDataGetterParams } from 'react-virtualized/Table/types'
+import type {CellRendererParams, CellDataGetterParams} from 'react-virtualized/Table/types'
+
+import ArrowDropAsc from 'material-ui/svg-icons/navigation/arrow-drop-up'
+import ArrowDropDesc from 'material-ui/svg-icons/navigation/arrow-drop-down'
+import IconButton from 'material-ui/IconButton'
 
 import LockOpen from 'material-ui/svg-icons/action/lock-open'
 import VpnKey from 'material-ui/svg-icons/communication/vpn-key'
@@ -10,7 +14,7 @@ import Unused from 'material-ui/svg-icons/device/access-time'
 
 let iconstyle = {'height': 16, 'width': 16}
 let handedOutColor = '#ec5400'
-let stateColor = '#f00'
+let stateColor = '#26e'
 
 let renderLines = ({cellData = []}): CellRendererParams => (
   <div>
@@ -107,12 +111,12 @@ let management = {
             <LockOpen color={handedOutColor} style={iconstyle} /> {cellData.locksHandedOut}
           </div>
           <div>
-            <LockOpen style={iconstyle} /> {cellData.locksReturned}
+            <VpnKey color={handedOutColor} style={iconstyle} /> {cellData.keysHandedOut}
           </div>
         </div>
         <div className={s.bookkeepingRow}>
           <div>
-            <VpnKey color={handedOutColor} style={iconstyle} /> {cellData.keysHandedOut}
+            <LockOpen style={iconstyle} /> {cellData.locksReturned}
           </div>
           <div>
             <VpnKey style={iconstyle} /> {cellData.keysReturned}
@@ -153,15 +157,24 @@ let stateSetup = {
       keysReturned: rowData['keysReturned']
     }
   },
-  cellRenderer: (cellParams): CellRendererParams => {
-    let orderState = stateOfOrder(cellParams.cellData)
-    return (
-      <div>
-        {orderState.locksNotMatching && <LockOpen color={stateColor} style={iconstyle} />}
-        {orderState.keysNotMatching && <VpnKey color={stateColor} style={iconstyle} />}
-        {orderState.locksUnused && <Unused color={stateColor} style={iconstyle} />}
-      </div>
-    )
+  cellRenderer: (setInfoMessage) => {
+    return (cellParams): CellRendererParams => {
+      let cd = cellParams.cellData
+      let orderState = stateOfOrder(cd)
+      let explainIcon = (message) => {
+        return (event) => {
+          setInfoMessage(message, 8000)
+          event.preventDefault()
+        }
+      }
+      return (
+        <div>
+          {orderState.locksNotMatching && <LockOpen color={stateColor} style={iconstyle} onClick={explainIcon('Låse udleveret ("' + cd.locksHandedOut + '") er ulig låse tilbageleveret ("' + cd.locksReturned + '")')} />}
+          {orderState.keysNotMatching && <VpnKey color={stateColor} style={iconstyle} onClick={explainIcon('Nøgler udleveret ("' + cd.keysHandedOut + '") er ulig nøgler tilbageleveret ("' + cd.keysReturned + '")')} />}
+          {orderState.locksUnused && <Unused color={stateColor} style={iconstyle} onClick={explainIcon('Ej taget i brug, lås(e) påsat (' + cd.locksHandedOut + ')')} />}
+        </div>
+      )
+    }
   },
   sorter: (viewSettings) => {
     return (left, right) => {
@@ -174,10 +187,6 @@ let stateSetup = {
     }
   }
 }
-
-import ArrowDropAsc from 'material-ui/svg-icons/navigation/arrow-drop-up'
-import ArrowDropDesc from 'material-ui/svg-icons/navigation/arrow-drop-down'
-import IconButton from 'material-ui/IconButton'
 
 let iconButtonStyle = {
   'padding': '0px',

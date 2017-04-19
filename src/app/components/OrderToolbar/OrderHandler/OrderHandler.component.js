@@ -67,7 +67,7 @@ const selector = formValueSelector('toolbar')
 )
 class OrderHandler extends React.Component {
   render () {
-    let {order, formPayload, firebase, setSelectedOrder, toolbarSaveable, t} = this.props
+    let {order, formPayload, firebase, setSelectedOrder, setInfoMessage, toolbarSaveable, t} = this.props
     let onSave = () => {
       firebase.set('locksAndKeys/' + order._id, formPayload)
       .then((x) => {
@@ -76,10 +76,12 @@ class OrderHandler extends React.Component {
           savedOrder[k] = formPayload[k]
         })
         setSelectedOrder(savedOrder)
+        setInfoMessage('#' + order.human_readable_id + ' er gemt')
       })
       .catch((err) => {
         console.warn('failed trying firebase.set(', 'locksAndKeys/' + order._id, formPayload, ')', err)
         setSelectedOrder(order)
+        setInfoMessage('#' + order.human_readable_id + ' kunne ikke gemmes')
       })
     }
     return (
@@ -122,6 +124,7 @@ OrderHandler.propTypes = {
   formPayload: React.PropTypes.object,
   toolbarSaveable: React.PropTypes.bool.isRequired,
   setSelectedOrder: React.PropTypes.func.isRequired,
+  setInfoMessage: React.PropTypes.func.isRequired,
   t: React.PropTypes.func.isRequired
 }
 // Decorate the form component
