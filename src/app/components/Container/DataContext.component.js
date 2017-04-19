@@ -1,6 +1,9 @@
 /* @flow */
 
 import React from 'react'
+import {I18nextProvider} from 'react-i18next'
+import i18n from './translations/i18n.js'
+
 export default class DataContext extends React.Component {
   componentDidMount () {
     this.props.getOrdersAsync()
@@ -13,7 +16,9 @@ export default class DataContext extends React.Component {
     let {children} = this.props
     return (
       <div>
-        {children}
+        <I18nextProvider i18n={i18n}>
+          {children}
+        </I18nextProvider>
       </div>
     )
   }

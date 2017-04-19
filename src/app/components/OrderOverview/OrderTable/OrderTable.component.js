@@ -14,6 +14,7 @@ import CloseIcon from 'material-ui/svg-icons/navigation/close'
 
 import {connect} from 'react-redux'
 import {firebase, helpers} from 'redux-react-firebase'
+import {translate} from 'react-i18next'
 
 let reduxFormPropTypes = {
   label: React.PropTypes.string,
@@ -131,7 +132,7 @@ class OrderTable extends React.Component {
   render () {
     let w1 = 1
     let w2 = 3
-    let {reset, viewSettings, setSelectedOrder, setSort, ordersFromSettings, toolbarSaveable, lookup} = this.props
+    let {reset, viewSettings, setSelectedOrder, setSort, ordersFromSettings, toolbarSaveable, lookup, t} = this.props
     let orders = ordersFromSettings(viewSettings)
     let rowClick = ({index}) => {
       if (!toolbarSaveable) {
@@ -147,8 +148,8 @@ class OrderTable extends React.Component {
             <Badge badgeContent={orders.length} badgeStyle={{top: 0, right: 12, color: '#ec5400'}}>
               <SearchIcon />
             </Badge>
-            <Field name='lookup' label='Search' component={renderTextField} style={{width: '80%'}} />
-            <CloseIcon label='Clear search entry' onClick={() => reset()} style={clearSearchStyle} />
+            <Field name='lookup' label={t('Search')} component={renderTextField} style={{width: '80%'}} />
+            <CloseIcon label={t('Clear search entry')} onClick={() => reset()} style={clearSearchStyle} />
           </div>
         </div>
         <div className={s.searchflex}>
@@ -165,21 +166,21 @@ class OrderTable extends React.Component {
                       onRowClick={rowClick}
                       scrollTop={scrollTop} scrollElement={se}
                       rowStyle={{'alignItems': 'baseline'}} >
-                      <Column dataKey='human_readable_id' label='#' tooltip='Order number' width={w1} flexGrow={0.4}
+                      <Column dataKey='human_readable_id' label='#' width={w1} flexGrow={0.4}
                         headerRenderer={CS.headerSortRenderer} />
-                      <Column dataKey='StandMeta' label='Stand' flexGrow={1} width={w2}
+                      <Column dataKey='StandMeta' label={t('Stand')} flexGrow={1} width={w2}
                         headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.stand.cellDataGetter} cellRenderer={CS.stand.cellRenderer} />
-                      <Column dataKey='ContactMeta' label='Contact' flexGrow={1.5} width={w2}
+                      <Column dataKey='ContactMeta' label={t('Contact')} flexGrow={1.5} width={w2}
                         headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.contact.cellDataGetter} cellRenderer={CS.contact.cellRenderer} />
-                      <Column dataKey='BookkeepingMeta' label='Bookkeeping' width={w2} flexGrow={1.5}
+                      <Column dataKey='BookkeepingMeta' label={t('Bookkeeping')} width={w2} flexGrow={1.5}
                         headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.management.cellDataGetter} cellRenderer={CS.management.cellRenderer} />
-                      <Column dataKey='StateMeta' label='State' width={w1} flexGrow={0.5}
+                      <Column dataKey='StateMeta' label={t('LOKState')} width={w1} flexGrow={0.5}
                         headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.state.cellDataGetter} cellRenderer={CS.state.cellRenderer} />
-                      <Column dataKey='PlumbingItem' label='Ordered' width={w2} flexGrow={1}
+                      <Column dataKey='PlumbingItem' label={t('Ordered')} width={w2} flexGrow={1}
                         headerRenderer={CS.headerSortRenderer} cellRenderer={CS.ordered.cellRenderer} />
-                      <Column dataKey='people_pro_location' label='Areas' flexGrow={1} width={w2}
+                      <Column dataKey='people_pro_location' label={t('Areas')} flexGrow={1} width={w2}
                         headerRenderer={CS.headerSortRenderer} />
-                      <Column dataKey='OrderStatus' label='Status' width={w2} flexGrow={1}
+                      <Column dataKey='OrderStatus' label={t('Status')} width={w2} flexGrow={1}
                         headerRenderer={CS.headerSortRenderer} />
                     </Table>
                   )}
@@ -203,9 +204,10 @@ OrderTable.propTypes = {
   setSort: React.PropTypes.func,
   ordersFromSettings: React.PropTypes.func,
   toolbarSaveable: React.PropTypes.bool.isRequired,
-  lookup: React.PropTypes.string
+  lookup: React.PropTypes.string,
+  t: React.PropTypes.func
 }
 
 export default reduxForm({
   form: 'datafilter' // a unique name for this
-})(OrderTable)
+})(translate('', [{ wait: true }])(OrderTable))

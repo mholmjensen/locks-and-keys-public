@@ -13,14 +13,12 @@ import OrderToolbar from '../OrderToolbar/OrderToolbar.container'
 import HeaderBar from './HeaderBar.component'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import {cyan500} from 'material-ui/styles/colors'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 // More on Colors: http://www.material-ui.com/#/customization/colors
 const muiTheme = getMuiTheme({
   palette: {
-    canvasColor: '#fbfbfb',
-    primary1Color: '#ec5400',
-    accent1Color: cyan500
+    canvasColor: '#fafafa',
+    primary1Color: '#ec5400'
   },
   tableRowColumn: {
     spacing: 6
@@ -29,6 +27,21 @@ const muiTheme = getMuiTheme({
     titleColor: '#ec5400'
   }
 })
+
+class SiteProviders extends React.Component {
+  render () {
+    return <MuiThemeProvider muiTheme={muiTheme}>
+      {this.props.children}
+    </MuiThemeProvider>
+  }
+}
+
+SiteProviders.propTypes = {
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.node
+  ])
+}
 
 @firebase()
 @connect(
@@ -40,15 +53,15 @@ export default class Site extends React.Component {
   render () {
     let {auth, firebase, clearOrders} = this.props
     if (!auth) {
-      return <MuiThemeProvider muiTheme={muiTheme}>
+      return <SiteProviders>
         <Login />
-      </MuiThemeProvider>
+      </SiteProviders>
     } else {
       let signout = () => {
         clearOrders()
         firebase.logout()
       }
-      return <MuiThemeProvider muiTheme={muiTheme}>
+      return <SiteProviders>
         <div className={s.root}>
           <div>
             <HeaderBar signout={signout} />
@@ -60,7 +73,7 @@ export default class Site extends React.Component {
             <OrderToolbar />
           </div>
         </div>
-      </MuiThemeProvider>
+      </SiteProviders>
     }
   }
 }

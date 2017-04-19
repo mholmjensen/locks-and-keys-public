@@ -8,6 +8,6 @@ describe('Landing page test', function() {
     it('should contain an email field in form', function() {
         return browser
             .url('/')
-            .getHTML('form').should.include('Email');
+            .getHTML('form').should.include('Epost');
     });
 });

@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react'
+import {translate} from 'react-i18next'
 
 import {List, ListItem} from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
@@ -12,7 +13,7 @@ let secsToDateStr = function (epochSecs) {
 }
 
 const OrderComments = (props) => {
-  const { order } = props
+  const {order, t} = props
   let comments = order.Comment || []
   comments = comments.filter(e => e.Comment !== undefined)
   comments = comments.map((e, index) => {
@@ -28,7 +29,7 @@ const OrderComments = (props) => {
     <List>
       { order.remarks &&
         <div>
-          <Subheader>Remarks</Subheader>
+          <Subheader>{t('Remarks')}</Subheader>
           <ListItem key={'-1'}>
             <blockquote>
               <p>{order.remarks}</p>
@@ -37,7 +38,7 @@ const OrderComments = (props) => {
         </div>
       }
       { order.Comment &&
-        <Subheader>Comments</Subheader>
+        <Subheader>{t('Comments')}</Subheader>
       }
       {
         comments.map(c => {
@@ -61,7 +62,8 @@ const OrderComments = (props) => {
 }
 
 OrderComments.propTypes = {
-  order: React.PropTypes.object
+  order: React.PropTypes.object,
+  t: React.PropTypes.func
 }
 
-export default OrderComments
+export default translate('', [{ wait: true }])(OrderComments)

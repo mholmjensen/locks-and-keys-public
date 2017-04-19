@@ -3,6 +3,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {firebase, helpers} from 'redux-react-firebase'
+import {translate} from 'react-i18next'
 
 import s from './Receipt.css'
 
@@ -19,7 +20,7 @@ import s from './Receipt.css'
 )
 class Receipt extends React.Component {
   render () {
-    let {params, order, locksAndKeys} = this.props
+    let {params, order, locksAndKeys, t} = this.props
     let type = params.type
     if (!order) {
       return <div />
@@ -33,29 +34,29 @@ class Receipt extends React.Component {
       }
       return <div className={s.section}>
         <div className={s.receipt}>
-          <h2 className={s.header}>Receipt for keys for toilet locks: Handout</h2>
+          <h2 className={s.header}>{t('Receipt for toilet keys')}: {t('Handed out')}</h2>
           <div>
-            <span className={s.left}>Stand number:</span>
+            <span className={s.left}>{t('Stand ID')}:</span>
             <span className={s.right}>{order.rf_identifier}</span>
           </div>
           <div>
-            <span className={s.left}>Stand name:</span>
+            <span className={s.left}>{t('Stand')}:</span>
             <span className={s.right}>{order.stand_name}</span>
           </div>
           <div>
-            <span className={s.left}>Keys:</span>
+            <span className={s.left}>{t('Keys')}:</span>
             <span className={s.right}>{keys}</span>
           </div>
           <div>
-            <span className={s.left}>Date:</span>
+            <span className={s.left}>{t('Date')}:</span>
             <span className={s.right}>{now.toLocaleDateString()}</span>
           </div>
           <div>
-            <span className={s.left}>Signature</span>
+            <span className={s.left}>{t('Signature')}:</span>
             <span className={s.right}>_________________________________________________________________________</span>
           </div>
           <div>
-            <span className={s.left}>Name (capital letter)</span>
+            <span className={s.left}>{t('Name (capital letter)')}:</span>
             <span className={s.right}>_________________________________________________________________________</span>
           </div>
         </div>
@@ -70,33 +71,33 @@ class Receipt extends React.Component {
       }
       return <div className={s.section}>
         <div className={s.receipt}>
-          <h2 className={s.header}>Receipt for keys for toilet locks: Return</h2>
+          <h2 className={s.header}>{t('Receipt for toilet keys')}: {t('Handed in')}</h2>
           <div>
-            <span className={s.left}>Stand number:</span>
+            <span className={s.left}>{t('Stand ID')}:</span>
             <span className={s.right}>{order.rf_identifier}</span>
           </div>
           <div>
-            <span className={s.left}>Stand name:</span>
+            <span className={s.left}>{t('Stand')}:</span>
             <span className={s.right}>{order.stand_name}</span>
           </div>
           <div>
-            <span className={s.left}>Keys:</span>
+            <span className={s.left}>{t('Keys')}:</span>
             <span className={s.right}>{keys}</span>
           </div>
           <div>
-            <span className={s.left}>Locks:</span>
+            <span className={s.left}>{t('Locks')}:</span>
             <span className={s.right}>{locks}</span>
           </div>
           <div>
-            <span className={s.left}>Date:</span>
+            <span className={s.left}>{t('Date')}:</span>
             <span className={s.right}>{now.toLocaleDateString()}</span>
           </div>
           <div>
-            <span className={s.left}>Signature</span>
+            <span className={s.left}>{t('Signature')}</span>
             <span className={s.right}>______________________________________________________</span>
           </div>
           <div>
-            <span className={s.left}>Name (capital letter)</span>
+            <span className={s.left}>{t('Name (capital letter)')}:</span>
             <span className={s.right}>______________________________________________________</span>
           </div>
         </div>
@@ -109,7 +110,8 @@ Receipt.propTypes = {
   params: React.PropTypes.object,
   orders: React.PropTypes.array,
   order: React.PropTypes.object,
-  locksAndKeys: React.PropTypes.object
+  locksAndKeys: React.PropTypes.object,
+  t: React.PropTypes.func.isRequired
 }
 
-export default Receipt
+export default (translate('', [{ wait: true }])(Receipt))

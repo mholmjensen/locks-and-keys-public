@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react'
+import {translate} from 'react-i18next'
 
 import {Card, CardHeader, CardText} from 'material-ui/Card'
 
@@ -16,7 +17,7 @@ import ContactInformation from './ContactInformation/ContactInformation.componen
 
 class OrderToolbar extends React.Component {
   render () {
-    let {selectedEntry, setSelectedOrder, toolbarSaveable} = this.props // from reduxForm and @firebase
+    let {selectedEntry, setSelectedOrder, toolbarSaveable, t} = this.props // from reduxForm and @firebase
 
     let title = ''
     let hasRemarksOrComments = false
@@ -56,7 +57,7 @@ class OrderToolbar extends React.Component {
             <AppBar title={title} showMenuIconButton={false} iconElementRight={closeIcon} onRightIconButtonTouchTap={deselectOrder} />
             <div>
               <Card>
-                <CardHeader title='Remarks and Comments' subtitle={selectedEntry.Comment && (selectedEntry.Comment.length + ' comments')} />
+                <CardHeader title={t('Remarks and Comments')} subtitle={selectedEntry.Comment && (selectedEntry.Comment.length + ' ' + t('comments'))} />
                 <CardText>
                   <OrderComments order={selectedEntry} />
                 </CardText>
@@ -74,7 +75,8 @@ OrderToolbar.propTypes = {
   formPayload: React.PropTypes.object,
   firebase: React.PropTypes.object,
   toolbarSaveable: React.PropTypes.bool.isRequired,
-  setSelectedOrder: React.PropTypes.func
+  setSelectedOrder: React.PropTypes.func,
+  t: React.PropTypes.func
 }
 
-export default OrderToolbar
+export default translate('', [{ wait: true }])(OrderToolbar)

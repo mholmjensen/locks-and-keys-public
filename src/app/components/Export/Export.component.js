@@ -3,6 +3,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {firebase, helpers} from 'redux-react-firebase'
+import {translate} from 'react-i18next'
 
 import s from './Export.css'
 
@@ -17,26 +18,26 @@ import s from './Export.css'
 )
 class Export extends React.Component {
   render () {
-    let {orders, locksAndKeys} = this.props
+    let {orders, locksAndKeys, t} = this.props
     orders = orders.sort((o1, o2) => o1.human_readable_id - o2.human_readable_id)
     return <div>
       <table id='export' className={s.table}>
         <tbody>
           <tr>
             <th>#</th>
-            <th>Stand Number</th>
-            <th>Stand Name</th>
-            <th>Name</th>
-            <th>Email/Phone</th>
-            <th>Locks out</th>
-            <th>Locks returned</th>
-            <th>Keys out</th>
-            <th>Keys returned</th>
+            <th>{t('Stand ID')}</th>
+            <th>{t('Stand')}</th>
+            <th>{t('Contact')}</th>
+            <th>{t('Email')}/{t('Phone')}</th>
+            <th>{t('Locks')} {t('Handed out')}</th>
+            <th>{t('Locks')} {t('Handed in')}</th>
+            <th>{t('Keys')} {t('Handed out')}</th>
+            <th>{t('Keys')} {t('Handed in')}</th>
             <th>Toilet A</th>
             <th>Toilet B</th>
-            <th>Urinalsøjle</th>
-            <th>Areas</th>
-            <th>Status</th>
+            <th>{t('Urinal')}</th>
+            <th>{t('Areas')}</th>
+            <th>{t('Status')}</th>
           </tr>
           {
             orders.map((o, index) => {
@@ -71,7 +72,8 @@ class Export extends React.Component {
 
 Export.propTypes = {
   orders: React.PropTypes.array,
-  locksAndKeys: React.PropTypes.object
+  locksAndKeys: React.PropTypes.object,
+  t: React.PropTypes.func.isRequired
 }
 
-export default Export
+export default (translate('', [{ wait: true }])(Export))
