@@ -1,0 +1,294 @@
+browser-sync                       😍  UPDATE!   Your local install is out of date. http://www.browsersync.io/
+                                                npm install --save-dev browser-sync@2.18.8 to go from 2.18.6 to 2.18.8
+                                   😕  NOTUSED?  Still using browser-sync?
+                                                Depcheck did not find code similar to require('browser-sync') or import from 'browser-sync'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev browser-sync
+
+css-loader                         😎  NEW VER!  NonSemver update available. https://github.com/webpack/css-loader#readme
+                                                npm install --save css-loader@0.28.0 to go from 0.25.0 to 0.28.0
+
+fetch-jsonp                        😍  UPDATE!   Your local install is out of date. https://github.com/camsong/fetch-jsonp#readme
+                                                npm install --save fetch-jsonp@1.0.6 to go from 1.0.5 to 1.0.6
+
+firebase                           😍  UPDATE!   Your local install is out of date. https://firebase.google.com/
+                                                npm install --save firebase@3.8.0 to go from 3.6.6 to 3.8.0
+
+i18next                            😍  UPDATE!   Your local install is out of date. http://i18next.com
+                                                npm install --save i18next@7.2.3 to go from 7.1.3 to 7.2.3
+
+isomorphic-fetch                   😕  NOTUSED?  Still using isomorphic-fetch?
+                                                Depcheck did not find code similar to require('isomorphic-fetch') or import from 'isomorphic-fetch'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save isomorphic-fetch
+
+material-ui                        😎  NEW VER!  NonSemver update available. http://material-ui.com/
+                                                npm install --save material-ui@0.17.4 to go from 0.16.7 to 0.17.4
+
+react                              😍  UPDATE!   Your local install is out of date. https://facebook.github.io/react/
+                                                npm install --save react@15.5.4 to go from 15.4.2 to 15.5.4
+
+react-css-modules                  😎  MAJOR UP  Major update available. https://github.com/gajus/react-css-modules#readme
+                                                npm install --save react-css-modules@4.2.0 to go from 3.7.10 to 4.2.0
+                                   😕  NOTUSED?  Still using react-css-modules?
+                                                Depcheck did not find code similar to require('react-css-modules') or import from 'react-css-modules'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save react-css-modules
+
+react-dom                          😍  UPDATE!   Your local install is out of date. https://facebook.github.io/react/
+                                                npm install --save react-dom@15.5.4 to go from 15.4.2 to 15.5.4
+
+react-facebook-login               😍  UPDATE!   Your local install is out of date. https://github.com/keppelen/react-facebook-login
+                                                npm install --save react-facebook-login@3.5.0 to go from 3.4.3 to 3.5.0
+                                   😕  NOTUSED?  Still using react-facebook-login?
+                                                Depcheck did not find code similar to require('react-facebook-login') or import from 'react-facebook-login'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save react-facebook-login
+
+react-i18next                      😎  MAJOR UP  Major update available. https://github.com/i18next/react-i18next
+                                                npm install --save react-i18next@3.1.0 to go from 2.2.3 to 3.1.0
+
+react-paginate                     😍  UPDATE!   Your local install is out of date. https://github.com/AdeleD/react-paginate#readme
+                                                npm install --save react-paginate@4.3.1 to go from 4.1.1 to 4.3.1
+                                   😕  NOTUSED?  Still using react-paginate?
+                                                Depcheck did not find code similar to require('react-paginate') or import from 'react-paginate'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save react-paginate
+
+react-redux                        😎  MAJOR UP  Major update available. https://github.com/gaearon/react-redux
+                                                npm install --save react-redux@5.0.4 to go from 4.4.6 to 5.0.4
+
+react-router                       😎  MAJOR UP  Major update available. https://github.com/reacttraining/react-router#readme
+                                                npm install --save react-router@4.1.1 to go from 3.0.2 to 4.1.1
+
+react-toggle-display               😕  NOTUSED?  Still using react-toggle-display?
+                                                Depcheck did not find code similar to require('react-toggle-display') or import from 'react-toggle-display'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save react-toggle-display
+
+react-virtualized                  😎  MAJOR UP  Major update available. https://github.com/bvaughn/react-virtualized
+                                                npm install --save react-virtualized@9.7.3 to go from 8.11.2 to 9.7.3
+
+redux-form                         😍  UPDATE!   Your local install is out of date. https://redux-form.com/
+                                                npm install --save redux-form@6.6.3 to go from 6.4.3 to 6.6.3
+
+redux-logger                       😎  MAJOR UP  Major update available. https://github.com/theaqua/redux-logger#readme
+                                                npm install --save redux-logger@3.0.1 to go from 2.6.1 to 3.0.1
+
+redux-react-firebase               😍  UPDATE!   Your local install is out of date. https://github.com/tiberiuc/redux-react-firebase#readme
+                                                npm install --save redux-react-firebase@2.5.3 to go from 2.5.1 to 2.5.3
+
+resolve-url                        😕  NOTUSED?  Still using resolve-url?
+                                                Depcheck did not find code similar to require('resolve-url') or import from 'resolve-url'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save resolve-url
+
+resolve-url-loader                 😎  MAJOR UP  Major update available. https://github.com/bholloway/resolve-url-loader
+                                                npm install --save resolve-url-loader@2.0.2 to go from 1.6.1 to 2.0.2
+                                   😕  NOTUSED?  Still using resolve-url-loader?
+                                                Depcheck did not find code similar to require('resolve-url-loader') or import from 'resolve-url-loader'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save resolve-url-loader
+
+style-loader                       😎  NEW VER!  NonSemver update available. https://github.com/webpack/style-loader#readme
+                                                npm install --save style-loader@0.16.1 to go from 0.13.1 to 0.16.1
+
+url-loader                         😍  UPDATE!   Your local install is out of date. https://github.com/webpack/url-loader#readme
+                                                npm install --save-dev url-loader@0.5.8 to go from 0.5.7 to 0.5.8
+                                   😕  NOTUSED?  Still using url-loader?
+                                                Depcheck did not find code similar to require('url-loader') or import from 'url-loader'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev url-loader
+
+babel-core                         😍  UPDATE!   Your local install is out of date. https://babeljs.io/
+                                                npm install --save-dev babel-core@6.24.1 to go from 6.22.1 to 6.24.1
+
+babel-eslint                       😎  MAJOR UP  Major update available. https://github.com/babel/babel-eslint
+                                                npm install --save-dev babel-eslint@7.2.2 to go from 6.1.2 to 7.2.2
+
+babel-loader                       😍  UPDATE!   Your local install is out of date. https://github.com/babel/babel-loader
+                                                npm install --save-dev babel-loader@6.4.1 to go from 6.2.10 to 6.4.1
+
+babel-preset-es2015                😍  UPDATE!   Your local install is out of date. https://babeljs.io/
+                                                npm install --save-dev babel-preset-es2015@6.24.1 to go from 6.22.0 to 6.24.1
+
+babel-preset-es2016                😍  UPDATE!   Your local install is out of date. https://babeljs.io/
+                                                npm install --save-dev babel-preset-es2016@6.24.1 to go from 6.22.0 to 6.24.1
+
+babel-preset-node5                 😎  MAJOR UP  Major update available. https://github.com/leebenson/babel-preset-node5#readme
+                                                npm install --save-dev babel-preset-node5@12.0.1 to go from 11.1.0 to 12.0.1
+
+babel-preset-react                 😍  UPDATE!   Your local install is out of date. https://babeljs.io/
+                                                npm install --save-dev babel-preset-react@6.24.1 to go from 6.22.0 to 6.24.1
+
+bootstrap-loader                   😎  MAJOR UP  Major update available. https://github.com/shakacode/bootstrap-loader#readme
+                                                npm install --save-dev bootstrap-loader@2.0.0 to go from 1.3.3 to 2.0.0
+                                   😕  NOTUSED?  Still using bootstrap-loader?
+                                                Depcheck did not find code similar to require('bootstrap-loader') or import from 'bootstrap-loader'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev bootstrap-loader
+
+browser-sync-webpack-plugin        😍  UPDATE!   Your local install is out of date. https://github.com/Va1/browser-sync-webpack-plugin
+                                                npm install --save-dev browser-sync-webpack-plugin@1.1.4 to go from 1.1.3 to 1.1.4
+                                   😕  NOTUSED?  Still using browser-sync-webpack-plugin?
+                                                Depcheck did not find code similar to require('browser-sync-webpack-plugin') or import from 'browser-sync-webpack-plugin'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev browser-sync-webpack-plugin
+
+cross-env                          😎  MAJOR UP  Major update available. https://github.com/kentcdodds/cross-env#readme
+                                                npm install --save-dev cross-env@4.0.0 to go from 2.0.1 to 4.0.0
+
+eslint-config-standard-react       😕  NOTUSED?  Still using eslint-config-standard-react?
+                                                Depcheck did not find code similar to require('eslint-config-standard-react') or import from 'eslint-config-standard-react'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev eslint-config-standard-react
+
+eslint-plugin-promise              😕  NOTUSED?  Still using eslint-plugin-promise?
+                                                Depcheck did not find code similar to require('eslint-plugin-promise') or import from 'eslint-plugin-promise'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev eslint-plugin-promise
+
+eslint-plugin-react                😍  UPDATE!   Your local install is out of date. https://github.com/yannickcr/eslint-plugin-react
+                                                npm install --save-dev eslint-plugin-react@6.10.3 to go from 6.9.0 to 6.10.3
+                                   😕  NOTUSED?  Still using eslint-plugin-react?
+                                                Depcheck did not find code similar to require('eslint-plugin-react') or import from 'eslint-plugin-react'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev eslint-plugin-react
+
+eslint-plugin-standard             😕  NOTUSED?  Still using eslint-plugin-standard?
+                                                Depcheck did not find code similar to require('eslint-plugin-standard') or import from 'eslint-plugin-standard'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev eslint-plugin-standard
+
+extract-text-webpack-plugin        😎  MAJOR UP  Major update available. http://github.com/webpack/extract-text-webpack-plugin
+                                                npm install --save-dev extract-text-webpack-plugin@2.1.0 to go from 1.0.1 to 2.1.0
+                                   😕  NOTUSED?  Still using extract-text-webpack-plugin?
+                                                Depcheck did not find code similar to require('extract-text-webpack-plugin') or import from 'extract-text-webpack-plugin'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev extract-text-webpack-plugin
+
+file-loader                        😎  NEW VER!  NonSemver update available. https://github.com/webpack/file-loader
+                                                npm install --save-dev file-loader@0.11.1 to go from 0.9.0 to 0.11.1
+                                   😕  NOTUSED?  Still using file-loader?
+                                                Depcheck did not find code similar to require('file-loader') or import from 'file-loader'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev file-loader
+
+firebase-tools                     😍  UPDATE!   Your local install is out of date. https://github.com/firebase/firebase-tools
+                                                npm install --save-dev firebase-tools@3.6.1 to go from 3.2.1 to 3.6.1
+                                   😕  NOTUSED?  Still using firebase-tools?
+                                                Depcheck did not find code similar to require('firebase-tools') or import from 'firebase-tools'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev firebase-tools
+
+flow-bin                           😎  NEW VER!  NonSemver update available. https://github.com/flowtype/flow-bin#readme
+                                                npm install --save-dev flow-bin@0.44.2 to go from 0.35.0 to 0.44.2
+                                   😕  NOTUSED?  Still using flow-bin?
+                                                Depcheck did not find code similar to require('flow-bin') or import from 'flow-bin'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev flow-bin
+
+node-sass                          😎  MAJOR UP  Major update available. https://github.com/sass/node-sass
+                                                npm install --save-dev node-sass@4.5.2 to go from 3.13.1 to 4.5.2
+                                   😕  NOTUSED?  Still using node-sass?
+                                                Depcheck did not find code similar to require('node-sass') or import from 'node-sass'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev node-sass
+
+nodemon                            😕  NOTUSED?  Still using nodemon?
+                                                Depcheck did not find code similar to require('nodemon') or import from 'nodemon'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev nodemon
+
+parallelshell                      😕  NOTUSED?  Still using parallelshell?
+                                                Depcheck did not find code similar to require('parallelshell') or import from 'parallelshell'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev parallelshell
+
+react-addons-update                😍  UPDATE!   Your local install is out of date. https://github.com/facebook/react#readme
+                                                npm install --save-dev react-addons-update@15.5.2 to go from 15.4.2 to 15.5.2
+                                   😕  NOTUSED?  Still using react-addons-update?
+                                                Depcheck did not find code similar to require('react-addons-update') or import from 'react-addons-update'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev react-addons-update
+
+react-hot-loader                   😕  NOTUSED?  Still using react-hot-loader?
+                                                Depcheck did not find code similar to require('react-hot-loader') or import from 'react-hot-loader'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev react-hot-loader
+
+sass-loader                        😎  MAJOR UP  Major update available. https://github.com/webpack-contrib/sass-loader#readme
+                                                npm install --save-dev sass-loader@6.0.3 to go from 4.1.1 to 6.0.3
+                                   😕  NOTUSED?  Still using sass-loader?
+                                                Depcheck did not find code similar to require('sass-loader') or import from 'sass-loader'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev sass-loader
+
+standard                           😕  NOTUSED?  Still using standard?
+                                                Depcheck did not find code similar to require('standard') or import from 'standard'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev standard
+
+wdio-browserstack-service          😕  NOTUSED?  Still using wdio-browserstack-service?
+                                                Depcheck did not find code similar to require('wdio-browserstack-service') or import from 'wdio-browserstack-service'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev wdio-browserstack-service
+
+wdio-mocha-framework               😍  UPDATE!   Your local install is out of date. https://github.com/webdriverio/wdio-mocha-framework#readme
+                                                npm install --save-dev wdio-mocha-framework@0.5.9 to go from 0.5.8 to 0.5.9
+                                   😕  NOTUSED?  Still using wdio-mocha-framework?
+                                                Depcheck did not find code similar to require('wdio-mocha-framework') or import from 'wdio-mocha-framework'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev wdio-mocha-framework
+
+wdio-selenium-standalone-service   😕  NOTUSED?  Still using wdio-selenium-standalone-service?
+                                                Depcheck did not find code similar to require('wdio-selenium-standalone-service') or import from 'wdio-selenium-standalone-service'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev wdio-selenium-standalone-service
+
+wdio-spec-reporter                 😎  NEW VER!  NonSemver update available. https://github.com/webdriverio/wdio-spec-reporter#readme
+                                                npm install --save-dev wdio-spec-reporter@0.1.0 to go from 0.0.5 to 0.1.0
+                                   😕  NOTUSED?  Still using wdio-spec-reporter?
+                                                Depcheck did not find code similar to require('wdio-spec-reporter') or import from 'wdio-spec-reporter'.
+                                                Check your code before removing as depcheck isn't able to foresee all ways dependencies can be used.
+                                                Use --skip-unused to skip this check.
+                                                To remove this package: npm uninstall --save-dev wdio-spec-reporter
+
+webpack                            😎  MAJOR UP  Major update available. https://github.com/webpack/webpack
+                                                npm install --save-dev webpack@2.4.1 to go from 1.14.0 to 2.4.1
+
+webpack-dev-server                 😎  MAJOR UP  Major update available. http://github.com/webpack/webpack-dev-server
+                                                npm install --save-dev webpack-dev-server@2.4.2 to go from 1.16.2 to 2.4.2
+
+!style!css!react-virtualized       😟  MISSING!  Not installed.
+                                   😟  PKG ERR!  Not in the package.json. Found in: /src/app/components/OrderOverview/OrderTable/OrderTable.component.js
+                                   ⛔️  NPM ERR!  Registry error Package `!style!css!react-virtualized` doesn't exist
