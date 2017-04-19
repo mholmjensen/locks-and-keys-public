@@ -1,7 +1,6 @@
 /* @flow */
 import React from 'react'
 import s from './OrderTable.css'
-require('!style!css!react-virtualized/styles.css')
 import {Column, Table, AutoSizer, WindowScroller} from 'react-virtualized'
 import {Field, reduxForm, formValueSelector} from 'redux-form'
 
@@ -15,6 +14,9 @@ import CloseIcon from 'material-ui/svg-icons/navigation/close'
 import {connect} from 'react-redux'
 import {firebase, helpers} from 'redux-react-firebase'
 import {translate} from 'react-i18next'
+import Snackbar from 'material-ui/Snackbar'
+
+require('!style!css!react-virtualized/styles.css')
 
 let reduxFormPropTypes = {
   label: React.PropTypes.string,
@@ -132,10 +134,10 @@ class OrderTable extends React.Component {
   render () {
     let w1 = 1
     let w2 = 3
-    let {reset, viewSettings, setSelectedOrder, setSort, ordersFromSettings, toolbarSaveable, lookup, t} = this.props
+    let {reset, viewSettings, setSelectedOrder, setInfoMessage, setSort, ordersFromSettings, toolbarSaveable, lookup, infoMessage, infoDuration, t} = this.props
     let orders = ordersFromSettings(viewSettings)
-    let rowClick = ({index}) => {
-      if (!toolbarSaveable) {
+    let rowClick = ({event, index}) => {
+      if (!toolbarSaveable && !event.defaultPrevented) {
         setSelectedOrder(orders[index])
       }
     }
@@ -150,6 +152,9 @@ class OrderTable extends React.Component {
             </Badge>
             <Field name='lookup' label={t('Search')} component={renderTextField} style={{width: '80%'}} />
             <CloseIcon label={t('Clear search entry')} onClick={() => reset()} style={clearSearchStyle} />
+          </div>
+          <div className={s.snackmod}>
+            <Snackbar open={infoMessage !== ''} message={infoMessage} action='X' autoHideDuration={infoDuration} onActionTouchTap={() => setInfoMessage('', 0)} onRequestClose={() => setInfoMessage('', 0)} />
           </div>
         </div>
         <div className={s.searchflex}>
@@ -175,7 +180,7 @@ class OrderTable extends React.Component {
                       <Column dataKey='BookkeepingMeta' label={t('Bookkeeping')} width={w2} flexGrow={1.5}
                         headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.management.cellDataGetter} cellRenderer={CS.management.cellRenderer} />
                       <Column dataKey='StateMeta' label={t('LOKState')} width={w1} flexGrow={0.5}
-                        headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.state.cellDataGetter} cellRenderer={CS.state.cellRenderer} />
+                        headerRenderer={CS.headerSortRenderer} cellDataGetter={CS.state.cellDataGetter} cellRenderer={CS.state.cellRenderer(setInfoMessage)} />
                       <Column dataKey='PlumbingItem' label={t('Ordered')} width={w2} flexGrow={1}
                         headerRenderer={CS.headerSortRenderer} cellRenderer={CS.ordered.cellRenderer} />
                       <Column dataKey='people_pro_location' label={t('Areas')} flexGrow={1} width={w2}
@@ -200,11 +205,14 @@ OrderTable.propTypes = {
     sortBy: React.PropTypes.string,
     sortDirection: React.PropTypes.string
   }),
-  setSelectedOrder: React.PropTypes.func,
+  setSelectedOrder: React.PropTypes.func.isRequired,
+  setInfoMessage: React.PropTypes.func.isRequired,
   setSort: React.PropTypes.func,
   ordersFromSettings: React.PropTypes.func,
   toolbarSaveable: React.PropTypes.bool.isRequired,
   lookup: React.PropTypes.string,
+  infoMessage: React.PropTypes.string,
+  infoDuration: React.PropTypes.number,
   t: React.PropTypes.func
 }
 

@@ -1,5 +1,5 @@
 /* @flow */
-import {SET_ORDERS, SET_SELECTED_ORDER, SET_ORDERS_LOADED, SET_SORT} from '../constants'
+import {SET_ORDERS, SET_SELECTED_ORDER, SET_ORDERS_LOADED, SET_SORT, SET_INFO_MESSAGE} from '../constants'
 
 import ThunkClient from './thunkclient'
 
@@ -39,6 +39,13 @@ export function setOrdersLoaded (ordersLoaded) {
       type: SET_ORDERS_LOADED,
       payload: { ordersLoaded }
     })
+  }
+}
+
+export function setInfoMessage (message, duration = 3500) {
+  return {
+    type: SET_INFO_MESSAGE,
+    payload: { message, duration }
   }
 }
 

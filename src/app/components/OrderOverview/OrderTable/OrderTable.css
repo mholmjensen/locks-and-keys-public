@@ -26,3 +26,7 @@
   text-overflow: ellipsis;
   white-space: normal;
 }
+
+.snackmod > div > div {
+  background-color: rgba(234, 84, 0, 0.770588) !important;
+}

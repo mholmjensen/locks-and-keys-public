@@ -1,12 +1,14 @@
 /* @flow */
-import {SET_ORDERS, SET_SELECTED_ORDER, SET_ORDERS_LOADED, SET_SORT} from '../constants'
+import {SET_ORDERS, SET_SELECTED_ORDER, SET_ORDERS_LOADED, SET_SORT, SET_INFO_MESSAGE} from '../constants'
 
 let ordersInitialState = {
   entries: [],
   entriesLoaded: false,
   selectedEntry: undefined,
   sortBy: 'human_readable_id',
-  sortDirection: 'ASC'
+  sortDirection: 'ASC',
+  infoMessage: '',
+  infoDuration: 0
 }
 
 function determineDirection (state, sortBy) {
@@ -42,6 +44,13 @@ export default function orders (state: Object = ordersInitialState, action: Obje
       return {
         ...state,
         entriesLoaded: action.payload.ordersLoaded
+      }
+
+    case SET_INFO_MESSAGE:
+      return {
+        ...state,
+        infoMessage: action.payload.message,
+        infoDuration: action.payload.duration
       }
 
     default:

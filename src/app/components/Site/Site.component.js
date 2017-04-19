@@ -18,7 +18,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 const muiTheme = getMuiTheme({
   palette: {
     canvasColor: '#fafafa',
-    primary1Color: '#ec5400'
+    primary1Color: '#ec5400',
+    accent1Color: '#ffffff'
   },
   tableRowColumn: {
     spacing: 6

@@ -2,7 +2,7 @@
 import {connect} from 'react-redux'
 import OrderHandler from './OrderHandler.component'
 import lakutil from '../../../utils'
-import {setSelectedOrder} from '../../../actions/orders'
+import {setSelectedOrder, setInfoMessage} from '../../../actions/orders'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     'setSelectedOrder': (order) => {
       dispatch(setSelectedOrder(order))
+    },
+    'setInfoMessage': (message, duration) => {
+      dispatch(setInfoMessage(message, duration))
     }
   }
 }
