@@ -181,9 +181,17 @@ let stateSetup = {
       let directionFactor = viewSettings.sortDirection === 'ASC' ? 1 : -1
       let leftState = stateOfOrder(left)
       let rightState = stateOfOrder(right)
-      let leftVal = (leftState.locksNotMatching | 0) + (leftState.keysNotMatching | 0) + (leftState.locksUnused | 0)
-      let rightVal = (rightState.locksNotMatching | 0) + (rightState.keysNotMatching | 0) + (rightState.locksUnused | 0)
-      return directionFactor * (rightVal - leftVal)
+      let leftIconCount = (leftState.locksNotMatching | 0) + (leftState.keysNotMatching | 0) + (leftState.locksUnused | 0)
+      let rightIconCount = (rightState.locksNotMatching | 0) + (rightState.keysNotMatching | 0) + (rightState.locksUnused | 0)
+      if (leftIconCount === rightIconCount) { // same number of icons, checkout without locksUnused
+        leftIconCount = (leftState.locksNotMatching | 0) + (leftState.keysNotMatching | 0)
+        rightIconCount = (rightState.locksNotMatching | 0) + (rightState.keysNotMatching | 0)
+        if (leftIconCount === rightIconCount) { // same number stil, then locksNotMatching matters
+          leftIconCount = (leftState.locksNotMatching | 0)
+          rightIconCount = (rightState.locksNotMatching | 0)
+        }
+      }
+      return directionFactor * (rightIconCount - leftIconCount)
     }
   }
 }
