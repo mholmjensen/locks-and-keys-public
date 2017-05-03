@@ -171,7 +171,7 @@ let stateSetup = {
         <div>
           {orderState.locksNotMatching && <LockOpen color={stateColor} style={iconstyle} onClick={explainIcon('Låse udleveret ("' + cd.locksHandedOut + '") er ulig låse tilbageleveret ("' + cd.locksReturned + '")')} />}
           {orderState.keysNotMatching && <VpnKey color={stateColor} style={iconstyle} onClick={explainIcon('Nøgler udleveret ("' + cd.keysHandedOut + '") er ulig nøgler tilbageleveret ("' + cd.keysReturned + '")')} />}
-          {orderState.locksUnused && <Unused color={stateColor} style={iconstyle} onClick={explainIcon('Ej taget i brug, lås(e) påsat (' + cd.locksHandedOut + ')')} />}
+          {orderState.locksUnused && <Unused color={stateColor} style={iconstyle} onClick={explainIcon('Ej taget i brug, lås(e) påsat ("' + cd.locksHandedOut + '")')} />}
         </div>
       )
     }
