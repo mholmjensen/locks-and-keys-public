@@ -17,7 +17,7 @@ import ContactInformation from './ContactInformation/ContactInformation.componen
 
 class OrderToolbar extends React.Component {
   render () {
-    let {selectedEntry, setSelectedOrder, toolbarSaveable, t} = this.props // from reduxForm and @firebase
+    let {selectedEntry, setSelectedOrder, toolbarSaveable, t} = this.props
 
     let title = ''
     let hasRemarksOrComments = false
@@ -72,8 +72,6 @@ class OrderToolbar extends React.Component {
 
 OrderToolbar.propTypes = {
   selectedEntry: React.PropTypes.object,
-  formPayload: React.PropTypes.object,
-  firebase: React.PropTypes.object,
   toolbarSaveable: React.PropTypes.bool.isRequired,
   setSelectedOrder: React.PropTypes.func,
   t: React.PropTypes.func

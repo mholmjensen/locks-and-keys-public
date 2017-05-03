@@ -67,7 +67,6 @@ class Login extends React.Component {
 }
 Login.propTypes = {
   firebase: React.PropTypes.object,
-  authError: React.PropTypes.object,
   loginChallenge: React.PropTypes.func,
   loginPayload: React.PropTypes.object,
   status: React.PropTypes.string,

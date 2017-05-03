@@ -108,7 +108,6 @@ class Receipt extends React.Component {
 
 Receipt.propTypes = {
   params: React.PropTypes.object,
-  orders: React.PropTypes.array,
   order: React.PropTypes.object,
   locksAndKeys: React.PropTypes.object,
   t: React.PropTypes.func.isRequired
