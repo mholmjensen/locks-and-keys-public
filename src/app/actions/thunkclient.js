@@ -5,16 +5,6 @@
 import fetchJsonp from 'fetch-jsonp'
 
 class ThunkClient {
-  statusCheck (response) {
-    if (response.status >= 200 && response.status < 300) {
-      return Promise.resolve(response)
-    } else if (response.status === 401 || response.status === 404) {
-      return Promise.reject()
-    } else {
-      return Promise.reject(new Error(response.statusText))
-    }
-  }
-
   jsonParse (response) {
     return response.json()
   }

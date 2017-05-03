@@ -119,7 +119,6 @@ class OrderHandler extends React.Component {
 }
 OrderHandler.propTypes = {
   order: React.PropTypes.object.isRequired,
-  locksAndKeys: React.PropTypes.object,
   firebase: React.PropTypes.object,
   formPayload: React.PropTypes.object,
   toolbarSaveable: React.PropTypes.bool.isRequired,

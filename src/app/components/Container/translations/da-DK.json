@@ -13,6 +13,7 @@
   "Bookkeeping": "Bogføring",
   "LOKState": "Tilstand",
   "View as Spreadsheet": "Vis som Regneark",
+  "Export (CSV)": "Eksporter (CSV)",
   "Status": "Status",
   "Ordered": "Bestilt",
   "Clear search entry": "Ryd søgefelt",
@@ -34,5 +35,6 @@
   "Signature": "Underskrift",
   "Handed in": "Tilbageleveret",
   "Name (capital letter)": "Navn (blokbogstaver)",
-  "Urinal": "Urinalsøjle"
+  "Urinal": "Urinalsøjle",
+  "orderexport": "ordreeksport"
 }

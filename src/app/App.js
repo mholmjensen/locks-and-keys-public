@@ -12,10 +12,12 @@ import {createStore, applyMiddleware, compose} from 'redux'
 import {reduxReactFirebase} from 'redux-react-firebase'
 
 import rootReducer from './reducers'
+import {Container} from './components/Container/Container'
+
 const loggerMiddleware = createLogger()
 
 const createStoreWithFirebase = compose(
-  reduxReactFirebase(FIREBASE_CONFIG, {userProfile: 'users'}),
+  reduxReactFirebase(FIREBASE_CONFIG, {userProfile: 'users'})
 )(createStore)
 
 var middleWare = applyMiddleware(thunkMiddleware)// lets us dispatch() functions (for async support)
@@ -32,8 +34,6 @@ const store = createStoreWithFirebase(
   rootReducer,
   middleWare
 )
-
-import {Container} from './components/Container/Container'
 
 ReactDOM.render(
   <Provider store={store}>

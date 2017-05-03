@@ -16,6 +16,8 @@ import {firebase, helpers} from 'redux-react-firebase'
 import {translate} from 'react-i18next'
 import Snackbar from 'material-ui/Snackbar'
 
+import ColumnSetup from './ColumnSetup'
+let CS = ColumnSetup
 require('!style!css!react-virtualized/styles.css')
 
 let reduxFormPropTypes = {
@@ -47,10 +49,6 @@ renderSelectField.propTypes = {
   ...reduxFormPropTypes,
   children: React.PropTypes.array
 }
-
-import ColumnSetup from './ColumnSetup'
-
-let CS = ColumnSetup
 
 let isString = (possibleStr) => typeof possibleStr === 'string' || possibleStr instanceof String
 // returns true: if a) @obj is a substring of @string; or b) obj has a property for which a) or b) holds
