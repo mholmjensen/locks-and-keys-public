@@ -44,30 +44,34 @@ class HeaderBar extends React.Component {
       t('Status')
     ]
 
-    let csvData = orders.map((order) => {
-      let lak = locksAndKeys[order._id] ? locksAndKeys[order._id] : {}
-      let findItem = (name) => order['PlumbingItem'].find(i => i.name === name) || {quantity: 0}
-      let aQuantity = findItem('Toilet A').quantity
-      let bQuantity = findItem('Toilet B').quantity
-      let uQuantity = findItem('Urinalsøjle').quantity
-      return [
-        order.human_readable_id,
-        order.rf_identifier,
-        order.stand_name,
-        order.contact_name,
-        order.contact_email,
-        order.contact_phone,
-        lak.locksHandedOut,
-        lak.locksReturned,
-        lak.keysHandedOut,
-        lak.keysReturned,
-        aQuantity,
-        bQuantity,
-        uQuantity,
-        order.people_pro_location,
-        order.OrderStatus
-      ]
-    })
+    let csvData = []
+
+    if (locksAndKeys) {
+      csvData = orders.map((order) => {
+        let lak = locksAndKeys[order._id] ? locksAndKeys[order._id] : {}
+        let findItem = (name) => order['PlumbingItem'].find(i => i.name === name) || {quantity: 0}
+        let aQuantity = findItem('Toilet A').quantity
+        let bQuantity = findItem('Toilet B').quantity
+        let uQuantity = findItem('Urinalsøjle').quantity
+        return [
+          order.human_readable_id,
+          order.rf_identifier,
+          order.stand_name,
+          order.contact_name,
+          order.contact_email,
+          order.contact_phone,
+          lak.locksHandedOut,
+          lak.locksReturned,
+          lak.keysHandedOut,
+          lak.keysReturned,
+          aQuantity,
+          bQuantity,
+          uQuantity,
+          order.people_pro_location,
+          order.OrderStatus
+        ]
+      })
+    }
 
     let now = new Date()
     let downloadName = t('orderexport') + '-' + now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds() + '.csv'
